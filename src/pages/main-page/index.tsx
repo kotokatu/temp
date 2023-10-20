@@ -1,7 +1,18 @@
+import { SearchBar } from 'features/search-bar';
 import { Component } from 'react';
+import { Gallery } from 'widgets/gallery';
 
 export class MainPage extends Component {
   render() {
-    return <h1>Main Page</h1>;
+    return (
+      <>
+        <header>
+          <SearchBar />
+        </header>
+        <main>
+          <Gallery />
+        </main>
+      </>
+    );
   }
 }
