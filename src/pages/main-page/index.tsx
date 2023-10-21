@@ -1,14 +1,15 @@
 import { SearchBar } from 'features/search-bar';
 import { Component } from 'react';
 import { Gallery } from 'widgets/gallery';
+import { Header } from 'widgets/header';
 
 export class MainPage extends Component {
   render() {
     return (
       <>
-        <header>
+        <Header>
           <SearchBar />
-        </header>
+        </Header>
         <main>
           <Gallery />
         </main>
