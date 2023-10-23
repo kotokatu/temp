@@ -81,7 +81,9 @@ export class ComicVineApiService {
       format: 'json',
     };
 
-    Object.entries(queryParams).forEach(([key, value]) => url.searchParams.set(key, value));
+    Object.entries(queryParams).forEach(([key, value]) => {
+      return url.searchParams.set(key, value);
+    });
 
     return url;
   }
@@ -91,10 +93,12 @@ export class ComicVineApiService {
     return res.json();
   }
 
-  static async fetchCharacterList(query?: CharactersQueryParams): Promise<ApiResponse<Character>> {
+  static async fetchCharacterList(
+    query?: CharactersQueryParams
+  ): Promise<ApiResponse<Character>> {
     const url = this.buildUrl('characters', { ...query });
     console.log(url);
-    return import.meta.env.DEV ? mockJson : this.fetchJson(url, { mode: 'no-cors' });
+    return import.meta.env.DEV ? mockJson : this.fetchJson(url);
   }
 
   static async fetchSearchCharacterList(query: SearchQueryParams) {
@@ -102,5 +106,3 @@ export class ComicVineApiService {
     return this.fetchJson(url);
   }
 }
-
-console.log(import.meta.env);

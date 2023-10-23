@@ -6,7 +6,11 @@ export class SearchBar extends Component {
   render() {
     return (
       <form className={styles.searchBar}>
-        <input type="search" placeholder="Search…" className={styles.searchInput} />
+        <input
+          type="search"
+          placeholder="Search…"
+          className={styles.searchInput}
+        />
         <button type="submit" className={styles.searchSubmit}>
           <img src={searchIconSrc} alt="search button" />
         </button>
