@@ -1,7 +1,7 @@
 import { SearchBar } from 'features/search-bar';
 import { Component } from 'react';
-import { Gallery } from 'widgets/superhero-gallery';
 import { Header } from 'widgets/header';
+import { TVShowGallery } from 'widgets/tv-show-gallery';
 
 export class MainPage extends Component {
   render() {
@@ -11,7 +11,7 @@ export class MainPage extends Component {
           <SearchBar />
         </Header>
         <main>
-          <Gallery />
+          <TVShowGallery />
         </main>
       </>
     );
