@@ -12,7 +12,7 @@ export class SearchBar extends Component {
           className={styles.searchInput}
         />
         <button type="submit" className={styles.searchSubmit}>
-          <img src={searchIconSrc} alt="search button" />
+          <img src={searchIconSrc} alt="search button" width={24} height={24} />
         </button>
       </form>
     );
