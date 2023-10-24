@@ -1,10 +1,5 @@
 function App() {
-
-  return (
-      <div>
-       React. Components
-      </div>
-  )
+  return <div>React. Components</div>;
 }
 
-export default App
+export default App;
