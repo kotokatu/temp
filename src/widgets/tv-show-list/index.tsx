@@ -16,7 +16,7 @@ export class TVShowList extends Component<TProps, TState> {
 
   async updateTVShows() {
     this.setState({ isFetching: true });
-    const query = this.props.searchQuery.trim();
+    const query = this.props.searchQuery;
     const data = await MyShowsApiService.fetchTVShows(0, { query });
     this.setState({ currentList: data.result, isFetching: false });
   }

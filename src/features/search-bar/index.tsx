@@ -18,7 +18,9 @@ export class SearchBar extends Component<TProps, TState> {
   render() {
     const handleSubmit = (e: FormEvent) => {
       e.preventDefault();
-      this.props.onSearchSubmit(this.state.inputValue);
+      const trimmed = this.state.inputValue.trim();
+      this.setState({ inputValue: trimmed });
+      this.props.onSearchSubmit(trimmed);
     };
 
     const handleInput = (e: FormEvent) => {
@@ -35,6 +37,7 @@ export class SearchBar extends Component<TProps, TState> {
           placeholder="Search…"
           className={styles.searchInput}
           name="search"
+          value={this.state.inputValue}
           onInput={handleInput}
         />
         <button type="submit" className={styles.searchSubmit}>
