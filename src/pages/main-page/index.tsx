@@ -1,7 +1,8 @@
+import styles from './index.module.css';
 import { SearchBar } from 'features/search-bar';
 import { Component } from 'react';
 import { Header } from 'widgets/header';
-import { TVShowGallery } from 'widgets/tv-show-gallery';
+import { TVShowList } from 'widgets/tv-show-list';
 
 export class MainPage extends Component {
   render() {
@@ -10,8 +11,8 @@ export class MainPage extends Component {
         <Header>
           <SearchBar />
         </Header>
-        <main>
-          <TVShowGallery />
+        <main className={styles.main}>
+          <TVShowList />
         </main>
       </>
     );

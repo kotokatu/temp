@@ -8,7 +8,7 @@ import {
 
 type Language = 'en' | 'ru';
 
-export class MyshowsApiService {
+export class MyShowsApiService {
   private static baseUrl = 'https://api.myshows.me/v2/rpc/';
   private static defaultPage = 0;
   private static defaultPageSize = 30;
@@ -38,7 +38,7 @@ export class MyshowsApiService {
     const body: GetByIdRequest = {
       jsonrpc: '2.0',
       method: 'shows.GetById',
-      params: { showId: id },
+      params: { showId: id, withEpisodes: false },
       id: 1,
     };
 
