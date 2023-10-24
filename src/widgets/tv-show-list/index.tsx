@@ -1,22 +1,24 @@
 import styles from './index.module.css';
+import { Loader } from 'entities/loader';
 import { TVShowCard } from 'entities/tv-show-card';
 import { Component } from 'react';
 import { MyShowsApiService } from 'shared/api/myshows/myshows.service';
 import { ApiShowSummary } from 'shared/api/myshows/types';
 
 type TProps = { searchQuery: string };
-type TState = { currentList: ApiShowSummary[] };
+type TState = { currentList: ApiShowSummary[]; isFetching: boolean };
 
 export class TVShowList extends Component<TProps, TState> {
   state: TState = {
     currentList: [],
+    isFetching: false,
   };
 
   async updateTVShows() {
-    const data = await MyShowsApiService.fetchTVShows(0, {
-      query: this.props.searchQuery,
-    });
-    this.setState({ currentList: data.result });
+    this.setState({ isFetching: true });
+    const query = this.props.searchQuery.trim();
+    const data = await MyShowsApiService.fetchTVShows(0, { query });
+    this.setState({ currentList: data.result, isFetching: false });
   }
 
   componentDidMount() {
@@ -33,6 +35,11 @@ export class TVShowList extends Component<TProps, TState> {
         <TVShowCard summary={tvShow} />
       </li>
     ));
-    return <ul className={styles.list}>{items}</ul>;
+
+    if (this.state.isFetching) {
+      return <Loader />;
+    } else {
+      return <ul className={styles.list}>{items}</ul>;
+    }
   }
 }

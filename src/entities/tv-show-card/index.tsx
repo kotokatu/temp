@@ -6,6 +6,7 @@ type TProps = { summary: ApiShowSummary };
 
 export class TVShowCard extends Component<TProps> {
   private static getStyledStatus(status: string = '') {
+    console.log(status);
     const dict: Record<string, { style: string; text: string }> = {
       'Canceled/Ended': { style: styles.dead, text: 'Closed' },
       'Returning Series': { style: styles.onAir, text: 'On Air' },
@@ -19,7 +20,10 @@ export class TVShowCard extends Component<TProps> {
     const { title, status, year, image, totalSeasons, rating } =
       this.props.summary;
 
-    const styledStatus = TVShowCard.getStyledStatus(status);
+    const styledStatusData = TVShowCard.getStyledStatus(status);
+    const styledStatus = styledStatusData && (
+      <span className={styledStatusData.style}>{styledStatusData.text}</span>
+    );
 
     return (
       <>
@@ -36,8 +40,7 @@ export class TVShowCard extends Component<TProps> {
           <br />
           Rating: {rating}
           <br />
-          Status:{' '}
-          <span className={styledStatus.style}>{styledStatus.text}</span>
+          Status: {styledStatus}
           <br />
           Seasons: {totalSeasons}
         </p>
