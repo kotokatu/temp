@@ -4,7 +4,7 @@ import { Component } from 'react';
 import { MyShowsApiService } from 'shared/api/myshows/myshows.service';
 import { ApiShowSummary } from 'shared/api/myshows/types';
 
-type TProps = Record<string, never>;
+type TProps = { searchQuery: string };
 type TState = { currentList: ApiShowSummary[] };
 
 export class TVShowList extends Component<TProps, TState> {
@@ -12,9 +12,19 @@ export class TVShowList extends Component<TProps, TState> {
     currentList: [],
   };
 
-  async componentDidMount() {
-    const data = await MyShowsApiService.fetchTVShows();
+  async updateTVShows() {
+    const data = await MyShowsApiService.fetchTVShows(0, {
+      query: this.props.searchQuery,
+    });
     this.setState({ currentList: data.result });
+  }
+
+  componentDidMount() {
+    this.updateTVShows();
+  }
+
+  componentDidUpdate(prevProps: TProps) {
+    prevProps.searchQuery !== this.props.searchQuery && this.updateTVShows();
   }
 
   render() {

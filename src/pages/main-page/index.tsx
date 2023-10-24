@@ -5,14 +5,22 @@ import { Header } from 'widgets/header';
 import { TVShowList } from 'widgets/tv-show-list';
 
 export class MainPage extends Component {
+  state = {
+    searchQuery: '',
+  };
+
   render() {
+    const handleSearchSubmit = (searchQuery: string) => {
+      this.setState({ searchQuery });
+    };
+
     return (
       <>
         <Header>
-          <SearchBar />
+          <SearchBar onSearchSubmit={handleSearchSubmit} />
         </Header>
         <main className={styles.main}>
-          <TVShowList />
+          <TVShowList searchQuery={this.state.searchQuery} />
         </main>
       </>
     );
