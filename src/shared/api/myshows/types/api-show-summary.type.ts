@@ -14,9 +14,3 @@ export type ApiShowSummary = {
   promoUrl?: string;
   category?: string;
 };
-
-export type GetResponse = {
-  jsonrpc: string;
-  result: ApiShowSummary[];
-  id: number;
-};

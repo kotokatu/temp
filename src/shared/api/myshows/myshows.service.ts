@@ -1,5 +1,10 @@
-import { GetRequest, GetRequestBodySearch } from './types/request.type';
-import { GetResponse } from './types/response.type';
+import {
+  GetByIdRequest,
+  GetByIdResponse,
+  GetRequest,
+  GetRequestBodySearch,
+  GetResponse,
+} from './types';
 
 type Language = 'en' | 'ru';
 
@@ -24,15 +29,28 @@ export class MyshowsApiService {
       id: 1,
     };
 
-    const json = await this.fetchJson(body);
+    const json = await this.fetchJson<GetRequest, GetResponse>(body);
 
     return json;
   }
 
-  private static async fetchJson(
-    body: GetRequest,
+  static async fetchTVShowById(id: number): Promise<GetByIdResponse> {
+    const body: GetByIdRequest = {
+      jsonrpc: '2.0',
+      method: 'shows.GetById',
+      params: { showId: id },
+      id: 1,
+    };
+
+    const json = await this.fetchJson<GetByIdRequest, GetByIdResponse>(body);
+
+    return json;
+  }
+
+  private static async fetchJson<TRequest, TResponse>(
+    body: TRequest,
     lang = this.defaultLang
-  ): Promise<GetResponse> {
+  ): Promise<TResponse> {
     const response = await fetch(this.baseUrl, {
       method: 'POST',
       headers: {

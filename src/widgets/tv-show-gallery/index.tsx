@@ -1,7 +1,7 @@
 import { TVShowCard } from 'entities/tv-show-card';
 import { Component } from 'react';
 import { MyshowsApiService } from 'shared/api/myshows/myshows.service';
-import { ApiShowSummary } from 'shared/api/myshows/types/response.type';
+import { ApiShowSummary } from 'shared/api/myshows/types';
 
 type TProps = Record<string, never>;
 type TState = { currentList: ApiShowSummary[] };
@@ -25,8 +25,6 @@ export class TVShowGallery extends Component<TProps, TState> {
     return <ul>{items}</ul>;
   }
 }
-
-MyshowsApiService.fetchTVShows().then(console.log);
 
 /* 
 {

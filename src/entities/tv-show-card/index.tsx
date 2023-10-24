@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { ApiShowSummary } from 'shared/api/myshows/types/response.type';
+import { ApiShowSummary } from 'shared/api/myshows/types';
 
 export class TVShowCard extends Component<{ data: ApiShowSummary }> {
   render() {

@@ -9,16 +9,3 @@ export type GetRequestBodySearch = {
   sort?: string; // totalSeasons_desc, year_asc etc. ,
   query?: string;
 };
-
-export type GetRequestBody = {
-  search: GetRequestBodySearch;
-  page?: number;
-  pageSize?: number;
-};
-
-export type GetRequest = {
-  jsonrpc: string;
-  method: string;
-  params: GetRequestBody;
-  id: number;
-};
