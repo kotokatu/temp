@@ -3,41 +3,18 @@ import styles from './index.module.css';
 import searchIconSrc from './ui/search-icon.svg';
 
 type TProps = {
-  onSearchSubmit: (searchQuery: string) => void;
+  searchQuery: string;
+  onSearchSubmit: (searchQuery?: string) => void;
 };
 
-type TState = {
-  inputValue: string;
-};
-
-export class SearchBar extends Component<TProps, TState> {
-  state = {
-    inputValue: '',
-  };
-
-  inputValueKey = '[ER]searchBarInputValue';
-
-  componentDidMount(): void {
-    const searchBarInputValue = localStorage.getItem(this.inputValueKey);
-    if (searchBarInputValue) {
-      this.setState({ inputValue: searchBarInputValue });
-      this.props.onSearchSubmit(searchBarInputValue);
-    }
-  }
-
+export class SearchBar extends Component<TProps> {
   render() {
     const handleSubmit = (e: FormEvent) => {
       e.preventDefault();
-      const trimmed = this.state.inputValue.trim();
-      this.setState({ inputValue: trimmed });
-      this.props.onSearchSubmit(trimmed);
-      localStorage.setItem(this.inputValueKey, trimmed);
-    };
 
-    const handleInput = (e: FormEvent) => {
-      const { target } = e;
-      if (target instanceof HTMLInputElement) {
-        this.setState({ inputValue: target.value });
+      if (e.target instanceof HTMLFormElement) {
+        const formData = new FormData(e.target);
+        this.props.onSearchSubmit(formData.get('search')?.toString());
       }
     };
 
@@ -48,8 +25,7 @@ export class SearchBar extends Component<TProps, TState> {
           placeholder="Search…"
           className={styles.searchInput}
           name="search"
-          value={this.state.inputValue}
-          onInput={handleInput}
+          defaultValue={this.props.searchQuery}
         />
         <button type="submit" className={styles.searchSubmit}>
           <img src={searchIconSrc} alt="search button" width={24} height={24} />
