@@ -30,6 +30,10 @@ export class TVShowList extends Component<TProps, TState> {
   }
 
   render() {
+    if (this.state.currentList.length < 1) {
+      return <p>No results</p>;
+    }
+
     const items = this.state.currentList.map((tvShow) => (
       <li className={styles.listItem} key={tvShow.id}>
         <TVShowCard summary={tvShow} />
