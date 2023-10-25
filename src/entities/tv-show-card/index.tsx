@@ -1,6 +1,7 @@
 import styles from './index.module.css';
 import { Component } from 'react';
 import { ApiShowSummary } from 'shared/api/myshows/types';
+import cardImagePlaceholderSrc from './card-image-placeholder.avif';
 
 type TProps = { summary: ApiShowSummary };
 
@@ -29,7 +30,7 @@ export class TVShowCard extends Component<TProps> {
         <h2 className={styles.cardHeading}>{title}</h2>
         <img
           className={styles.image}
-          src={image}
+          src={image || cardImagePlaceholderSrc}
           alt={`${title} image`}
           width={320}
           height={180}
