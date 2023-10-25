@@ -1,7 +1,7 @@
 import styles from './index.module.css';
 import { Component } from 'react';
 import { ApiShowSummary } from 'shared/api/myshows/types';
-import cardImagePlaceholderSrc from './card-image-placeholder.avif';
+import cardImagePlaceholderSrc from './card-image-placeholder.webp';
 
 type TProps = { summary: ApiShowSummary };
 

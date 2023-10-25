@@ -10,7 +10,7 @@ type TState = { searchQuery: string };
 export class MainPage extends Component<TProps, TState> {
   searchQueryStorageKey = '[ER-23Q4]searchQuery';
 
-  state = {
+  state: TState = {
     searchQuery: localStorage[this.searchQueryStorageKey] ?? '',
   };
 
