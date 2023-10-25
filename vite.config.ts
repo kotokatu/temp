@@ -9,6 +9,7 @@ const aliases = layers.reduce((acc, item) => {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './',
   plugins: [react()],
   resolve: { alias: { ...aliases } },
 });
