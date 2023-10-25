@@ -15,12 +15,23 @@ export class SearchBar extends Component<TProps, TState> {
     inputValue: '',
   };
 
+  inputValueKey = '[ER]searchBarInputValue';
+
+  componentDidMount(): void {
+    const searchBarInputValue = localStorage.getItem(this.inputValueKey);
+    if (searchBarInputValue) {
+      this.setState({ inputValue: searchBarInputValue });
+      this.props.onSearchSubmit(searchBarInputValue);
+    }
+  }
+
   render() {
     const handleSubmit = (e: FormEvent) => {
       e.preventDefault();
       const trimmed = this.state.inputValue.trim();
       this.setState({ inputValue: trimmed });
       this.props.onSearchSubmit(trimmed);
+      localStorage.setItem(this.inputValueKey, trimmed);
     };
 
     const handleInput = (e: FormEvent) => {

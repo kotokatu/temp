@@ -6,7 +6,6 @@ type TProps = { summary: ApiShowSummary };
 
 export class TVShowCard extends Component<TProps> {
   private static getStyledStatus(status: string = '') {
-    console.log(status);
     const dict: Record<string, { style: string; text: string }> = {
       'Canceled/Ended': { style: styles.dead, text: 'Closed' },
       'Returning Series': { style: styles.onAir, text: 'On Air' },
