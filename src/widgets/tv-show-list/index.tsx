@@ -29,20 +29,24 @@ export class TVShowList extends Component<TProps, TState> {
     prevProps.searchQuery !== this.props.searchQuery && this.updateTVShows();
   }
 
-  render() {
-    if (this.state.isFetching) {
-      return <Loader />;
-    }
-
-    if (this.state.currentList.length < 1) {
-      return <p>No results</p>;
-    }
-
+  buildList() {
     const items = this.state.currentList.map((tvShow) => (
       <li className={styles.listItem} key={tvShow.id}>
         <TVShowCard summary={tvShow} />
       </li>
     ));
     return <ul className={styles.list}>{items}</ul>;
+  }
+
+  render() {
+    let list;
+
+    if (this.state.currentList.length > 0) {
+      list = this.buildList();
+    } else {
+      list = <p>No results</p>;
+    }
+
+    return <Loader isFetching={this.state.isFetching}>{list}</Loader>;
   }
 }
