@@ -23,6 +23,6 @@ export class ErrorBoundary extends Component<TProps, TState> {
   }
 
   render() {
-    return this.state.hasError ? this.props.fallback : this.props.children;
+    return this.props[this.state.hasError ? 'fallback' : 'children'];
   }
 }

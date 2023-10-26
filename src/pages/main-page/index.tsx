@@ -1,3 +1,4 @@
+import { ErrorAlertButton } from 'entities/error-alert-button';
 import styles from './index.module.css';
 import { SearchBar } from 'features/search-bar';
 import { Component } from 'react';
@@ -30,6 +31,7 @@ export class MainPage extends Component<TProps, TState> {
         </Header>
         <main className={styles.main}>
           <TVShowList searchQuery={this.state.searchQuery} />
+          <ErrorAlertButton />
         </main>
       </>
     );
