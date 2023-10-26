@@ -17,4 +17,9 @@ export default class Swapi {
     const response = await this.getData(`/people/`);
     return response.results;
   };
+
+  search = async (term: string) => {
+    const response = await this.getData(`/people/?search=${term}`);
+    return response.results;
+  };
 }
