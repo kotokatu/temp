@@ -30,6 +30,10 @@ export class TVShowList extends Component<TProps, TState> {
   }
 
   render() {
+    if (this.state.isFetching) {
+      return <Loader />;
+    }
+
     if (this.state.currentList.length < 1) {
       return <p>No results</p>;
     }
@@ -39,11 +43,6 @@ export class TVShowList extends Component<TProps, TState> {
         <TVShowCard summary={tvShow} />
       </li>
     ));
-
-    if (this.state.isFetching) {
-      return <Loader />;
-    } else {
-      return <ul className={styles.list}>{items}</ul>;
-    }
+    return <ul className={styles.list}>{items}</ul>;
   }
 }
