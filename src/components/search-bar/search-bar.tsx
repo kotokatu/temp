@@ -8,13 +8,15 @@ interface SearchBarState {
   person: string;
 }
 
-export default class SearchBar extends Component {
+interface IMyComponentProps {
+  swapiContext: Swapi;
+}
+
+export default class SearchBar extends Component<IMyComponentProps> {
   public state: SearchBarState = {
     term: '',
     person: '',
   };
-
-  private swapi = new Swapi();
 
   private changeSearchTerm = (event: ChangeEvent<HTMLInputElement>): void => {
     this.setState(() => {
@@ -27,7 +29,7 @@ export default class SearchBar extends Component {
   private searchTerm = (event: MouseEvent<HTMLElement>): void => {
     event.preventDefault();
 
-    this.swapi.search(this.state.term).then((response) => {
+    this.props.swapiContext.search(this.state.term).then((response) => {
       this.setState(() => {
         return {
           person: JSON.stringify(response),

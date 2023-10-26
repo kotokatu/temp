@@ -3,15 +3,17 @@ import { Component } from 'react';
 import './item-list.css';
 import Swapi from '../../services/swapi';
 
-export default class ItemList extends Component {
-  private swapi: Swapi = new Swapi();
+interface IMyComponentProps {
+  swapiContext: Swapi;
+}
 
+export default class ItemList extends Component<IMyComponentProps> {
   public state = {
     data: [],
   };
 
   componentDidMount(): void {
-    this.swapi.getAllPeople().then((result) => {
+    this.props.swapiContext.getAllPeople().then((result) => {
       this.setState(() => {
         return {
           data: result,
@@ -35,7 +37,7 @@ export default class ItemList extends Component {
 
     return (
       <div>
-        {`People`}
+        People
         {items}
       </div>
     );
