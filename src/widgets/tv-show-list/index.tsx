@@ -1,7 +1,7 @@
 import styles from './index.module.css';
+import { Component } from 'react';
 import { Loader } from 'entities/loader';
 import { TVShowCard } from 'entities/tv-show-card';
-import { Component } from 'react';
 import { MyShowsApiService } from 'shared/api/myshows/myshows.service';
 import { ApiShowSummary } from 'shared/api/myshows/types';
 

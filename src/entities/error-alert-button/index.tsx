@@ -15,7 +15,12 @@ export class ErrorAlertButton extends Component {
     };
     return (
       <button className={styles.fab} onClick={handleClick}>
-        <img src={errorAlertIconSrc} alt="error alert icon" />
+        <img
+          src={errorAlertIconSrc}
+          alt="error alert icon"
+          width={24}
+          height={24}
+        />
       </button>
     );
   }
