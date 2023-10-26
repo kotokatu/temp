@@ -26,6 +26,7 @@ export class SearchBar extends Component<TProps> {
           className={styles.searchInput}
           name="search"
           defaultValue={this.props.searchQuery}
+          autoFocus={true}
         />
         <button type="submit" className={styles.searchSubmit}>
           <img src={searchIconSrc} alt="search button" width={24} height={24} />
