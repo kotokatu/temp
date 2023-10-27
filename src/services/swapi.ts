@@ -1,3 +1,5 @@
+import { IResponse } from '../components/types';
+
 export default class Swapi {
   private baseApi: string = 'https://swapi.dev/api';
 
@@ -13,13 +15,10 @@ export default class Swapi {
     return response.json();
   }
 
-  getAllPeople = async () => {
-    const response = await this.getData(`/people/?page=1`);
-    return response.results;
-  };
-
   search = async (term: string) => {
-    const response = await this.getData(`/people/?search=${term}`);
+    const response: IResponse = await this.getData(
+      `/people/?search=${term}&page=1`
+    );
     return response.results;
   };
 }

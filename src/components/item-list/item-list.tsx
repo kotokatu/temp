@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { IStateToProps } from '../types';
+import { IPerson, IStateToProps } from '../types';
 
 import './item-list.css';
 
@@ -17,12 +17,12 @@ export default class ItemList extends Component<IStateToProps> {
       mainState: { people },
     } = this.props;
 
-    const items: JSX.Element[] = people.map((person) => {
-      const { name } = person;
+    const items: JSX.Element[] = people.map((person: IPerson) => {
+      const { name, gender, eye_color, birth_year } = person;
 
       return (
         <li className="list-item" key={name}>
-          {name}
+          {`${name} ${gender} ${eye_color} ${birth_year}`}
         </li>
       );
     });

@@ -1,6 +1,20 @@
+export interface IPerson {
+  name: string;
+  birth_year: string;
+  gender: string;
+  eye_color: string;
+}
+
+export interface IResponse {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: IPerson[];
+}
+
 export interface SearchBarState {
   term: string;
-  people: [];
+  people: IPerson[];
   setSearchTerm: (newTerm: string) => void;
   searchPerson: () => void;
 }
