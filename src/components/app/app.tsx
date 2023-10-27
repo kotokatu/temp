@@ -6,6 +6,8 @@ import './app.css';
 import ItemList from '../item-list';
 import Swapi from '../../services/swapi';
 import Header from '../header';
+import ErrorButton from '../error-button';
+import ErrorBoundry from '../error-boundry';
 
 const swapi: Swapi = new Swapi();
 
@@ -42,18 +44,21 @@ export default class App extends Component {
 
   render() {
     return (
-      <StateContext.Provider value={this.state}>
-        <SwapiContext.Provider value={swapi}>
-          <div className="app">
-            <Header />
-            <StateContext.Consumer>
-              {(state) => {
-                return <ItemList mainState={state} />;
-              }}
-            </StateContext.Consumer>
-          </div>
-        </SwapiContext.Provider>
-      </StateContext.Provider>
+      <ErrorBoundry>
+        <StateContext.Provider value={this.state}>
+          <SwapiContext.Provider value={swapi}>
+            <div className="app">
+              <Header />
+              <StateContext.Consumer>
+                {(state) => {
+                  return <ItemList mainState={state} />;
+                }}
+              </StateContext.Consumer>
+              <ErrorButton />
+            </div>
+          </SwapiContext.Provider>
+        </StateContext.Provider>
+      </ErrorBoundry>
     );
   }
 }

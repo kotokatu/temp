@@ -22,3 +22,7 @@ export interface SearchBarState {
 export interface IStateToProps {
   mainState: SearchBarState;
 }
+
+export type IChildren = {
+  children: React.ReactNode;
+};

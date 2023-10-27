@@ -1,0 +1,11 @@
+.error-message {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.error-icon {
+  width: 80px;
+}
