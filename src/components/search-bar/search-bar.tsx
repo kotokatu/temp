@@ -1,45 +1,38 @@
 import { MouseEvent, ChangeEvent, Component } from 'react';
+import { IStateToProps } from '../types';
 
 import './search-bar.css';
-import Swapi from '../../services/swapi';
 
-interface SearchBarState {
-  term: string;
-  person: string;
-}
+export default class SearchBar extends Component<IStateToProps> {
+  componentDidMount(): void {
+    const {
+      mainState: { searchPerson },
+    } = this.props;
 
-interface IMyComponentProps {
-  swapiContext: Swapi;
-}
-
-export default class SearchBar extends Component<IMyComponentProps> {
-  public state: SearchBarState = {
-    term: '',
-    person: '',
-  };
+    searchPerson();
+  }
 
   private changeSearchTerm = (event: ChangeEvent<HTMLInputElement>): void => {
-    this.setState(() => {
-      return {
-        term: event.target.value,
-      };
-    });
+    const {
+      mainState: { setSearchTerm },
+    } = this.props;
+
+    setSearchTerm(event.target.value);
   };
 
   private searchTerm = (event: MouseEvent<HTMLElement>): void => {
     event.preventDefault();
+    const {
+      mainState: { searchPerson },
+    } = this.props;
 
-    this.props.swapiContext.search(this.state.term).then((response) => {
-      this.setState(() => {
-        return {
-          person: JSON.stringify(response),
-        };
-      });
-    });
+    searchPerson();
   };
 
   render(): JSX.Element {
-    const { term, person } = this.state;
+    const {
+      mainState: { term, person },
+    } = this.props;
 
     return (
       <form className="search-bar d-flex align-items-center">
