@@ -42,15 +42,22 @@ export default class SearchBar extends Component<IMyComponentProps> {
     const { term, person } = this.state;
 
     return (
-      <form className="search-bar">
-        <label>https://swapi.dev/api/people/</label>
+      <form className="search-bar d-flex align-items-center">
         <input
-          type="text"
-          placeholder="search by name"
+          className="form-control me-sm-2"
+          id="search-input"
+          type="search"
+          placeholder="search person by name"
           onChange={this.changeSearchTerm}
           value={term}
         ></input>
-        <button onClick={this.searchTerm}>Search</button>
+        <button
+          className="btn btn-secondary my-2 my-sm-0"
+          type="submit"
+          onClick={this.searchTerm}
+        >
+          Search
+        </button>
         <p>{term}</p>
         <p>{person}</p>
       </form>

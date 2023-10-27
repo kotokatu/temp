@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 import './app.css';
-import SearchBar from '../search-bar';
 import ItemList from '../item-list';
 import Swapi from '../../services/swapi';
+import Header from '../header';
 
 const swapi: Swapi = new Swapi();
 
@@ -14,11 +14,7 @@ export default class App extends Component {
     return (
       <SwapiContext.Provider value={swapi}>
         <div className="app">
-          <SwapiContext.Consumer>
-            {(swapi) => {
-              return <SearchBar swapiContext={swapi} />;
-            }}
-          </SwapiContext.Consumer>
+          <Header />
           <SwapiContext.Consumer>
             {(swapi) => {
               return <ItemList swapiContext={swapi} />;
