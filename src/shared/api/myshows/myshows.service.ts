@@ -8,59 +8,57 @@ import {
 
 type Language = 'en' | 'ru';
 
-export class MyShowsApiService {
-  private static baseUrl = 'https://api.myshows.me/v2/rpc/';
-  private static defaultPage = 0;
-  private static defaultPageSize = 30;
-  private static defaultLang: Language = 'en';
+const baseUrl = 'https://api.myshows.me/v2/rpc/';
+const defaultPage = 0;
+const defaultPageSize = 30;
+const defaultLang: Language = 'en';
 
-  static async fetchTVShows(
-    page = this.defaultPage,
-    searchParams?: GetRequestBodySearch
-  ): Promise<GetResponse> {
-    const body: GetRequest = {
-      jsonrpc: '2.0',
-      method: 'shows.Get',
-      params: {
-        search: { ...searchParams },
-        page,
-        pageSize: this.defaultPageSize,
-      },
-      id: 1,
-    };
+const fetchJson = async <TRequest, TResponse>(
+  body: TRequest,
+  lang = defaultLang
+): Promise<TResponse> => {
+  const response = await fetch(baseUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept-Language': lang,
+    },
+    body: JSON.stringify(body),
+  });
+  const json = await response.json();
 
-    const json = await this.fetchJson<GetRequest, GetResponse>(body);
+  return json;
+};
 
-    return json;
-  }
+export const fetchTVShows = async (
+  page = defaultPage,
+  searchParams?: GetRequestBodySearch
+): Promise<GetResponse> => {
+  const body: GetRequest = {
+    jsonrpc: '2.0',
+    method: 'shows.Get',
+    params: {
+      search: { ...searchParams },
+      page,
+      pageSize: defaultPageSize,
+    },
+    id: 1,
+  };
 
-  static async fetchTVShowById(id: number): Promise<GetByIdResponse> {
-    const body: GetByIdRequest = {
-      jsonrpc: '2.0',
-      method: 'shows.GetById',
-      params: { showId: id, withEpisodes: false },
-      id: 1,
-    };
+  const json = await fetchJson<GetRequest, GetResponse>(body);
 
-    const json = await this.fetchJson<GetByIdRequest, GetByIdResponse>(body);
+  return json;
+};
 
-    return json;
-  }
+export const fetchTVShowById = async (id: number): Promise<GetByIdResponse> => {
+  const body: GetByIdRequest = {
+    jsonrpc: '2.0',
+    method: 'shows.GetById',
+    params: { showId: id, withEpisodes: false },
+    id: 1,
+  };
 
-  private static async fetchJson<TRequest, TResponse>(
-    body: TRequest,
-    lang = this.defaultLang
-  ): Promise<TResponse> {
-    const response = await fetch(this.baseUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept-Language': lang,
-      },
-      body: JSON.stringify(body),
-    });
-    const json = await response.json();
+  const json = await fetchJson<GetByIdRequest, GetByIdResponse>(body);
 
-    return json;
-  }
-}
+  return json;
+};

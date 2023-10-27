@@ -67,7 +67,7 @@ A student can achieve a maximum of 100 points.
 
 #### Cross-check (score can be less if some parts of the functionality don't work)
 
-- [ ] Conversion of class components to functional components with hooks - **10**
+- [x] Conversion of class components to functional components with hooks - **10**
 - [ ] Pagination is present in both URL and on the page - **20**
 - [ ] User-initiated change of items per page triggers a new request, displaying the first page - **15**
 - [ ] Upon clicking, open details panel on the right side of the page: - **5**

@@ -1,52 +1,32 @@
 import styles from './index.module.css';
-import { Component } from 'react';
 import { Loader } from 'entities/loader';
 import { TVShowCard } from 'entities/tv-show-card';
-import { MyShowsApiService } from 'shared/api/myshows/myshows.service';
-import { ApiShowSummary } from 'shared/api/myshows/types';
+import { useFetchTVShows } from './lib/use-fetch-tv-shows';
 
-type TProps = { searchQuery: string };
-type TState = { currentList: ApiShowSummary[]; isFetching: boolean };
+type TVShowListProps = { searchQuery: string };
 
-export class TVShowList extends Component<TProps, TState> {
-  state: TState = {
-    currentList: [],
-    isFetching: false,
-  };
+export const TVShowList = ({ searchQuery }: TVShowListProps) => {
+  const { currentList, isFetching } = useFetchTVShows(searchQuery);
 
-  async updateTVShows() {
-    this.setState({ isFetching: true });
-    const query = this.props.searchQuery;
-    const data = await MyShowsApiService.fetchTVShows(0, { query });
-    this.setState({ currentList: data.result, isFetching: false });
-  }
+  let list;
 
-  componentDidMount() {
-    this.updateTVShows();
-  }
-
-  componentDidUpdate(prevProps: TProps) {
-    prevProps.searchQuery !== this.props.searchQuery && this.updateTVShows();
-  }
-
-  buildList() {
-    const items = this.state.currentList.map((tvShow) => (
-      <li className={styles.listItem} key={tvShow.id}>
-        <TVShowCard summary={tvShow} />
+  if (currentList.length > 0) {
+    const items = currentList.map((tvShowData) => (
+      <li className={styles.listItem} key={tvShowData.id}>
+        <TVShowCard
+          title={tvShowData.title}
+          status={tvShowData.status}
+          year={tvShowData.year}
+          image={tvShowData.image}
+          totalSeasons={tvShowData.totalSeasons}
+          rating={tvShowData.rating}
+        />
       </li>
     ));
-    return <ul className={styles.list}>{items}</ul>;
+    list = <ul className={styles.list}>{items}</ul>;
+  } else {
+    list = <p>No results</p>;
   }
 
-  render() {
-    let list;
-
-    if (this.state.currentList.length > 0) {
-      list = this.buildList();
-    } else {
-      list = <p>No results</p>;
-    }
-
-    return <Loader isFetching={this.state.isFetching}>{list}</Loader>;
-  }
-}
+  return <Loader enabled={isFetching}>{list}</Loader>;
+};

@@ -1,39 +1,34 @@
 import { ErrorAlertButton } from 'entities/error-alert-button';
 import styles from './index.module.css';
 import { SearchBar } from 'features/search-bar';
-import { Component } from 'react';
+import { useState } from 'react';
 import { Header } from 'widgets/header';
 import { TVShowList } from 'widgets/tv-show-list';
 
-type TProps = Record<string, never>;
-type TState = { searchQuery: string };
+const searchQueryLocalStorageKey = '[ER-23Q4]searchQuery';
 
-export class MainPage extends Component<TProps, TState> {
-  searchQueryStorageKey = '[ER-23Q4]searchQuery';
+export const MainPage = () => {
+  const [searchQuery, setSearchQuery] = useState(
+    localStorage.getItem(searchQueryLocalStorageKey) ?? ''
+  );
 
-  state: TState = {
-    searchQuery: localStorage[this.searchQueryStorageKey] ?? '',
+  const handleSearchSubmit = (query = '') => {
+    setSearchQuery(query);
+    localStorage.setItem(searchQueryLocalStorageKey, query);
   };
 
-  render() {
-    const handleSearchSubmit = (searchQuery = '') => {
-      this.setState({ searchQuery });
-      localStorage[this.searchQueryStorageKey] = searchQuery;
-    };
-
-    return (
-      <>
-        <Header>
-          <SearchBar
-            searchQuery={this.state.searchQuery}
-            onSearchSubmit={handleSearchSubmit}
-          />
-        </Header>
-        <main className={styles.main}>
-          <ErrorAlertButton />
-          <TVShowList searchQuery={this.state.searchQuery} />
-        </main>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <Header>
+        <SearchBar
+          searchQuery={searchQuery}
+          onSearchSubmit={handleSearchSubmit}
+        />
+      </Header>
+      <main className={styles.main}>
+        <ErrorAlertButton />
+        <TVShowList searchQuery={searchQuery} />
+      </main>
+    </>
+  );
+};
