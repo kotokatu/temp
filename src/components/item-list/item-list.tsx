@@ -1,32 +1,24 @@
 import { Component } from 'react';
+import { IStateToProps } from '../types';
 
 import './item-list.css';
-import Swapi from '../../services/swapi';
 
-interface IMyComponentProps {
-  swapiContext: Swapi;
-}
-
-export default class ItemList extends Component<IMyComponentProps> {
-  public state = {
-    data: [],
-  };
-
+export default class ItemList extends Component<IStateToProps> {
   componentDidMount(): void {
-    this.props.swapiContext.getAllPeople().then((result) => {
-      this.setState(() => {
-        return {
-          data: result,
-        };
-      });
-    });
+    const {
+      mainState: { searchPerson },
+    } = this.props;
+
+    searchPerson();
   }
 
   render(): JSX.Element {
-    const { data } = this.state;
+    const {
+      mainState: { people },
+    } = this.props;
 
-    const items: JSX.Element[] = data.map((item) => {
-      const { name } = item;
+    const items: JSX.Element[] = people.map((person) => {
+      const { name } = person;
 
       return (
         <li className="list-item" key={name}>

@@ -4,14 +4,6 @@ import { IStateToProps } from '../types';
 import './search-bar.css';
 
 export default class SearchBar extends Component<IStateToProps> {
-  componentDidMount(): void {
-    const {
-      mainState: { searchPerson },
-    } = this.props;
-
-    searchPerson();
-  }
-
   private changeSearchTerm = (event: ChangeEvent<HTMLInputElement>): void => {
     const {
       mainState: { setSearchTerm },
@@ -31,7 +23,7 @@ export default class SearchBar extends Component<IStateToProps> {
 
   render(): JSX.Element {
     const {
-      mainState: { term, person },
+      mainState: { term },
     } = this.props;
 
     return (
@@ -51,8 +43,6 @@ export default class SearchBar extends Component<IStateToProps> {
         >
           Search
         </button>
-        <p>{term}</p>
-        <p>{person}</p>
       </form>
     );
   }

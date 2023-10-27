@@ -14,6 +14,7 @@ export const SwapiContext = React.createContext(swapi);
 export default class App extends Component {
   private setSearchTerm = (newTerm: string): void => {
     this.setState(() => {
+      localStorage.setItem('termForSearching', newTerm);
       return {
         term: newTerm,
       };
@@ -26,15 +27,15 @@ export default class App extends Component {
     swapi.search(term).then((response) => {
       this.setState(() => {
         return {
-          person: JSON.stringify(response),
+          people: response,
         };
       });
     });
   };
 
   public state: SearchBarState = {
-    term: 'r2',
-    person: '',
+    term: localStorage.getItem('termForSearching') || '',
+    people: [],
     setSearchTerm: this.setSearchTerm,
     searchPerson: this.searchPerson,
   };
@@ -45,11 +46,11 @@ export default class App extends Component {
         <SwapiContext.Provider value={swapi}>
           <div className="app">
             <Header />
-            <SwapiContext.Consumer>
-              {(swapi) => {
-                return <ItemList swapiContext={swapi} />;
+            <StateContext.Consumer>
+              {(state) => {
+                return <ItemList mainState={state} />;
               }}
-            </SwapiContext.Consumer>
+            </StateContext.Consumer>
           </div>
         </SwapiContext.Provider>
       </StateContext.Provider>

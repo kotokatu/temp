@@ -14,7 +14,7 @@ export default class Swapi {
   }
 
   getAllPeople = async () => {
-    const response = await this.getData(`/people/`);
+    const response = await this.getData(`/people/?page=1`);
     return response.results;
   };
 
