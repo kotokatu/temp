@@ -1,5 +1,5 @@
 import styles from './index.module.css';
-import { Component } from 'react';
+import { Component, SyntheticEvent } from 'react';
 import { ApiShowSummary } from 'shared/api/myshows/types';
 import cardImagePlaceholderSrc from './ui/card-image-placeholder.webp';
 
@@ -25,15 +25,22 @@ export class TVShowCard extends Component<TProps> {
       <span className={styledStatusData.style}>{styledStatusData.text}</span>
     );
 
+    const handleImageError = (e: SyntheticEvent<HTMLImageElement>) => {
+      if (e.target instanceof HTMLImageElement) {
+        e.target.src = cardImagePlaceholderSrc;
+      }
+    };
+
     return (
       <>
         <h2 className={styles.cardHeading}>{title}</h2>
         <img
           className={styles.image}
-          src={image || cardImagePlaceholderSrc}
+          src={image}
           alt={`${title} image`}
           width={320}
           height={180}
+          onError={handleImageError}
         />
         <p className={styles.description}>
           Year: {year}

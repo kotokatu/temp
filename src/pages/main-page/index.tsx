@@ -30,8 +30,8 @@ export class MainPage extends Component<TProps, TState> {
           />
         </Header>
         <main className={styles.main}>
-          <TVShowList searchQuery={this.state.searchQuery} />
           <ErrorAlertButton />
+          <TVShowList searchQuery={this.state.searchQuery} />
         </main>
       </>
     );
