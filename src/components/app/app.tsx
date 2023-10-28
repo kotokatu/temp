@@ -22,6 +22,8 @@ export default class App extends Component {
   };
 
   private searchPerson = (): void => {
+    if (this.state.loading) return;
+
     this.setState({ loading: true });
     const { term } = this.state;
 
@@ -40,7 +42,7 @@ export default class App extends Component {
     people: [],
     setSearchTerm: this.setSearchTerm,
     searchPerson: this.searchPerson,
-    loading: true,
+    loading: false,
   };
 
   render() {

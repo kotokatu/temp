@@ -8,6 +8,7 @@ export default class Main extends Component {
   render() {
     return (
       <div className="main container-fluid">
+        <h2 className="text-center mb-3">Characters</h2>
         <StateContext.Consumer>
           {(state) => {
             return <ItemList mainState={state} />;

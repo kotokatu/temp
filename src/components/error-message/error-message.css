@@ -1,9 +1,12 @@
-.error-message {
-  position: relative;
+.error-message.card {
+  position: fixed;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  max-width: 20rem;
   top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 .error-icon {

@@ -10,7 +10,7 @@ export default class Header extends Component {
         data-bs-theme="dark"
       >
         <div className="container-fluid">
-          <span className="navbar-brand">Swapi People DB</span>
+          <span className="navbar-brand">Swapi Characters DB </span>
           <StateContext.Consumer>
             {(state) => {
               return <SearchBar mainState={state} />;

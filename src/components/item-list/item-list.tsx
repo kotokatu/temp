@@ -51,11 +51,16 @@ export default class ItemList extends Component<IStateToProps> {
     if (loading) return <Loader />;
 
     const items: JSX.Element[] = this.renderItems();
+    const message: JSX.Element | null = items.length ? null : (
+      <p className="text-warning">
+        Oops. There is no such character in our database.
+      </p>
+    );
 
     return (
-      <div>
-        Characters
+      <div className="item-list">
         {items}
+        {message}
       </div>
     );
   }

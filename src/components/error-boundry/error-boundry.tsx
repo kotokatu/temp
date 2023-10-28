@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import { IChildren } from '../types';
 
-import './error-boundry.css';
 import ErrorMessage from '../error-message';
 
 export default class ErrorBoundry extends Component<IChildren> {

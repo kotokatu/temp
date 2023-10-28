@@ -1,8 +1,6 @@
 import { MouseEvent, ChangeEvent, Component } from 'react';
 import { IStateToProps } from '../types';
 
-import './search-bar.css';
-
 export default class SearchBar extends Component<IStateToProps> {
   private changeSearchTerm = (event: ChangeEvent<HTMLInputElement>): void => {
     const {
@@ -32,7 +30,7 @@ export default class SearchBar extends Component<IStateToProps> {
           className="form-control me-sm-2"
           id="search-input"
           type="search"
-          placeholder="search person by name"
+          placeholder="search character by name"
           onChange={this.changeSearchTerm}
           value={term}
         ></input>

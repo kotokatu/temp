@@ -1,4 +1,5 @@
 .error-button {
-  position: relative;
-  right: 0;
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
 }
