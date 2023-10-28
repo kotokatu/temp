@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { IPerson, IStateToProps } from '../types';
 
 import './item-list.css';
+import Loader from '../loader';
 
 export default class ItemList extends Component<IStateToProps> {
   componentDidMount(): void {
@@ -14,7 +15,7 @@ export default class ItemList extends Component<IStateToProps> {
 
   render(): JSX.Element {
     const {
-      mainState: { people },
+      mainState: { people, loading },
     } = this.props;
 
     const items: JSX.Element[] = people.map((person: IPerson) => {
@@ -26,6 +27,8 @@ export default class ItemList extends Component<IStateToProps> {
         </li>
       );
     });
+
+    if (loading) return <Loader />;
 
     return (
       <div>

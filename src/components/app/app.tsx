@@ -24,12 +24,14 @@ export default class App extends Component {
   };
 
   private searchPerson = (): void => {
+    this.setState({ loading: true });
     const { term } = this.state;
 
     swapi.search(term).then((response) => {
       this.setState(() => {
         return {
           people: response,
+          loading: false,
         };
       });
     });
@@ -40,6 +42,7 @@ export default class App extends Component {
     people: [],
     setSearchTerm: this.setSearchTerm,
     searchPerson: this.searchPerson,
+    loading: true,
   };
 
   render() {

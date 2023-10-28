@@ -17,6 +17,7 @@ export interface SearchBarState {
   people: IPerson[];
   setSearchTerm: (newTerm: string) => void;
   searchPerson: () => void;
+  loading: boolean;
 }
 
 export interface IStateToProps {
