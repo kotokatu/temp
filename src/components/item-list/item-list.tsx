@@ -13,26 +13,52 @@ export default class ItemList extends Component<IStateToProps> {
     searchPerson();
   }
 
-  render(): JSX.Element {
+  renderItems(): JSX.Element[] {
     const {
-      mainState: { people, loading },
+      mainState: { people },
     } = this.props;
 
-    const items: JSX.Element[] = people.map((person: IPerson) => {
-      const { name, gender, eye_color, birth_year } = person;
+    return people.map((person: IPerson) => {
+      const { name, gender, birth_year, eye_color } = person;
 
       return (
-        <li className="list-item" key={name}>
-          {`${name} ${gender} ${eye_color} ${birth_year}`}
-        </li>
+        <div className="person-card card d-flex flex-row mb-3" key={name}>
+          <img
+            className="person-image"
+            src={`https://starwars-visualguide.com/assets/img/characters/${3}.jpg`}
+            alt="character"
+          />
+          <div className="card-body">
+            <h4>{name}</h4>
+            <ul className="list-group list-group-flush">
+              <li className="list-group-item">
+                <span>{`Gender: ${gender}`}</span>
+              </li>
+              <li className="list-group-item">
+                <span>{`Birth Year: ${birth_year}`}</span>
+              </li>
+              <li className="list-group-item">
+                <span>{`Eye Color: ${eye_color}`}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
       );
     });
+  }
+
+  render(): JSX.Element {
+    const {
+      mainState: { loading },
+    } = this.props;
 
     if (loading) return <Loader />;
 
+    const items: JSX.Element[] = this.renderItems();
+
     return (
       <div>
-        People
+        Characters
         {items}
       </div>
     );

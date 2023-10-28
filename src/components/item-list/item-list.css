@@ -1,0 +1,10 @@
+.person-card {
+  display: flex;
+  flex-direction: row;
+}
+
+.person-image {
+  width: 21%;
+  height: 21%;
+  border-radius: 5px;
+}
