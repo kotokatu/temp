@@ -3,9 +3,9 @@ import { SearchBarState } from '../types';
 import { StateContext } from '../contexts';
 
 import './app.css';
-import ItemList from '../item-list';
 import Swapi from '../../services/swapi';
 import Header from '../header';
+import Main from '../main';
 import ErrorButton from '../error-button';
 import ErrorBoundry from '../error-boundry';
 
@@ -52,11 +52,7 @@ export default class App extends Component {
           <SwapiContext.Provider value={swapi}>
             <div className="app">
               <Header />
-              <StateContext.Consumer>
-                {(state) => {
-                  return <ItemList mainState={state} />;
-                }}
-              </StateContext.Consumer>
+              <Main />
               <ErrorButton />
             </div>
           </SwapiContext.Provider>
