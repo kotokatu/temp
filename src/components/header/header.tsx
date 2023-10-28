@@ -1,8 +1,9 @@
 import { Component } from 'react';
 import { StateContext } from '../contexts';
 import SearchBar from '../search-bar';
+import { IChildren, IProps } from '../types';
 
-export default class Header extends Component {
+export default class Header extends Component<IProps, IChildren> {
   render() {
     return (
       <div

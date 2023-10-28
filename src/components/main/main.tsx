@@ -3,8 +3,9 @@ import { StateContext } from '../contexts';
 
 import './main.css';
 import ItemList from '../item-list';
+import { IChildren, IProps } from '../types';
 
-export default class Main extends Component {
+export default class Main extends Component<IProps, IChildren> {
   render() {
     return (
       <div className="main container-fluid">

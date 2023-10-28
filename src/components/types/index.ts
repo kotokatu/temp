@@ -22,16 +22,21 @@ export interface IResponse {
   results: IPerson[];
 }
 
-export interface SearchBarState {
+export interface ISearchBarState {
   term: string;
   people: ITransformPerson[];
   setSearchTerm: (newTerm: string) => void;
   searchPerson: () => void;
   loading: boolean;
 }
+export interface IErrorState {
+  hasError: boolean;
+}
+
+export type IProps = object;
 
 export interface IStateToProps {
-  mainState: SearchBarState;
+  mainState: ISearchBarState;
 }
 
 export type IChildren = {

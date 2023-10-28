@@ -1,13 +1,14 @@
 import { Component } from 'react';
 
 import './error-button.css';
+import { IErrorState, IProps } from '../types';
 
-export default class ErrorButton extends Component {
+export default class ErrorButton extends Component<IProps, IErrorState> {
   state = {
     hasError: false,
   };
 
-  onSetError = () => {
+  onSetError = (): void => {
     this.setState({ hasError: true });
   };
 

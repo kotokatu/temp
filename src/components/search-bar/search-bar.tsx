@@ -1,7 +1,7 @@
 import { MouseEvent, ChangeEvent, Component } from 'react';
-import { IStateToProps } from '../types';
+import { IChildren, IStateToProps } from '../types';
 
-export default class SearchBar extends Component<IStateToProps> {
+export default class SearchBar extends Component<IStateToProps, IChildren> {
   private changeSearchTerm = (event: ChangeEvent<HTMLInputElement>): void => {
     const {
       mainState: { setSearchTerm },
