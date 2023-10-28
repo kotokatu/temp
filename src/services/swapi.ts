@@ -1,9 +1,31 @@
-import { IResponse } from '../components/types';
+import { IPerson, IResponse, ITransformPerson } from '../components/types';
 
 export default class Swapi {
   private baseApi: string = 'https://swapi.dev/api';
+  private baseImageUrl: string =
+    'https://starwars-visualguide.com/assets/img/characters/';
 
-  private async getData(url: string) {
+  private getId(url: string): string {
+    const idRegExp: RegExp = /\/([0-9]*)\/$/;
+    const matches: RegExpMatchArray | null = url.match(idRegExp);
+    const id = matches ? matches[1] : '';
+    return id;
+  }
+
+  private transform(person: IPerson): ITransformPerson {
+    const { name, birth_year, gender, eye_color, url } = person;
+    const id: string = this.getId(url);
+    return {
+      id: id,
+      name: name,
+      birthYear: birth_year,
+      gender: gender,
+      eyeColor: eye_color,
+      img: `${this.baseImageUrl}${id}.jpg`,
+    };
+  }
+
+  private async getData(url: string): Promise<IResponse> {
     const response: Response = await fetch(`${this.baseApi}${url}`);
 
     if (!response.ok) {
@@ -15,10 +37,10 @@ export default class Swapi {
     return response.json();
   }
 
-  search = async (term: string) => {
+  public search = async (term: string): Promise<ITransformPerson[]> => {
     const response: IResponse = await this.getData(
       `/people/?search=${term}&page=1`
     );
-    return response.results;
+    return response.results.map((person: IPerson) => this.transform(person));
   };
 }

@@ -3,6 +3,16 @@ export interface IPerson {
   birth_year: string;
   gender: string;
   eye_color: string;
+  url: string;
+}
+
+export interface ITransformPerson {
+  id: string;
+  name: string;
+  birthYear: string;
+  gender: string;
+  eyeColor: string;
+  img: string;
 }
 
 export interface IResponse {
@@ -14,7 +24,7 @@ export interface IResponse {
 
 export interface SearchBarState {
   term: string;
-  people: IPerson[];
+  people: ITransformPerson[];
   setSearchTerm: (newTerm: string) => void;
   searchPerson: () => void;
   loading: boolean;

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { SearchBarState } from '../types';
+import { Component } from 'react';
+import { ITransformPerson, SearchBarState } from '../types';
 import { StateContext } from '../contexts';
 
 import './app.css';
@@ -10,8 +10,6 @@ import ErrorButton from '../error-button';
 import ErrorBoundry from '../error-boundry';
 
 const swapi: Swapi = new Swapi();
-
-export const SwapiContext = React.createContext(swapi);
 
 export default class App extends Component {
   private setSearchTerm = (newTerm: string): void => {
@@ -27,7 +25,7 @@ export default class App extends Component {
     this.setState({ loading: true });
     const { term } = this.state;
 
-    swapi.search(term).then((response) => {
+    swapi.search(term).then((response: ITransformPerson[]) => {
       this.setState(() => {
         return {
           people: response,
@@ -49,13 +47,11 @@ export default class App extends Component {
     return (
       <ErrorBoundry>
         <StateContext.Provider value={this.state}>
-          <SwapiContext.Provider value={swapi}>
-            <div className="app">
-              <Header />
-              <Main />
-              <ErrorButton />
-            </div>
-          </SwapiContext.Provider>
+          <div className="app">
+            <Header />
+            <Main />
+            <ErrorButton />
+          </div>
         </StateContext.Provider>
       </ErrorBoundry>
     );
