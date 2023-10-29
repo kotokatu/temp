@@ -96,7 +96,7 @@ class App extends React.Component<AppProps, AppState> {
             value={this.state.search}
             onChange={(e) => this.setInput(e.target.value)}
           />
-          <button onClick={() => this.search(this.state.page)}>Search</button>
+          <button onClick={() => this.search(1)}>Search</button>
           <button onClick={() => this.setStatus('error')}>Error</button>
         </div>
         <div>
