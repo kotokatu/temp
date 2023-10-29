@@ -1,10 +1,13 @@
 import { Component } from 'react';
-import { IChildren, IErrorState } from '../types';
+import { WithChildrenProps, ErrorState } from '../types';
 
 import ErrorMessage from '../error-message';
 
-export default class ErrorBoundry extends Component<IChildren, IErrorState> {
-  public state: IErrorState = {
+export default class ErrorBoundry extends Component<
+  WithChildrenProps,
+  ErrorState
+> {
+  public state: ErrorState = {
     hasError: false,
   };
 

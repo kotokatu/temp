@@ -2,9 +2,9 @@ import { Component } from 'react';
 
 import './error-message.css';
 import errorIcon from '../../assets/icons/c3p0_icon.svg';
-import { IChildren, IProps } from '../types';
+import { EmptyState, EmptyProps } from '../types';
 
-export default class ErrorMessage extends Component<IProps, IChildren> {
+export default class ErrorMessage extends Component<EmptyProps, EmptyState> {
   render(): JSX.Element {
     return (
       <div className="error-message card">

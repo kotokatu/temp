@@ -1,8 +1,8 @@
 import React from 'react';
-import { ISearchBarState } from '../types';
+import { AppState } from '../types';
 
-export const StateContext: React.Context<ISearchBarState> =
-  React.createContext<ISearchBarState>({
+export const StateContext: React.Context<AppState> =
+  React.createContext<AppState>({
     term: '',
     people: [],
     setSearchTerm: () => {},

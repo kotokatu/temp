@@ -1,9 +1,9 @@
 import { Component } from 'react';
 
 import './error-button.css';
-import { IErrorState, IProps } from '../types';
+import { ErrorState, EmptyProps } from '../types';
 
-export default class ErrorButton extends Component<IProps, IErrorState> {
+export default class ErrorButton extends Component<EmptyProps, ErrorState> {
   state = {
     hasError: false,
   };

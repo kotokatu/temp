@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import { StateContext } from '../contexts';
 import SearchBar from '../search-bar';
-import { IChildren, IProps } from '../types';
+import { EmptyState, EmptyProps } from '../types';
 
-export default class Header extends Component<IProps, IChildren> {
+export default class Header extends Component<EmptyProps, EmptyState> {
   render(): JSX.Element {
     return (
       <div

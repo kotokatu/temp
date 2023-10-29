@@ -1,4 +1,4 @@
-import { IPerson, IResponse, ITransformPerson } from '../components/types';
+import { Person, ResponseApi, TransformPerson } from '../components/types';
 
 export default class Swapi {
   private baseApi: string = 'https://swapi.dev/api';
@@ -12,7 +12,7 @@ export default class Swapi {
     return id;
   }
 
-  private transform(person: IPerson): ITransformPerson {
+  private transform(person: Person): TransformPerson {
     const { name, birth_year, gender, eye_color, url } = person;
     const id: string = this.getId(url);
     return {
@@ -25,7 +25,7 @@ export default class Swapi {
     };
   }
 
-  private async getData(url: string): Promise<IResponse> {
+  private async getData(url: string): Promise<ResponseApi> {
     const response: Response = await fetch(`${this.baseApi}${url}`);
 
     if (!response.ok) {
@@ -37,10 +37,10 @@ export default class Swapi {
     return response.json();
   }
 
-  public search = async (term: string): Promise<ITransformPerson[]> => {
-    const response: IResponse = await this.getData(
+  public search = async (term: string): Promise<TransformPerson[]> => {
+    const response: ResponseApi = await this.getData(
       `/people/?search=${term}&page=1`
     );
-    return response.results.map((person: IPerson) => this.transform(person));
+    return response.results.map((person: Person) => this.transform(person));
   };
 }

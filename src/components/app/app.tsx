@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { ITransformPerson, IProps, ISearchBarState } from '../types';
+import { TransformPerson, EmptyProps, AppState } from '../types';
 import { StateContext } from '../contexts';
 
 import './app.css';
@@ -11,9 +11,9 @@ import ErrorBoundry from '../error-boundry';
 
 const swapi: Swapi = new Swapi();
 
-export default class App extends Component<IProps, ISearchBarState> {
+export default class App extends Component<EmptyProps, AppState> {
   private setSearchTerm = (newTerm: string): void => {
-    this.setState((state: ISearchBarState): ISearchBarState => {
+    this.setState((state: AppState): AppState => {
       localStorage.setItem('termForSearching', newTerm);
       return {
         ...state,
@@ -28,7 +28,7 @@ export default class App extends Component<IProps, ISearchBarState> {
     this.setState({ loading: true });
     const { term } = this.state;
 
-    swapi.search(term).then((response: ITransformPerson[]): void => {
+    swapi.search(term).then((response: TransformPerson[]): void => {
       this.setState(() => {
         return {
           people: response,
@@ -38,7 +38,7 @@ export default class App extends Component<IProps, ISearchBarState> {
     });
   };
 
-  public state: ISearchBarState = {
+  public state: AppState = {
     term: localStorage.getItem('termForSearching') || '',
     people: [],
     setSearchTerm: this.setSearchTerm,

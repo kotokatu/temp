@@ -1,9 +1,9 @@
 import { Component } from 'react';
 
 import './loader.css';
-import { IChildren, IProps } from '../types';
+import { EmptyState, EmptyProps } from '../types';
 
-export default class Loader extends Component<IProps, IChildren> {
+export default class Loader extends Component<EmptyProps, EmptyState> {
   render(): JSX.Element {
     return <span className="loader"></span>;
   }

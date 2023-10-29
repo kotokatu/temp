@@ -1,4 +1,4 @@
-export interface IPerson {
+export interface Person {
   name: string;
   birth_year: string;
   gender: string;
@@ -6,7 +6,7 @@ export interface IPerson {
   url: string;
 }
 
-export interface ITransformPerson {
+export interface TransformPerson {
   id: string;
   name: string;
   birthYear: string;
@@ -15,30 +15,32 @@ export interface ITransformPerson {
   img: string;
 }
 
-export interface IResponse {
+export interface ResponseApi {
   count: number;
   next: string | null;
   previous: string | null;
-  results: IPerson[];
+  results: Person[];
 }
 
-export interface ISearchBarState {
+export interface AppState {
   term: string;
-  people: ITransformPerson[];
+  people: TransformPerson[];
   setSearchTerm: (newTerm: string) => void;
   searchPerson: () => void;
   loading: boolean;
 }
-export interface IErrorState {
+export interface ErrorState {
   hasError: boolean;
 }
 
-export type IProps = object;
+export interface EmptyProps {}
 
-export interface IStateToProps {
-  mainState: ISearchBarState;
+export interface EmptyState {}
+
+export interface AppStateToProps {
+  mainState: AppState;
 }
 
-export type IChildren = {
+export type WithChildrenProps = {
   children: React.ReactNode;
 };

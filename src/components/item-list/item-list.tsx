@@ -1,10 +1,10 @@
 import { Component } from 'react';
-import { IChildren, IStateToProps, ITransformPerson } from '../types';
+import { EmptyState, AppStateToProps, TransformPerson } from '../types';
 
 import './item-list.css';
 import Loader from '../loader';
 
-export default class ItemList extends Component<IStateToProps, IChildren> {
+export default class ItemList extends Component<AppStateToProps, EmptyState> {
   componentDidMount(): void {
     const {
       mainState: { searchPerson },
@@ -18,7 +18,7 @@ export default class ItemList extends Component<IStateToProps, IChildren> {
       mainState: { people },
     } = this.props;
 
-    return people.map((person: ITransformPerson): JSX.Element => {
+    return people.map((person: TransformPerson): JSX.Element => {
       const { name, gender, birthYear, eyeColor, id, img } = person;
 
       return (
