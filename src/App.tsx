@@ -1,4 +1,6 @@
 import React from 'react';
+import Page from './components/Page';
+import List from './components/List';
 import './App.css';
 
 type AppProps = { baseUrl: string };
@@ -12,14 +14,13 @@ type AppState = {
   status: string;
 };
 type Result = { name: string };
-type PageButton = { link: number; label: string };
 
 class App extends React.Component<AppProps, AppState> {
   state = {
     search: `${localStorage.getItem('Search') ?? ''}`,
     url: this.props.baseUrl,
     result: '',
-    page: 0,
+    page: 1,
     names: [],
     count: 0,
     status: '',
@@ -29,14 +30,8 @@ class App extends React.Component<AppProps, AppState> {
       ...state,
       url: `${this.props.baseUrl}${state.search}`,
     }));
-
-    console.log('didMount');
   }
-  componentDidUpdate(
-    prevProps: { baseUrl: string },
-    prevState: { search: string; result: string; url: string }
-  ): void {
-    console.log('didUpdate', this.state);
+  componentDidUpdate(prevProps: AppProps, prevState: AppState): void {
     if (this.state.url !== prevState.url) {
       localStorage.setItem('Search', this.state.search);
       this.setStatus('...Loading');
@@ -54,43 +49,28 @@ class App extends React.Component<AppProps, AppState> {
         .catch(() => this.setStatus(`Error: Unable perform the request`));
     }
   }
-  componentWillUnMount(): void {
-    console.log('willUnmount');
-  }
-  render() {
-    return (
-      <>
-        <h1>Star Wars Heros</h1>
-        <div className='Search'>
-          <input value={this.state.search} onChange={(e) => this.input(e.target.value)} />
-          <button onClick={() => this.search()}> Search</button>
-        </div>
-        <div>
-          {this.state.status !== '...Loading' && this.state.result}
-          {this.state.status}
-          {this.state.status !== '...Loading' && this.links(this.state.page)}
-          {this.state.status !== '...Loading' && this.pages(this.state.page)}
-        </div>
-      </>
-    );
-  }
+  // componentWillUnMount(): void {
+  //   console.log('willUnmount');
+  // }
+
   setStatus = (status: string) => {
     this.setState((state) => ({
       ...state,
       status,
     }));
   };
-  input = (value: string) => {
+  setInput = (value: string) => {
     this.setState((state) => ({
       ...state,
       search: value,
     }));
   };
-  search = () => {
+  search = (page: number) => {
     this.setState((state) => ({
       ...state,
+      page: page,
       search: state.search.trim(),
-      url: `${this.props.baseUrl}${state.search.trim()}&page=1`,
+      url: `${this.props.baseUrl}${state.search.trim()}&page=${page}`,
     }));
   };
   result = (count: number, names: string[]) => {
@@ -98,65 +78,43 @@ class App extends React.Component<AppProps, AppState> {
       ...state,
       count: count,
       status: '',
-      page: 1,
+      page: this.state.page ?? 1,
       result: `${count} found`,
       names: [...names],
     }));
   };
-  go = (page: number) => {
-    this.setState((state) => ({
-      ...state,
-      page: page,
-    }));
-  };
-  links = (page: number) => {
-    const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    const start = (page - 1) * 10;
-    const end = Math.min(start + 10, this.state.count);
-    if (!this.state.count || start > end || start < 0) return <></>;
-    return (
-      <ol start={this.state.page * 10 - 9}>
-        {items.slice(0, end - start).map((item, index) => (
-          <li key={index}>{this.state.names[index]}</li>
-        ))}
-      </ol>
-    );
-  };
 
-  pages = (page: number) => {
-    const links = 1;
-    const count = Math.ceil(this.state.count / 10);
-    const pageStart = Math.max(1, page - links);
-    const pageEnd = Math.min(page + links, count);
-    const plusStart = pageStart - page + links;
-    const plusEnd = page + 1 - pageEnd;
-
-    const pages: PageButton[] = [];
-    const start = Math.max(1, pageStart - plusStart - plusEnd);
-    const end = Math.min(start + 2 * links, count);
-    if (page >= start && page <= count) {
-      if (this.state.page > 1) pages.push({ link: this.state.page - 1, label: '<' });
-      for (let i = start; i <= end; i++) {
-        const label = i === page ? `[${page}]` : `${i}`;
-        const link = i;
-        pages.push({ link, label });
-      }
-      if (this.state.page < count) pages.push({ link: this.state.page + 1, label: '>' });
-    }
+  render() {
+    if (this.state.status === 'error') throw new Error('Simulated error');
     return (
-      <ul className='pages'>
-        {pages.map(({ link, label }, index) => {
-          return (
-            <li className='pages' key={`page-${index}`}>
-              <button key={`page-button-${index}`} onClick={() => this.go(link)}>
-                {label}
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+      <>
+        <h1>Star Wars Heros</h1>
+        <div className='search'>
+          <input
+            className='input-search'
+            value={this.state.search}
+            onChange={(e) => this.setInput(e.target.value)}
+          />
+          <button onClick={() => this.search(this.state.page)}>Search</button>
+          <button onClick={() => this.setStatus('error')}>Error</button>
+        </div>
+        <div>
+          {this.state.status}
+          {this.state.status !== '...Loading' && (
+            <>
+              {this.state.result}
+              <List
+                current={this.state.page}
+                count={this.state.count}
+                items={[...this.state.names]}
+              />
+              <Page current={this.state.page} count={this.state.count} setCurrent={this.search} />
+            </>
+          )}
+        </div>
+      </>
     );
-  };
+  }
 }
 
 export default App;
