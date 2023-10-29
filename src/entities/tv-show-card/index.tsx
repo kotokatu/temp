@@ -1,4 +1,4 @@
-import styles from './index.module.css';
+import styles from './tv-show-card.module.css';
 import { SyntheticEvent } from 'react';
 import { ApiShowSummary } from 'shared/api/myshows/types';
 import cardImagePlaceholderSrc from './ui/card-image-placeholder.webp';

@@ -1,5 +1,5 @@
 import { FormEvent } from 'react';
-import styles from './index.module.css';
+import styles from './search-bar.module.css';
 import searchIconSrc from './ui/search-icon.svg';
 
 type SearchBarProps = {

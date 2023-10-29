@@ -1,5 +1,5 @@
 import { ErrorAlertButton } from 'features/error-alert-button';
-import styles from './index.module.css';
+import styles from './main-page.module.css';
 import { SearchBar } from 'features/search-bar';
 import { useState } from 'react';
 import { Header } from 'widgets/header';

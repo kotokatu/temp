@@ -1,4 +1,4 @@
-import styles from './index.module.css';
+import styles from './loader.module.css';
 import { ReactNode } from 'react';
 import loaderImageSrc from './ui/loader-image.webp';
 

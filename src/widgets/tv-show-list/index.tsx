@@ -1,4 +1,4 @@
-import styles from './index.module.css';
+import styles from './tv-show-list.module.css';
 import { Loader } from 'features/loader';
 import { TVShowCard } from 'entities/tv-show-card';
 import { useFetchTVShows } from './lib/use-fetch-tv-shows';
