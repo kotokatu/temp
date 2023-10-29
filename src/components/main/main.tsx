@@ -6,7 +6,7 @@ import ItemList from '../item-list';
 import { IChildren, IProps } from '../types';
 
 export default class Main extends Component<IProps, IChildren> {
-  render() {
+  render(): JSX.Element {
     return (
       <div className="main container-fluid">
         <h2 className="text-center mb-3">Characters</h2>

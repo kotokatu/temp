@@ -46,7 +46,7 @@ export default class App extends Component<IProps, ISearchBarState> {
     loading: false,
   };
 
-  render() {
+  render(): JSX.Element {
     return (
       <ErrorBoundry>
         <StateContext.Provider value={this.state}>

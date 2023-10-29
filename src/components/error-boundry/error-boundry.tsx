@@ -14,7 +14,7 @@ export default class ErrorBoundry extends Component<IChildren, IErrorState> {
     });
   }
 
-  render() {
+  render(): React.ReactNode {
     if (this.state.hasError) {
       return <ErrorMessage />;
     }

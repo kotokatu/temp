@@ -12,7 +12,7 @@ export default class ErrorButton extends Component<IProps, IErrorState> {
     this.setState({ hasError: true });
   };
 
-  render() {
+  render(): JSX.Element {
     if (this.state.hasError) {
       throw new Error('Oops! Something bad happened!');
     }

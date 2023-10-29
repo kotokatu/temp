@@ -4,7 +4,7 @@ import './loader.css';
 import { IChildren, IProps } from '../types';
 
 export default class Loader extends Component<IProps, IChildren> {
-  render() {
+  render(): JSX.Element {
     return <span className="loader"></span>;
   }
 }

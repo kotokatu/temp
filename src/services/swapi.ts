@@ -8,7 +8,7 @@ export default class Swapi {
   private getId(url: string): string {
     const idRegExp: RegExp = /\/([0-9]*)\/$/;
     const matches: RegExpMatchArray | null = url.match(idRegExp);
-    const id = matches ? matches[1] : '';
+    const id: string = matches ? matches[1] : '';
     return id;
   }
 

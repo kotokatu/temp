@@ -4,7 +4,7 @@ import SearchBar from '../search-bar';
 import { IChildren, IProps } from '../types';
 
 export default class Header extends Component<IProps, IChildren> {
-  render() {
+  render(): JSX.Element {
     return (
       <div
         className="header navbar navbar-expand-lg bg-dark"
