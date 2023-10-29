@@ -17,7 +17,7 @@ export default class App extends Component<EmptyProps, AppState> {
       localStorage.setItem('termForSearching', newTerm);
       return {
         ...state,
-        term: newTerm,
+        term: newTerm.trim(),
       };
     });
   };

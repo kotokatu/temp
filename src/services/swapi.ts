@@ -33,7 +33,6 @@ export default class Swapi {
         `Could not get data on request ${url}` + `, status ${response.status}`
       );
     }
-
     return response.json();
   }
 
@@ -41,6 +40,8 @@ export default class Swapi {
     const response: ResponseApi = await this.getData(
       `/people/?search=${term}&page=1`
     );
-    return response.results.map((person: Person) => this.transform(person));
+    return response.results.map(
+      (person: Person): TransformPerson => this.transform(person)
+    );
   };
 }
