@@ -5,6 +5,7 @@ type Props = {
   current: number;
   count: number;
   items: Items[];
+  linesPerPage: number;
 };
 
 class List extends React.Component<Props> {
@@ -12,19 +13,23 @@ class List extends React.Component<Props> {
     super(props);
   }
   render() {
-    console.log('^^^^', this.props.items);
     const items: Items[] = Array(10).fill('');
     const page = this.props.current;
     const count = this.props.count;
-    const start = (page - 1) * 10;
-    const end = Math.min(start + 10, count);
+    const linesPerPage = this.props.linesPerPage;
+    const start = (page - 1) * linesPerPage;
+    const end = Math.min(start + linesPerPage, count);
     if (!count || start > end || start < 0) return <></>;
 
     return (
-      <ol start={page * 10 - 9}>
-        {items.map((item, index) => (
-          <li key={index}>{this.props.items[index]}</li>
-        ))}
+      <ol start={start + 1}>
+        {items.map((item, index) =>
+          index + start < count ? (
+            <li key={index}>{this.props.items[index]}</li>
+          ) : (
+            <br key={index} />
+          )
+        )}
       </ol>
     );
   }

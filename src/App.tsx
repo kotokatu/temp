@@ -12,6 +12,8 @@ type AppState = {
   names: string[];
   count: number;
   status: string;
+  linesPerPage: number;
+  linksToPages: number;
 };
 type Result = { name: string };
 
@@ -24,6 +26,8 @@ class App extends React.Component<AppProps, AppState> {
     names: [],
     count: 0,
     status: '',
+    linesPerPage: 10,
+    linksToPages: 2,
   };
   componentDidMount(): void {
     this.setState((state) => ({
@@ -49,9 +53,6 @@ class App extends React.Component<AppProps, AppState> {
         .catch(() => this.setStatus(`Error: Unable perform the request`));
     }
   }
-  // componentWillUnMount(): void {
-  //   console.log('willUnmount');
-  // }
 
   setStatus = (status: string) => {
     this.setState((state) => ({
@@ -107,8 +108,15 @@ class App extends React.Component<AppProps, AppState> {
                 current={this.state.page}
                 count={this.state.count}
                 items={[...this.state.names]}
+                linesPerPage={this.state.linesPerPage}
               />
-              <Page current={this.state.page} count={this.state.count} setCurrent={this.search} />
+              <Page
+                current={this.state.page}
+                count={this.state.count}
+                linesPerPage={this.state.linesPerPage}
+                linksToPages={this.state.linksToPages}
+                setCurrent={this.search}
+              />
             </>
           )}
         </div>

@@ -1,6 +1,12 @@
 import React from 'react';
 
-type Props = { current: number; count: number; setCurrent: (current: number) => void };
+type Props = {
+  current: number;
+  count: number;
+  linesPerPage: number;
+  linksToPages: number;
+  setCurrent: (current: number) => void;
+};
 type PageButton = { link: number; label: string };
 
 class Page extends React.Component<Props> {
@@ -9,8 +15,8 @@ class Page extends React.Component<Props> {
   }
   render() {
     const page = this.props.current;
-    const links = 2;
-    const count = Math.ceil(this.props.count / 10);
+    const links = this.props.linksToPages;
+    const count = Math.ceil(this.props.count / this.props.linesPerPage);
     const pageStart = Math.max(1, page - links);
     const pageEnd = Math.min(page + links, count);
     const plusStart = pageStart - page + links;
@@ -28,7 +34,6 @@ class Page extends React.Component<Props> {
         pages.push({ link, label });
       }
       if (page < count) pages.push({ link: page + 1, label: '>' });
-      if (page < count - 2 * links) pages.push({ link: page + 1 + 2 * links, label: '>>' });
     }
     return (
       <ul className='pages'>
