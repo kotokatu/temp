@@ -4,27 +4,31 @@
 }
 
 .image {
+  max-width: 100%;
   vertical-align: top;
   object-fit: contain;
-  max-width: 100%;
 }
 
 .description {
   --shadow-value: 0 0 0.2rem;
+
   display: inline-block;
-  padding: 1rem;
   margin-block: 0;
+  padding: 1rem;
 }
 
 .new {
   filter: drop-shadow(var(--shadow-value) blue);
 }
+
 .onAir {
   filter: drop-shadow(var(--shadow-value) green);
 }
+
 .pause {
   filter: drop-shadow(var(--shadow-value) yellow);
 }
+
 .dead {
   filter: drop-shadow(var(--shadow-value) red);
 }

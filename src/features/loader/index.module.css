@@ -17,17 +17,14 @@
 
 .loader {
   user-select: none;
+  width: 50vmin;
   border-radius: 50%;
   animation: 2.5s mirror-smooth infinite linear;
-  width: 50vmin;
 }
 
 .background {
-  z-index: 10;
-  position: absolute;
-  inset: 0;
-  background-color: #000a;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  background-color: #000a;
 }
