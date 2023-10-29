@@ -19,9 +19,9 @@ class App extends React.Component<
     search: 'Nothing',
     url: this.props.baseUrl,
     result: '',
-    page: 10,
+    page: 0,
     names: [],
-    count: 36,
+    count: 0,
     status: '',
   };
   componentDidMount(): void {
@@ -44,7 +44,8 @@ class App extends React.Component<
             count,
             results.map(({ name }: Result) => name)
           );
-        });
+        })
+        .catch(() => this.setStatus(`Error: Unable perform the request`));
     }
   }
   componentWillUnMount(): void {
@@ -59,7 +60,7 @@ class App extends React.Component<
           <button onClick={() => this.search()}> Search</button>
         </div>
         <div>
-          {this.state.result}
+          {this.state.status !== '...Loading' && this.state.result}
           {this.state.status}
           {this.state.status !== '...Loading' && this.links(this.state.page)}
           {this.state.status !== '...Loading' && this.pages(this.state.page)}
@@ -91,6 +92,7 @@ class App extends React.Component<
       count: count,
       status: '',
       page: 1,
+      result: `${count} found`,
       names: [...names],
     }));
   };
