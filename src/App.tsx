@@ -1,22 +1,26 @@
 import React from 'react';
 import './App.css';
 
+type AppProps = { baseUrl: string };
+type AppState = {
+  search: string;
+  result: string;
+  url: string;
+  page: number;
+  names: string[];
+  count: number;
+  status: string;
+};
 type Result = { name: string };
 type PageButton = { link: number; label: string };
-class App extends React.Component<
-  { baseUrl: string },
-  {
-    search: string;
-    result: string;
-    url: string;
-    page: number;
-    names: string[];
-    count: number;
-    status: string;
+
+class App extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps) {
+    super(props);
+    // Don't call this.setState() here!
   }
-> {
   state = {
-    search: 'Nothing',
+    search: `${localStorage.getItem('Search') ?? ''}`,
     url: this.props.baseUrl,
     result: '',
     page: 0,
@@ -25,6 +29,11 @@ class App extends React.Component<
     status: '',
   };
   componentDidMount(): void {
+    this.setState((state) => ({
+      ...state,
+      url: `${this.props.baseUrl}${state.search}`,
+    }));
+
     console.log('didMount');
   }
   componentDidUpdate(
@@ -33,6 +42,7 @@ class App extends React.Component<
   ): void {
     console.log('didUpdate', this.state);
     if (this.state.url !== prevState.url) {
+      localStorage.setItem('Search', this.state.search);
       this.setStatus('...Loading');
       fetch(this.state.url)
         .then((response) => {
@@ -56,7 +66,7 @@ class App extends React.Component<
       <>
         <h1>Starwars heros</h1>
         <div className='Search'>
-          <input onChange={(e) => this.input(e.target.value)} />
+          <input value={this.state.search} onChange={(e) => this.input(e.target.value)} />
           <button onClick={() => this.search()}> Search</button>
         </div>
         <div>
