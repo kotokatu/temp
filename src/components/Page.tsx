@@ -23,10 +23,9 @@ class Page extends React.Component<Props> {
     const plusEnd = page + 1 - pageEnd;
 
     const pages: PageButton[] = [];
-    const start = Math.max(1, pageStart - plusStart - plusEnd);
+    const start = Math.max(1, pageStart - plusStart - plusEnd - 1);
     const end = Math.min(start + 2 * links, count);
     if (page >= start && page <= count) {
-      if (page > 1 + 2 * links) pages.push({ link: page - 1 - 2 * links, label: '<<' });
       if (page > 1) pages.push({ link: page - 1, label: '<' });
       for (let i = start; i <= end; i++) {
         const label = i === page ? `[${page}]` : `${i}`;
