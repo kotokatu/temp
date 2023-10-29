@@ -89,7 +89,7 @@ class App extends React.Component<AppProps, AppState> {
     if (this.state.status === 'error') throw new Error('Simulated error');
     return (
       <>
-        <h1>Star Wars Heros</h1>
+        <h1>Star Wars Heroes</h1>
         <div className='search'>
           <input
             className='input-search'
