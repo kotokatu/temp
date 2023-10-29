@@ -15,10 +15,6 @@ type Result = { name: string };
 type PageButton = { link: number; label: string };
 
 class App extends React.Component<AppProps, AppState> {
-  constructor(props: AppProps) {
-    super(props);
-    // Don't call this.setState() here!
-  }
   state = {
     search: `${localStorage.getItem('Search') ?? ''}`,
     url: this.props.baseUrl,
