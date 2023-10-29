@@ -64,7 +64,7 @@ class App extends React.Component<AppProps, AppState> {
   render() {
     return (
       <>
-        <h1>Starwars heros</h1>
+        <h1>Star Wars Heros</h1>
         <div className='Search'>
           <input value={this.state.search} onChange={(e) => this.input(e.target.value)} />
           <button onClick={() => this.search()}> Search</button>
@@ -93,7 +93,8 @@ class App extends React.Component<AppProps, AppState> {
   search = () => {
     this.setState((state) => ({
       ...state,
-      url: `${this.props.baseUrl}${state.search}&page=1`,
+      search: state.search.trim(),
+      url: `${this.props.baseUrl}${state.search.trim()}&page=1`,
     }));
   };
   result = (count: number, names: string[]) => {
