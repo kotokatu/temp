@@ -1,5 +1,5 @@
 import styles from './index.module.css';
-import { Loader } from 'entities/loader';
+import { Loader } from 'features/loader';
 import { TVShowCard } from 'entities/tv-show-card';
 import { useFetchTVShows } from './lib/use-fetch-tv-shows';
 

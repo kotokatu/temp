@@ -1,4 +1,4 @@
-import { ErrorAlertButton } from 'entities/error-alert-button';
+import { ErrorAlertButton } from 'features/error-alert-button';
 import styles from './index.module.css';
 import { SearchBar } from 'features/search-bar';
 import { useState } from 'react';
