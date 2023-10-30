@@ -4,6 +4,8 @@ import { SearchBar } from 'features/search-bar';
 import { useState } from 'react';
 import { Header } from 'widgets/header';
 import { TVShowList } from 'widgets/tv-show-list';
+import { useFetchTVShows } from './lib/use-fetch-tv-shows';
+import { Loader } from 'features/loader';
 
 const searchQueryLocalStorageKey = '[ER-23Q4]searchQuery';
 
@@ -11,6 +13,8 @@ export const MainPage = () => {
   const [searchQuery, setSearchQuery] = useState(
     localStorage.getItem(searchQueryLocalStorageKey) ?? ''
   );
+
+  const { currentList, isFetching } = useFetchTVShows(searchQuery);
 
   const handleSearchSubmit = (query = '') => {
     setSearchQuery(query);
@@ -27,7 +31,9 @@ export const MainPage = () => {
       </Header>
       <main className={styles.main}>
         <ErrorAlertButton />
-        <TVShowList searchQuery={searchQuery} />
+        <Loader enabled={isFetching}>
+          <TVShowList currentList={currentList} />
+        </Loader>
       </main>
     </>
   );
