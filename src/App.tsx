@@ -20,7 +20,7 @@ type Result = { name: string };
 class App extends React.Component<AppProps, AppState> {
   state = {
     search: `${localStorage.getItem('Search') ?? ''}`,
-    url: this.props.baseUrl,
+    url: '',
     result: '',
     page: 1,
     names: [],
