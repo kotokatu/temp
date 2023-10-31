@@ -90,9 +90,9 @@ class App extends React.Component<AppProps, AppState> {
     return (
       <>
         <h1>Star Wars Heroes</h1>
-        <div className='search'>
+        <div className="search">
           <input
-            className='input-search'
+            className="input-search"
             value={this.state.search}
             onChange={(e) => this.setInput(e.target.value)}
           />

@@ -31,7 +31,7 @@ class ErrorBoundary extends React.Component<Props, State> {
       return (
         <div>
           <h2>Something went wrong.</h2>
-          <details className='error-info'>
+          <details className="error-info">
             {`${this.state.error}`}
             <br />
             {Object(this.state.errorInfo).componentStack.toString()}
@@ -46,7 +46,7 @@ class ErrorBoundary extends React.Component<Props, State> {
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ErrorBoundary>
-      <App baseUrl='https://swapi.dev/api/people/?search=' />
+      <App baseUrl="https://swapi.dev/api/people/?search=" />
     </ErrorBoundary>
   </React.StrictMode>
 );

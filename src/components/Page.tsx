@@ -35,10 +35,10 @@ class Page extends React.Component<Props> {
       if (page < count) pages.push({ link: page + 1, label: '>' });
     }
     return (
-      <ul className='pages'>
+      <ul className="pages">
         {pages.map(({ link, label }, index) => {
           return (
-            <li className='pages' key={`page-${index}`}>
+            <li className="pages" key={`page-${index}`}>
               <button key={`page-button-${index}`} onClick={() => this.props.setCurrent(link)}>
                 {label}
               </button>
