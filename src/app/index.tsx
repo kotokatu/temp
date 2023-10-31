@@ -1,6 +1,6 @@
+import { Router } from 'pages/router';
 import './index.css';
-import { MainPage } from 'pages/main-page';
 
 export const App = () => {
-  return <MainPage />;
+  return <Router />;
 };
