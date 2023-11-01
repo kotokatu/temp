@@ -1,23 +1,22 @@
-import { Component } from 'react';
-import { EmptyState, AppStateToProps, TransformPerson } from '../types';
+import { useEffect } from 'react';
+import { AppStateToProps, TransformPerson } from '../types';
 
 import './item-list.css';
 import Loader from '../loader';
 
-export default class ItemList extends Component<AppStateToProps, EmptyState> {
-  componentDidMount(): void {
-    const {
-      mainState: { searchPerson },
-    } = this.props;
+const ItemList: React.FC<AppStateToProps> = (
+  props: AppStateToProps
+): JSX.Element => {
+  const {
+    mainState: { people, searchPerson, loading },
+  } = props;
 
+  useEffect((): void => {
     searchPerson();
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  renderItems(): JSX.Element[] {
-    const {
-      mainState: { people },
-    } = this.props;
-
+  function renderItems(): JSX.Element[] {
     return people.map((person: TransformPerson): JSX.Element => {
       const { name, gender, birthYear, eyeColor, id, img } = person;
 
@@ -43,25 +42,21 @@ export default class ItemList extends Component<AppStateToProps, EmptyState> {
     });
   }
 
-  render(): JSX.Element {
-    const {
-      mainState: { loading },
-    } = this.props;
+  if (loading) return <Loader />;
 
-    if (loading) return <Loader />;
+  const items: JSX.Element[] = renderItems();
+  const message: JSX.Element | null = items.length ? null : (
+    <p className="text-warning">
+      Oops. There is no such character in our database.
+    </p>
+  );
 
-    const items: JSX.Element[] = this.renderItems();
-    const message: JSX.Element | null = items.length ? null : (
-      <p className="text-warning">
-        Oops. There is no such character in our database.
-      </p>
-    );
+  return (
+    <div className="item-list">
+      {items}
+      {message}
+    </div>
+  );
+};
 
-    return (
-      <div className="item-list">
-        {items}
-        {message}
-      </div>
-    );
-  }
-}
+export default ItemList;

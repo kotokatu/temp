@@ -11,13 +11,13 @@ export default class ErrorBoundry extends Component<
     hasError: false,
   };
 
-  componentDidCatch(): void {
+  public componentDidCatch(): void {
     this.setState({
       hasError: true,
     });
   }
 
-  render(): React.ReactNode {
+  public render(): React.ReactNode {
     if (this.state.hasError) {
       return <ErrorMessage />;
     }

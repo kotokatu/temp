@@ -1,29 +1,24 @@
-import { Component } from 'react';
+import { useState } from 'react';
 
 import './error-button.css';
-import { ErrorState, EmptyProps } from '../types';
+import { EmptyProps, HasError } from '../types';
 
-export default class ErrorButton extends Component<EmptyProps, ErrorState> {
-  state = {
-    hasError: false,
-  };
+const ErrorButton: React.FC<EmptyProps> = (): JSX.Element => {
+  const [hasError, setHasError] = useState<HasError>(false);
 
-  onSetError = (): void => {
-    this.setState({ hasError: true });
-  };
-
-  render(): JSX.Element {
-    if (this.state.hasError) {
-      throw new Error('Oops! Something bad happened!');
-    }
-
-    return (
-      <button
-        className="error-button btn btn-danger btn-lg"
-        onClick={this.onSetError}
-      >
-        Throw Error
-      </button>
-    );
+  function onSetError(): void {
+    setHasError(true);
   }
-}
+
+  if (hasError) {
+    throw new Error('Oops! Something bad happened!');
+  }
+
+  return (
+    <button className="error-button btn btn-danger btn-lg" onClick={onSetError}>
+      Throw Error
+    </button>
+  );
+};
+
+export default ErrorButton;

@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import { TransformPerson, EmptyProps, AppState } from '../types';
 import { StateContext } from '../contexts';
 
@@ -11,52 +11,48 @@ import ErrorBoundry from '../error-boundry';
 
 const swapi: Swapi = new Swapi();
 
-export default class App extends Component<EmptyProps, AppState> {
-  private setSearchTerm = (newTerm: string): void => {
-    this.setState((state: AppState): AppState => {
-      localStorage.setItem('termForSearching', newTerm);
-      return {
-        ...state,
-        term: newTerm.trim(),
-      };
-    });
-  };
+const App: React.FC<EmptyProps> = (): JSX.Element => {
+  const [term, setTerm] = useState(
+    localStorage.getItem('termForSearching') || ''
+  );
+  const [people, setPeople] = useState<TransformPerson[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  private searchPerson = (): void => {
-    if (this.state.loading) return;
+  function setSearchTerm(newTerm: string): void {
+    setTerm(newTerm.trim());
+  }
 
-    this.setState({ loading: true });
-    const { term } = this.state;
+  function searchPerson(): void {
+    if (loading) return;
+
+    setLoading(true);
+    localStorage.setItem('termForSearching', term);
 
     swapi.search(term).then((response: TransformPerson[]): void => {
-      this.setState(() => {
-        return {
-          people: response,
-          loading: false,
-        };
-      });
+      setPeople(response);
+      setLoading(false);
     });
-  };
-
-  public state: AppState = {
-    term: localStorage.getItem('termForSearching') || '',
-    people: [],
-    setSearchTerm: this.setSearchTerm,
-    searchPerson: this.searchPerson,
-    loading: false,
-  };
-
-  render(): JSX.Element {
-    return (
-      <ErrorBoundry>
-        <StateContext.Provider value={this.state}>
-          <div className="app">
-            <Header />
-            <Main />
-            <ErrorButton />
-          </div>
-        </StateContext.Provider>
-      </ErrorBoundry>
-    );
   }
-}
+
+  const state: AppState = {
+    term: term,
+    people: people,
+    setSearchTerm: setSearchTerm,
+    searchPerson: searchPerson,
+    loading: loading,
+  };
+
+  return (
+    <ErrorBoundry>
+      <StateContext.Provider value={state}>
+        <div className="app">
+          <Header />
+          <Main />
+          <ErrorButton />
+        </div>
+      </StateContext.Provider>
+    </ErrorBoundry>
+  );
+};
+
+export default App;

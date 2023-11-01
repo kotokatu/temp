@@ -29,8 +29,11 @@ export interface AppState {
   searchPerson: () => void;
   loading: boolean;
 }
+
+export type HasError = boolean;
+
 export interface ErrorState {
-  hasError: boolean;
+  hasError: HasError;
 }
 
 export interface EmptyProps {}

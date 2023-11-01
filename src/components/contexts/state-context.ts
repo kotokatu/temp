@@ -5,7 +5,7 @@ export const StateContext: React.Context<AppState> =
   React.createContext<AppState>({
     term: '',
     people: [],
-    setSearchTerm: () => {},
-    searchPerson: () => {},
+    setSearchTerm: (): void => {},
+    searchPerson: (): void => {},
     loading: false,
   });
