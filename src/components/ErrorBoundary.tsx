@@ -1,0 +1,43 @@
+import React from 'react';
+interface Props {
+  children?: React.ReactNode;
+  fallback?: React.ReactNode;
+}
+
+interface State {
+  hasError?: boolean;
+  error?: Error | null;
+  errorInfo?: React.ErrorInfo | null;
+}
+class ErrorBoundary extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = { error: null, errorInfo: null };
+  }
+  state = { error: null, errorInfo: null };
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    this.setState({
+      error: error,
+      errorInfo: errorInfo,
+    });
+  }
+
+  render() {
+    if (this.state.errorInfo) {
+      return (
+        <div>
+          <h2>Something went wrong.</h2>
+          <details className="error-info">
+            {`${this.state.error}`}
+            <br />
+            {Object(this.state.errorInfo).componentStack.toString()}
+          </details>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+export default ErrorBoundary;

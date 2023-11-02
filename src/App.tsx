@@ -1,128 +1,84 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Search from './components/Search';
+import Status from './components/Status';
 import Page from './components/Page';
 import List from './components/List';
 import './App.css';
-
-type AppProps = { baseUrl: string };
-type AppState = {
-  search: string;
-  result: string;
-  url: string;
-  page: number;
-  names: string[];
-  count: number;
-  status: string;
-  linesPerPage: number;
-  linksToPages: number;
-};
 type Result = { name: string };
 
-class App extends React.Component<AppProps, AppState> {
-  state = {
-    search: `${localStorage.getItem('Search') ?? ''}`,
-    url: '',
-    result: '',
-    page: 1,
-    names: [],
-    count: 0,
-    status: '',
-    linesPerPage: 10,
-    linksToPages: 2,
-  };
-  componentDidMount(): void {
-    this.setState((state) => ({
-      ...state,
-      url: `${this.props.baseUrl}${state.search}`,
-    }));
-  }
-  componentDidUpdate(prevProps: AppProps, prevState: AppState): void {
-    if (this.state.url !== prevState.url) {
-      localStorage.setItem('Search', this.state.search);
-      this.setStatus('...Loading');
-      fetch(this.state.url)
-        .then((response) => {
-          if (response.ok) return response.json();
-        })
-        .then((response) => {
-          const { count, results } = response;
-          this.result(
-            count,
-            results.map(({ name }: Result) => name)
-          );
-        })
-        .catch(() => this.setStatus(`Error: Unable perform the request`));
-    }
-  }
+const linesPerPage = 10;
+const linksToPages = 2;
+const baseUrl = 'https://swapi.dev/api/people/?search=';
 
-  setStatus = (status: string) => {
-    this.setState((state) => ({
-      ...state,
-      status,
-    }));
-  };
-  setInput = (value: string) => {
-    this.setState((state) => ({
-      ...state,
-      search: value,
-    }));
-  };
-  search = (page: number) => {
-    this.setState((state) => ({
-      ...state,
-      page: page,
-      search: state.search.trim(),
-      url: `${this.props.baseUrl}${state.search.trim()}&page=${page}`,
-    }));
-  };
-  result = (count: number, names: string[]) => {
-    this.setState((state) => ({
-      ...state,
-      count: count,
-      status: '',
-      page: this.state.page ?? 1,
-      result: `${count} found`,
-      names: [...names],
-    }));
-  };
+const App = () => {
+  const [search, setSearch] = useState(localStorage.getItem('Search') ?? '');
+  const [url, setUrl] = useState('');
+  const [page, setPage] = useState(1);
+  const [names, setNames] = useState([]);
+  const [count, setCount] = useState(0);
+  const [status, setStatus] = useState('');
+  const [result, setResult] = useState('');
 
-  render() {
-    if (this.state.status === 'error') throw new Error('Simulated error');
-    return (
-      <>
-        <h1>Star Wars Heroes</h1>
-        <div className="search">
-          <input
-            className="input-search"
-            value={this.state.search}
-            onChange={(e) => this.setInput(e.target.value)}
-          />
-          <button onClick={() => this.search(1)}>Search</button>
-          <button onClick={() => this.setStatus('error')}>Error</button>
-        </div>
-        <div>
-          {this.state.status}
-          {this.state.status !== '...Loading' && (
-            <>
-              {this.state.result}
-              <List
-                current={this.state.page}
-                count={this.state.count}
-                items={[...this.state.names]}
-                linesPerPage={this.state.linesPerPage}
-              />
-              <Page
-                current={this.state.page}
-                count={this.state.count}
-                linesPerPage={this.state.linesPerPage}
-                linksToPages={this.state.linksToPages}
-                setCurrent={this.search}
-              />
-            </>
-          )}
-        </div>
-      </>
-    );
-  }
-}
+  useEffect(() => {
+    const page = 1;
+    setPage(page);
+    setUrl(`${baseUrl}${search.trim()}&page=${page}`);
+  }, [search]);
 
+  useEffect(() => {
+    setUrl(`${baseUrl}${search.trim()}&page=${page}`);
+  }, [page]);
+
+  useEffect(() => {
+    if (!url) return;
+    if (status === '...Loading') return;
+    localStorage.setItem('Search', search);
+    setStatus('...Loading');
+    fetch(url)
+      .then((response) => {
+        if (response.ok) return response.json();
+      })
+      .then((response) => {
+        const { count, results } = response;
+        setCount(count);
+        setNames(results.map(({ name }: Result) => name));
+        setStatus('');
+        setResult(`${count} found`);
+      })
+      .catch((error) =>
+        setStatus(`Error: Unable perform the request ${error}`)
+      );
+  }, [url]);
+
+  if (status === 'error') throw new Error('Simulated error');
+  return (
+    <>
+      <h1>Star Wars Heroes</h1>
+      <div className="search">
+        <Search input={search} setSearch={setSearch} setStatus={setStatus} />
+      </div>
+      <div>
+        <Status status={status} linesPerPage={linesPerPage} />
+        {status !== '...Loading' && (
+          <>
+            {result}
+            <List
+              current={page}
+              count={count}
+              items={names}
+              linesPerPage={linesPerPage}
+            />
+            <Page
+              current={page}
+              count={count}
+              linesPerPage={linesPerPage}
+              linksToPages={linksToPages}
+              setCurrent={setPage}
+            />
+          </>
+        )}
+      </div>
+    </>
+  );
+};
 export default App;
