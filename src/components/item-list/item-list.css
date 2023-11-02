@@ -11,7 +11,39 @@
 }
 
 .person-image {
-  width: auto;
-  height: 190px;
+  width: 150px;
+  flex-shrink: 0;
   border-radius: 5px;
+  background-image: url('../../assets/icons/default_character.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.dwarf {
+  background-image: url('../../assets/icons/dwarf.png');
+}
+
+.hobbit {
+  background-image: url('../../assets/icons/hobbit.png');
+}
+
+.human {
+  background-image: url('../../assets/icons/human.png');
+}
+
+.elf,
+.elves {
+  background-image: url('../../assets/icons/elf.png');
+}
+
+.ents {
+  background-image: url('../../assets/icons/ents.png');
+}
+
+.maiar {
+  background-image: url('../../assets/icons/wizard.png');
+}
+
+.orc {
+  background-image: url('../../assets/icons/orc.png');
 }

@@ -22,7 +22,7 @@ const ItemList: React.FC<AppStateToProps> = (
 
       return (
         <div className="person-card card d-flex flex-row mb-3" key={_id}>
-          <img className="person-image" src={`img`} alt="character" />
+          <div className={`person-image ${race.toLowerCase()}`} />
           <div className="card-body">
             <h4>{name}</h4>
             <ul className="list-group list-group-flush">

@@ -23,7 +23,7 @@ export default class Api {
 
   public search = async (term: string): Promise<Character[]> => {
     const response: ResponseApi = await this.getData(
-      `/character?name=/${term}/i&page=1&limit=10`
+      `/character?name=/${term}/i&page=1&limit=100`
     );
 
     return response.docs;
