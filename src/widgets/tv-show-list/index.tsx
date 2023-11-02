@@ -10,7 +10,7 @@ export const TVShowList = ({ currentList }: TVShowListProps) => {
   }
 
   return (
-    <ul className={styles.list}>
+    <ul className={`${styles.list} scrollbar`}>
       {currentList.map((tvShowData) => (
         <li className={styles.listItem} key={tvShowData.id}>
           <TVShowCard

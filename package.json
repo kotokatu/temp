@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint:cmd": "eslint --report-unused-disable-directives --no-inline-config --max-warnings 0",
+    "lint:cmd": "eslint --ext .ts,.tsx --report-unused-disable-directives --no-inline-config --max-warnings 0",
     "lints:cmd": "stylelint --mw 0",
     "format:cmd": "prettier -u -l",
     "lint": "npm run lint:cmd -- .",

@@ -1,21 +1,21 @@
+import { Language } from 'shared/types/Language';
 import {
+  ApiShowSummary,
   GetByIdRequest,
+  GetByIdRequestBody,
   GetByIdResponse,
+  GetByIdResponseBody,
   GetRequest,
-  GetRequestBodySearch,
+  GetRequestBody,
   GetResponse,
 } from './types';
 
-type Language = 'en' | 'ru';
-
 const baseUrl = 'https://api.myshows.me/v2/rpc/';
-const defaultPage = 0;
-const defaultPageSize = 30;
 const defaultLang: Language = 'en';
 
 const fetchJson = async <TRequest, TResponse>(
   body: TRequest,
-  lang = defaultLang
+  lang: Language = defaultLang
 ): Promise<TResponse> => {
   const response = await fetch(baseUrl, {
     method: 'POST',
@@ -30,35 +30,51 @@ const fetchJson = async <TRequest, TResponse>(
   return json;
 };
 
-export const fetchTVShows = async (
-  page = defaultPage,
-  searchParams?: GetRequestBodySearch
-): Promise<GetResponse> => {
-  const body: GetRequest = {
-    jsonrpc: '2.0',
-    method: 'shows.Get',
-    params: {
-      search: { ...searchParams },
-      page,
-      pageSize: defaultPageSize,
+export const fetchTVShowList = async (
+  params: GetRequestBody,
+  lang: Language
+): Promise<{ count: number; list: ApiShowSummary[] }> => {
+  type TRequest = [GetRequest, GetRequest];
+  type TResponse = [GetResponse<number>, GetResponse<ApiShowSummary[]>];
+
+  const body: TRequest = [
+    {
+      jsonrpc: '2.0',
+      method: 'shows.Count',
+      params,
+      id: 1,
     },
-    id: 1,
+    {
+      jsonrpc: '2.0',
+      method: 'shows.Get',
+      params,
+      id: 2,
+    },
+  ];
+
+  const [count, list] = await fetchJson<TRequest, TResponse>(body, lang);
+
+  return {
+    count: count.result,
+    list: list.result,
   };
-
-  const json = await fetchJson<GetRequest, GetResponse>(body);
-
-  return json;
 };
 
-export const fetchTVShowById = async (id: number): Promise<GetByIdResponse> => {
+export const fetchTVShowById = async (
+  params: GetByIdRequestBody,
+  lang: Language
+): Promise<GetByIdResponseBody> => {
   const body: GetByIdRequest = {
     jsonrpc: '2.0',
     method: 'shows.GetById',
-    params: { showId: id, withEpisodes: false },
+    params,
     id: 1,
   };
 
-  const json = await fetchJson<GetByIdRequest, GetByIdResponse>(body);
+  const { result } = await fetchJson<GetByIdRequest, GetByIdResponse>(
+    body,
+    lang
+  );
 
-  return json;
+  return result;
 };

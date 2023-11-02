@@ -1,7 +1,5 @@
-import { ApiShowSummary } from '.';
-
-export type GetResponse = {
+export type GetResponse<TResult> = {
   jsonrpc: string;
-  result: ApiShowSummary[];
+  result: TResult;
   id: number;
 };

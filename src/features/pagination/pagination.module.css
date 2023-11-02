@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  height: min-content;
+  padding: 0.5rem;
+}
+
+.button {
+  min-width: 1.5rem;
+  font-size: 1rem;
+}
