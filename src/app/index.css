@@ -23,3 +23,7 @@ body {
   max-height: 100dvh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+.shadow {
+  box-shadow: 0 0 1rem;
+}

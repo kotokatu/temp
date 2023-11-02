@@ -1,7 +1,12 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .container {
   display: flex;
-  height: min-content;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 
 .button {

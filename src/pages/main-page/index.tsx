@@ -2,8 +2,7 @@ import { ErrorAlertButton } from 'features/error-alert-button';
 import { Loader } from 'features/loader';
 import { Pagination } from 'features/pagination';
 import { SearchBar } from 'features/search-bar';
-import { useContext, useMemo, useState } from 'react';
-import { LangContext } from 'shared/context/lang-context';
+import { useMemo, useState } from 'react';
 import { Header } from 'widgets/header';
 import { TVShowDetails } from 'widgets/tv-show-details';
 import { TVShowList } from 'widgets/tv-show-list';
@@ -12,6 +11,7 @@ import { useFetchTVShowList } from './lib/use-fetch-tv-show-list';
 import styles from './main-page.module.css';
 
 const searchQueryLocalStorageKey = '[ER-23Q4]searchQuery';
+const lang = 'en';
 
 export const MainPage = () => {
   const [searchQuery, setSearchQuery] = useState(
@@ -19,8 +19,6 @@ export const MainPage = () => {
   );
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(30);
-
-  const [lang] = useContext(LangContext);
 
   const fetchTVShowListParams = useMemo(
     () => ({ search: { query: searchQuery }, page: page - 1, pageSize }),

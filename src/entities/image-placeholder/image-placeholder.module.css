@@ -17,7 +17,7 @@
 
 .loader {
   user-select: none;
-  width: 50vmin;
+  width: 50%;
   border-radius: 50%;
   animation: 2.5s mirror-smooth infinite linear;
 }
@@ -26,5 +26,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  width: auto;
+  height: auto;
+
   background-color: #fffa;
 }

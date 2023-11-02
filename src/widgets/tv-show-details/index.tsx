@@ -1,6 +1,4 @@
-import { useContext } from 'react';
 import { GetByIdResponseBody } from 'shared/api/myshows/types';
-import { LangContext } from 'shared/context/lang-context';
 import styles from './tv-show-details.module.css';
 
 type DetailType = {
@@ -8,6 +6,8 @@ type DetailType = {
   value?: string | number;
   secondaryValue?: string;
 };
+
+const lang = 'en';
 
 const Detail = ({ title, value, secondaryValue }: DetailType) => {
   if (value) {
@@ -21,10 +21,8 @@ const Detail = ({ title, value, secondaryValue }: DetailType) => {
 };
 
 export const TVShowDetails = (details: GetByIdResponseBody) => {
-  const [lang] = useContext(LangContext);
-
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} scrollbar shadow`}>
       <h2 className={styles.heading}>
         {details.title}
         {details.titleOriginal &&

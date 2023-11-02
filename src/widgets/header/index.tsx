@@ -5,7 +5,7 @@ type HeaderProps = { children: ReactNode };
 
 export const Header = ({ children }: HeaderProps) => {
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} shadow`}>
       <h1 hidden={true}>TV Shows List</h1>
       {children}
     </header>

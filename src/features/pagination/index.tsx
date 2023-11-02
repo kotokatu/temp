@@ -36,30 +36,33 @@ export const Pagination = ({
   ];
 
   return (
-    <div className={styles.container}>
-      {buttons.map(([name, value]) => (
-        <button
-          className={styles.button}
-          disabled={page === value}
-          onClick={() => value && setPage(value)}
-          key={name}
-        >
-          {name}
-        </button>
-      ))}
-      <select
-        onChange={(e) => {
-          setPageSize(+e.target.value);
-          setPage(min);
-        }}
-        defaultValue={defaultPageSize}
-      >
-        {pageSizeOptions.map((value) => (
-          <option value={value} key={value}>
-            {value}
-          </option>
+    <div className={styles.wrapper + ' shadow'}>
+      <div className={`${styles.container} `}>
+        {buttons.map(([name, value]) => (
+          <button
+            className={styles.button}
+            disabled={page === value}
+            onClick={() => value && setPage(value)}
+            key={name}
+          >
+            {name}
+          </button>
         ))}
-      </select>
+        <select
+          onChange={(e) => {
+            setPageSize(+e.target.value);
+            setPage(min);
+          }}
+          defaultValue={defaultPageSize}
+          aria-label="items per page select element"
+        >
+          {pageSizeOptions.map((value) => (
+            <option value={value} key={value}>
+              {value}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 };

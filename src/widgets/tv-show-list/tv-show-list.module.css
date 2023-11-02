@@ -1,6 +1,6 @@
 .list {
   overflow-y: auto;
-  flex-grow: 1;
+  flex: 1 0 11rem;
 
   margin-block: 0;
   padding-inline-start: 0;
@@ -10,5 +10,4 @@
 
 .listItem {
   margin: 1rem;
-  box-shadow: 0 0 1rem;
 }

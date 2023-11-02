@@ -1,6 +1,7 @@
 .cardHeading {
   margin-block: 0;
   padding: 1rem;
+  word-wrap: break-word;
 }
 
 .image {
