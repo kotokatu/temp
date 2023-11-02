@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { AppStateToProps, TransformPerson } from '../types';
+import { AppStateToProps, Character } from '../types';
 
 import './item-list.css';
 import Loader from '../loader';
@@ -17,12 +17,12 @@ const ItemList: React.FC<AppStateToProps> = (
   }, []);
 
   function renderItems(): JSX.Element[] {
-    return people.map((person: TransformPerson): JSX.Element => {
-      const { name, gender, birthYear, eyeColor, id, img } = person;
+    return people.map((person: Character): JSX.Element => {
+      const { name, gender, race, birth, _id } = person;
 
       return (
-        <div className="person-card card d-flex flex-row mb-3" key={id}>
-          <img className="person-image" src={img} alt="character" />
+        <div className="person-card card d-flex flex-row mb-3" key={_id}>
+          <img className="person-image" src={`img`} alt="character" />
           <div className="card-body">
             <h4>{name}</h4>
             <ul className="list-group list-group-flush">
@@ -30,10 +30,10 @@ const ItemList: React.FC<AppStateToProps> = (
                 <span>{`Gender: ${gender}`}</span>
               </li>
               <li className="list-group-item">
-                <span>{`Birth Year: ${birthYear}`}</span>
+                <span>{`Birth: ${birth}`}</span>
               </li>
               <li className="list-group-item">
-                <span>{`Eye Color: ${eyeColor}`}</span>
+                <span>{`Race: ${race}`}</span>
               </li>
             </ul>
           </div>

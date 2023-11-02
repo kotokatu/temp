@@ -1,30 +1,28 @@
-export interface Person {
-  name: string;
-  birth_year: string;
+export interface Character {
+  _id: string;
+  birth: string;
+  death: string;
   gender: string;
-  eye_color: string;
-  url: string;
-}
-
-export interface TransformPerson {
-  id: string;
+  hair: string;
+  height: string;
   name: string;
-  birthYear: string;
-  gender: string;
-  eyeColor: string;
-  img: string;
+  race: string;
+  realm: string;
+  spouse: string;
+  wikiUrl: string;
 }
 
 export interface ResponseApi {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: Person[];
+  docs: Character[];
+  limit: number;
+  page: number;
+  pages: number;
+  total: number;
 }
 
 export interface AppState {
   term: string;
-  people: TransformPerson[];
+  people: Character[];
   setSearchTerm: (newTerm: string) => void;
   searchPerson: () => void;
   loading: boolean;

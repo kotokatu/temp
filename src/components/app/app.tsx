@@ -1,21 +1,21 @@
 import { useState } from 'react';
-import { TransformPerson, EmptyProps, AppState } from '../types';
+import { Character, EmptyProps, AppState } from '../types';
 import { StateContext } from '../contexts';
 
 import './app.css';
-import Swapi from '../../services/swapi';
+import Api from '../../services/api';
 import Header from '../header';
 import Main from '../main';
 import ErrorButton from '../error-button';
 import ErrorBoundry from '../error-boundry';
 
-const swapi: Swapi = new Swapi();
+const api: Api = new Api();
 
 const App: React.FC<EmptyProps> = (): JSX.Element => {
   const [term, setTerm] = useState(
     localStorage.getItem('termForSearching') || ''
   );
-  const [people, setPeople] = useState<TransformPerson[]>([]);
+  const [people, setPeople] = useState<Character[]>([]);
   const [loading, setLoading] = useState(false);
 
   function setSearchTerm(newTerm: string): void {
@@ -28,7 +28,7 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
     setLoading(true);
     localStorage.setItem('termForSearching', term);
 
-    swapi.search(term).then((response: TransformPerson[]): void => {
+    api.search(term).then((response: Character[]): void => {
       setPeople(response);
       setLoading(false);
     });
