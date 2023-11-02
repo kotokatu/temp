@@ -39,7 +39,10 @@ class Page extends React.Component<Props> {
         {pages.map(({ link, label }, index) => {
           return (
             <li className="pages" key={`page-${index}`}>
-              <button key={`page-button-${index}`} onClick={() => this.props.setCurrent(link)}>
+              <button
+                key={`page-button-${index}`}
+                onClick={() => this.props.setCurrent(link)}
+              >
                 {label}
               </button>
             </li>
