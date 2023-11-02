@@ -5,15 +5,23 @@ type DetailType = {
   title: string;
   value?: string | number;
   secondaryValue?: string;
+  href?: string;
 };
 
 const lang = 'en';
 
-const Detail = ({ title, value, secondaryValue }: DetailType) => {
+const Detail = ({ title, value, secondaryValue, href }: DetailType) => {
   if (value) {
     return (
       <li className={styles.detail}>
-        <b>{title}:</b> {value}
+        <b>{title}:</b>{' '}
+        {href ? (
+          <a href={href} target="_blank" rel="noreferrer">
+            {value}
+          </a>
+        ) : (
+          value
+        )}
         {secondaryValue && secondaryValue !== value && ` (${secondaryValue})`}
       </li>
     );
@@ -53,12 +61,21 @@ export const TVShowDetails = (details: GetByIdResponseBody) => {
         <Detail title="Episode duration (min)" value={details.runtime} />
         <Detail title="Episodes count" value={details.episodes?.length} />
         <Detail title="Seasons" value={details.totalSeasons} />
-        <Detail title="IMDB Rating (of 10)" value={details.imdbRating} />
+        <Detail
+          title="IMDB Rating (of 10)"
+          value={details.imdbRating}
+          href={details.imdbUrl}
+        />
         <Detail
           title="Kinopoisk Rating (of 10)"
           value={details.kinopoiskRating}
+          href={details.kinopoiskUrl}
         />
-        <Detail title="MyShows Rating (of 5)" value={details.rating} />
+        <Detail
+          title="MyShows Rating (of 5)"
+          value={details.rating}
+          href={`https://myshows.me/view/${details.id}`}
+        />
       </ul>
     </div>
   );
