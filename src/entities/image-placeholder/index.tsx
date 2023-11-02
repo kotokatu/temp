@@ -7,7 +7,7 @@ export const ImagePlaceholder = () => {
       <img
         src={loaderImageSrc}
         alt="image-placeholder"
-        className={styles.loader}
+        className={styles.image}
       />
     </div>
   );
