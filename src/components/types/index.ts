@@ -25,8 +25,9 @@ export interface AppState {
   data: Character[];
   limit: string;
   loading: boolean;
-  setSearchTerm: (newTerm: string) => void;
-  setLimitItem: (limit: string) => void;
+  messageError: string;
+  setTerm: (value: React.SetStateAction<string>) => void;
+  setLimit: (value: React.SetStateAction<string>) => void;
   searchData: () => void;
 }
 

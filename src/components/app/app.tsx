@@ -7,7 +7,6 @@ import Api from '../../services/api';
 import Header from '../header';
 import Main from '../main';
 import ErrorButton from '../error-button';
-import ErrorBoundry from '../error-boundry';
 
 const api: Api = new Api();
 
@@ -16,17 +15,10 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
     localStorage.getItem('termForSearching') || ''
   );
   const [data, setData] = useState<Character[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [messageError, setMessageError] = useState<string>('');
   const [limit, setLimit] = useState<string>('10');
   const [page] = useState<string>('1');
-
-  function setSearchTerm(newTerm: string): void {
-    setTerm(newTerm.trim());
-  }
-
-  function setLimitItem(limit: string): void {
-    setLimit(limit);
-  }
 
   function searchData(): void {
     if (loading) return;
@@ -34,10 +26,16 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
     setLoading(true);
     localStorage.setItem('termForSearching', term);
 
-    api.search(term, limit, page).then((response: Character[]): void => {
-      setData(response);
-      setLoading(false);
-    });
+    api
+      .search(term, limit, page)
+      .then((response: Character[] | string): void => {
+        if (typeof response === 'string') {
+          setMessageError(response);
+          return;
+        }
+        setData(response);
+        setLoading(false);
+      });
   }
 
   const state: AppState = {
@@ -45,21 +43,24 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
     data: data,
     limit: limit,
     loading: loading,
-    setSearchTerm: setSearchTerm,
+    messageError: messageError,
+    setTerm: setTerm,
+    setLimit: setLimit,
     searchData: searchData,
-    setLimitItem: setLimitItem,
   };
 
+  if (messageError) {
+    throw new Error(messageError);
+  }
+
   return (
-    <ErrorBoundry>
-      <StateContext.Provider value={state}>
-        <div className="app">
-          <Header />
-          <Main />
-          <ErrorButton />
-        </div>
-      </StateContext.Provider>
-    </ErrorBoundry>
+    <StateContext.Provider value={state}>
+      <div className="app">
+        <Header />
+        <Main />
+        <ErrorButton />
+      </div>
+    </StateContext.Provider>
   );
 };
 

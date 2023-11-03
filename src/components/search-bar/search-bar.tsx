@@ -5,11 +5,11 @@ const SearchBar: React.FC<AppStateToProps> = (
   props: AppStateToProps
 ): JSX.Element => {
   const {
-    mainState: { term, setSearchTerm, searchData },
+    mainState: { term, setTerm, searchData },
   } = props;
 
   const changeSearchTerm = (event: ChangeEvent<HTMLInputElement>): void => {
-    setSearchTerm(event.target.value);
+    setTerm(event.target.value.trim());
   };
 
   const searchTerm = (event: MouseEvent<HTMLElement>): void => {

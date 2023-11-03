@@ -7,7 +7,7 @@ const Pagination: React.FC<AppStateToProps> = (
   props: AppStateToProps
 ): JSX.Element => {
   const {
-    mainState: { searchData, limit, setLimitItem },
+    mainState: { searchData, limit, setLimit },
   } = props;
 
   const onGetDataWithLimit = (): void => {
@@ -15,7 +15,7 @@ const Pagination: React.FC<AppStateToProps> = (
   };
 
   const onSetLimit = (event: ChangeEvent<HTMLInputElement>): void => {
-    setLimitItem(event.target.value);
+    setLimit(event.target.value.trim());
   };
 
   return (
@@ -41,7 +41,7 @@ const Pagination: React.FC<AppStateToProps> = (
         <input
           type="text"
           className="form-control"
-          placeholder="Set limit"
+          placeholder="Set limit (def=10)..."
           onChange={onSetLimit}
           value={limit}
         />
