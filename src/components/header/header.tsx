@@ -1,6 +1,9 @@
 import { StateContext } from '../contexts';
 import SearchBar from '../search-bar';
 import { EmptyProps } from '../types';
+import Logo from '../../assets/icons/logo.png';
+
+import './header.css';
 
 const Header: React.FC<EmptyProps> = (): JSX.Element => {
   return (
@@ -9,7 +12,7 @@ const Header: React.FC<EmptyProps> = (): JSX.Element => {
       data-bs-theme="dark"
     >
       <div className="container-fluid">
-        <span className="navbar-brand">Swapi Characters DB </span>
+        <img className="navbar-brand" src={Logo} />
         <StateContext.Consumer>
           {(state) => {
             return <SearchBar mainState={state} />;
