@@ -15,30 +15,30 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
   const [term, setTerm] = useState(
     localStorage.getItem('termForSearching') || ''
   );
-  const [people, setPeople] = useState<Character[]>([]);
+  const [data, setData] = useState<Character[]>([]);
   const [loading, setLoading] = useState(false);
 
   function setSearchTerm(newTerm: string): void {
     setTerm(newTerm.trim());
   }
 
-  function searchPerson(): void {
+  function searchData(limit: string): void {
     if (loading) return;
 
     setLoading(true);
     localStorage.setItem('termForSearching', term);
 
-    api.search(term).then((response: Character[]): void => {
-      setPeople(response);
+    api.search(term, limit).then((response: Character[]): void => {
+      setData(response);
       setLoading(false);
     });
   }
 
   const state: AppState = {
     term: term,
-    people: people,
+    data: data,
     setSearchTerm: setSearchTerm,
-    searchPerson: searchPerson,
+    searchData: searchData,
     loading: loading,
   };
 

@@ -44,6 +44,7 @@
   background-image: url('../../assets/icons/wizard.png');
 }
 
-.orc {
+.orc,
+.orcs {
   background-image: url('../../assets/icons/orc.png');
 }

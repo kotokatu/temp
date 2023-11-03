@@ -1,0 +1,11 @@
+.pagination-bar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pagination-bar .input-group {
+  width: max-content;
+}

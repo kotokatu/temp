@@ -22,9 +22,9 @@ export interface ResponseApi {
 
 export interface AppState {
   term: string;
-  people: Character[];
+  data: Character[];
   setSearchTerm: (newTerm: string) => void;
-  searchPerson: () => void;
+  searchData: (limit: string) => void;
   loading: boolean;
 }
 

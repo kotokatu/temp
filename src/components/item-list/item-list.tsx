@@ -8,16 +8,16 @@ const ItemList: React.FC<AppStateToProps> = (
   props: AppStateToProps
 ): JSX.Element => {
   const {
-    mainState: { people, searchPerson, loading },
+    mainState: { data, searchData, loading },
   } = props;
 
   useEffect((): void => {
-    searchPerson();
+    searchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function renderItems(): JSX.Element[] {
-    return people.map((person: Character): JSX.Element => {
+    return data.map((person: Character): JSX.Element => {
       const { name, gender, race, birth, _id } = person;
 
       return (

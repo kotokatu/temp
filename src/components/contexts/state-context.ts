@@ -4,8 +4,8 @@ import { AppState } from '../types';
 export const StateContext: React.Context<AppState> =
   React.createContext<AppState>({
     term: '',
-    people: [],
+    data: [],
     setSearchTerm: (): void => {},
-    searchPerson: (): void => {},
+    searchData: (): void => {},
     loading: false,
   });

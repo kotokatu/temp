@@ -5,7 +5,7 @@ const SearchBar: React.FC<AppStateToProps> = (
   props: AppStateToProps
 ): JSX.Element => {
   const {
-    mainState: { term, setSearchTerm, searchPerson },
+    mainState: { term, setSearchTerm, searchData },
   } = props;
 
   const changeSearchTerm = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -14,7 +14,7 @@ const SearchBar: React.FC<AppStateToProps> = (
 
   const searchTerm = (event: MouseEvent<HTMLElement>): void => {
     event.preventDefault();
-    searchPerson();
+    searchData();
   };
 
   return (

@@ -21,9 +21,12 @@ export default class Api {
     return response.json();
   }
 
-  public search = async (term: string): Promise<Character[]> => {
+  public search = async (
+    term: string,
+    limit: string = '10'
+  ): Promise<Character[]> => {
     const response: ResponseApi = await this.getData(
-      `/character?name=/${term}/i&page=1&limit=200`
+      `/character?name=/${term}/i&page=1&limit=${limit}`
     );
 
     return response.docs;
