@@ -5,6 +5,10 @@ type ErrorMessageProps = {
 };
 
 const ErrorMessage = ({ error }: ErrorMessageProps) => {
+  if (!error) {
+    return null;
+  }
+
   if (isRouteErrorResponse(error)) {
     console.error(error);
     return (
@@ -20,8 +24,6 @@ const ErrorMessage = ({ error }: ErrorMessageProps) => {
   if (error instanceof Error) {
     return <p>{error.message}</p>;
   }
-
-  return <p>{`${error}`}</p>;
 };
 
 export const ErrorPage = () => {
