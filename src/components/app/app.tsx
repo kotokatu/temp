@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Character, EmptyProps, AppState } from '../types';
+import { Character, EmptyProps, AppState, ResponseApi } from '../types';
 import { StateContext } from '../contexts';
 
 import './app.css';
@@ -18,7 +18,8 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
   const [loading, setLoading] = useState<boolean>(false);
   const [messageError, setMessageError] = useState<string>('');
   const [limit, setLimit] = useState<string>('10');
-  const [page] = useState<string>('1');
+  const [page, setPage] = useState<string>('1');
+  const [lastPage, setLastPage] = useState<string>('');
 
   function searchData(): void {
     if (loading) return;
@@ -28,12 +29,14 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
 
     api
       .search(term, limit, page)
-      .then((response: Character[] | string): void => {
+      .then((response: ResponseApi | string): void => {
         if (typeof response === 'string') {
           setMessageError(response);
           return;
         }
-        setData(response);
+        setData(response.docs);
+        setPage(`${response.page}`);
+        setLastPage(`${response.pages}`);
         setLoading(false);
       });
   }
@@ -42,10 +45,13 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
     term: term,
     data: data,
     limit: limit,
+    page: page,
+    lastPage: `${lastPage}`,
     loading: loading,
     messageError: messageError,
     setTerm: setTerm,
     setLimit: setLimit,
+    setPage: setPage,
     searchData: searchData,
   };
 
@@ -57,6 +63,7 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
     <StateContext.Provider value={state}>
       <div className="app">
         <Header />
+        {lastPage}
         <Main />
         <ErrorButton />
       </div>

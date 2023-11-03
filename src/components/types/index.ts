@@ -20,14 +20,19 @@ export interface ResponseApi {
   total: number;
 }
 
+type ReactSet = (value: React.SetStateAction<string>) => void;
+
 export interface AppState {
   term: string;
   data: Character[];
   limit: string;
+  page: string;
+  lastPage: string;
   loading: boolean;
   messageError: string;
-  setTerm: (value: React.SetStateAction<string>) => void;
-  setLimit: (value: React.SetStateAction<string>) => void;
+  setTerm: ReactSet;
+  setLimit: ReactSet;
+  setPage: ReactSet;
   searchData: () => void;
 }
 

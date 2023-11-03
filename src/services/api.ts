@@ -1,4 +1,4 @@
-import { ResponseApi, Character } from '../components/types';
+import { ResponseApi } from '../components/types';
 
 export default class Api {
   private baseApi: string = 'https://the-one-api.dev/v2';
@@ -31,7 +31,7 @@ export default class Api {
     term: string,
     limit: string,
     page: string
-  ): Promise<Character[] | string> => {
+  ): Promise<ResponseApi | string> => {
     const response: ResponseApi | string = await this.getData(
       `/character?name=/${term}/i&page=${page || '1'}&limit=${limit || '10'}`
     );
@@ -40,6 +40,6 @@ export default class Api {
       return response;
     }
 
-    return response.docs;
+    return response;
   };
 }

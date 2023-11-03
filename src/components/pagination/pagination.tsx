@@ -7,7 +7,7 @@ const Pagination: React.FC<AppStateToProps> = (
   props: AppStateToProps
 ): JSX.Element => {
   const {
-    mainState: { searchData, limit, setLimit },
+    mainState: { searchData, limit, setLimit, page, setPage, lastPage },
   } = props;
 
   const onGetDataWithLimit = (): void => {
@@ -16,6 +16,14 @@ const Pagination: React.FC<AppStateToProps> = (
 
   const onSetLimit = (event: ChangeEvent<HTMLInputElement>): void => {
     setLimit(event.target.value.trim());
+  };
+
+  const onNextPage = (): void => {
+    const nexPage: string = `${+page + 1}`;
+    if (+page < +lastPage) {
+      setPage(nexPage);
+      searchData();
+    }
   };
 
   return (
@@ -27,14 +35,10 @@ const Pagination: React.FC<AppStateToProps> = (
           </a>
         </li>
         <li className="page-item active">
-          <a className="page-link" href="#">
-            1
-          </a>
+          <span className="page-link">{page}</span>
         </li>
-        <li className="page-item">
-          <a className="page-link" href="#">
-            &raquo;
-          </a>
+        <li className="page-item" onClick={onNextPage}>
+          <a className="page-link">&raquo;</a>
         </li>
       </ul>
       <div className="limit input-group mb-3">
