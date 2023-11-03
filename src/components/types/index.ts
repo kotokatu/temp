@@ -23,9 +23,11 @@ export interface ResponseApi {
 export interface AppState {
   term: string;
   data: Character[];
-  setSearchTerm: (newTerm: string) => void;
-  searchData: (limit: string) => void;
+  limit: string;
   loading: boolean;
+  setSearchTerm: (newTerm: string) => void;
+  setLimitItem: (limit: string) => void;
+  searchData: () => void;
 }
 
 export type HasError = boolean;

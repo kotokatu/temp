@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 
 import './pagination.css';
 import { AppStateToProps } from '../types';
@@ -7,16 +7,15 @@ const Pagination: React.FC<AppStateToProps> = (
   props: AppStateToProps
 ): JSX.Element => {
   const {
-    mainState: { searchData },
+    mainState: { searchData, limit, setLimitItem },
   } = props;
-  const [limit, setLimit] = useState<string>('10');
 
-  const onGetData = (): void => {
-    searchData(limit);
+  const onGetDataWithLimit = (): void => {
+    searchData();
   };
 
   const onSetLimit = (event: ChangeEvent<HTMLInputElement>): void => {
-    setLimit(event.target.value);
+    setLimitItem(event.target.value);
   };
 
   return (
@@ -46,7 +45,11 @@ const Pagination: React.FC<AppStateToProps> = (
           onChange={onSetLimit}
           value={limit}
         />
-        <button className="btn btn-primary" type="button" onClick={onGetData}>
+        <button
+          className="btn btn-primary"
+          type="button"
+          onClick={onGetDataWithLimit}
+        >
           Button
         </button>
       </div>

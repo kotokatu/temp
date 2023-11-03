@@ -17,18 +17,24 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
   );
   const [data, setData] = useState<Character[]>([]);
   const [loading, setLoading] = useState(false);
+  const [limit, setLimit] = useState<string>('10');
+  const [page] = useState<string>('1');
 
   function setSearchTerm(newTerm: string): void {
     setTerm(newTerm.trim());
   }
 
-  function searchData(limit: string): void {
+  function setLimitItem(limit: string): void {
+    setLimit(limit);
+  }
+
+  function searchData(): void {
     if (loading) return;
 
     setLoading(true);
     localStorage.setItem('termForSearching', term);
 
-    api.search(term, limit).then((response: Character[]): void => {
+    api.search(term, limit, page).then((response: Character[]): void => {
       setData(response);
       setLoading(false);
     });
@@ -37,9 +43,11 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
   const state: AppState = {
     term: term,
     data: data,
+    limit: limit,
+    loading: loading,
     setSearchTerm: setSearchTerm,
     searchData: searchData,
-    loading: loading,
+    setLimitItem: setLimitItem,
   };
 
   return (
