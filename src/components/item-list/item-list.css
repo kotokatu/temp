@@ -1,22 +1,33 @@
 .item-list {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-evenly;
 }
 
-.person-card {
+.character-card {
   display: flex;
   flex-direction: row;
   width: 400px;
 }
 
-.person-image {
+.character-image {
   width: 150px;
   flex-shrink: 0;
   border-radius: 5px;
   background-image: url('../../assets/icons/default_character.png');
   background-size: cover;
   background-position: center;
+}
+
+.section-left {
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.section-right {
+  flex-basis: 50%;
+  flex-shrink: 0;
 }
 
 .dwarf {

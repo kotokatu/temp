@@ -42,4 +42,16 @@ export default class Api {
 
     return response;
   };
+
+  public getItemByID = async (id: string): Promise<ResponseApi | string> => {
+    const response: ResponseApi | string = await this.getData(
+      `/character/${id}`
+    );
+
+    if (typeof response === 'string') {
+      return response;
+    }
+
+    return response;
+  };
 }

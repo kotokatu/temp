@@ -55,7 +55,7 @@ const Pagination: React.FC<AppStateToProps> = (
         <input
           type="text"
           className="form-control"
-          placeholder="Set limit (def=10)..."
+          placeholder="default 10..."
           onChange={onSetLimit}
           value={currentLimit}
         />
@@ -64,7 +64,7 @@ const Pagination: React.FC<AppStateToProps> = (
           type="button"
           onClick={onGetDataWithLimit}
         >
-          Button
+          Set limit
         </button>
       </div>
     </div>

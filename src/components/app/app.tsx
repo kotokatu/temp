@@ -15,6 +15,7 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
     localStorage.getItem('termForSearching') || ''
   );
   const [data, setData] = useState<Character[]>([]);
+  const [itemData, setItemData] = useState<Character[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [messageError, setMessageError] = useState<string>('');
   const [limit, setLimit] = useState<string>('10');
@@ -41,9 +42,19 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
     }
   }
 
+  async function getItemData(id: string): Promise<void> {
+    const response: ResponseApi | string = await api.getItemByID(id);
+    if (typeof response === 'string') {
+      setMessageError(response);
+    } else {
+      setItemData(response.docs);
+    }
+  }
+
   const state: AppState = {
     term: term,
     data: data,
+    itemData: itemData,
     limit: limit,
     page: `${page}`,
     lastPage: `${lastPage}`,
@@ -53,6 +64,7 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
     setLimit: setLimit,
     setPage: setPage,
     searchData: searchData,
+    getItemData: getItemData,
   };
 
   if (messageError) {

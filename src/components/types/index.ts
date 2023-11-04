@@ -25,6 +25,7 @@ type ReactSet = (value: React.SetStateAction<string>) => void;
 export interface AppState {
   term: string;
   data: Character[];
+  itemData: Character[];
   limit: string;
   page: string;
   lastPage: string;
@@ -34,6 +35,7 @@ export interface AppState {
   setLimit: ReactSet;
   setPage: ReactSet;
   searchData: () => void;
+  getItemData: (id: string) => void;
 }
 
 export type HasError = boolean;
