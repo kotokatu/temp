@@ -1,12 +1,12 @@
 import Header from '../header';
-import Main from '../main';
 import ErrorButton from '../error-button';
+import { Outlet } from 'react-router';
 
 export default function Layout(): JSX.Element {
   return (
     <div className="app">
       <Header />
-      <Main />
+      <Outlet />
       <ErrorButton />
     </div>
   );

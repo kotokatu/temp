@@ -25,6 +25,10 @@
   justify-content: space-evenly;
 }
 
+.list-message {
+  flex-grow: 1;
+}
+
 .dwarf {
   background-image: url('../../assets/icons/dwarf.png');
 }

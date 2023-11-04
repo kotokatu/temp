@@ -45,7 +45,7 @@ const ItemList: React.FC<AppStateToProps> = (
 
   const items: JSX.Element[] = renderItems();
   const message: JSX.Element | null = items.length ? null : (
-    <p className="text-warning">
+    <p className="list-message text-warning">
       Oops. There is no such character in our database.
     </p>
   );
