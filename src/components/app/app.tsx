@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Character, EmptyProps, AppState, ResponseApi } from '../types';
 import { StateContext } from '../contexts';
 
@@ -21,31 +21,31 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
   const [page, setPage] = useState<string>('1');
   const [lastPage, setLastPage] = useState<string>('');
 
-  function searchData(): void {
+  useEffect(() => {
+    searchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, limit]);
+
+  async function searchData(): Promise<void> {
     if (loading) return;
 
     setLoading(true);
     localStorage.setItem('termForSearching', term);
-
-    api
-      .search(term, limit, page)
-      .then((response: ResponseApi | string): void => {
-        if (typeof response === 'string') {
-          setMessageError(response);
-          return;
-        }
-        setData(response.docs);
-        setPage(`${response.page}`);
-        setLastPage(`${response.pages}`);
-        setLoading(false);
-      });
+    const response: ResponseApi | string = await api.search(term, limit, page);
+    if (typeof response === 'string') {
+      setMessageError(response);
+    } else {
+      setData(response.docs);
+      setLastPage(`${response.pages}`);
+      setLoading(false);
+    }
   }
 
   const state: AppState = {
     term: term,
     data: data,
     limit: limit,
-    page: page,
+    page: `${page}`,
     lastPage: `${lastPage}`,
     loading: loading,
     messageError: messageError,

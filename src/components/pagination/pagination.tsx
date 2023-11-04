@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import './pagination.css';
 import { AppStateToProps } from '../types';
@@ -7,29 +7,39 @@ const Pagination: React.FC<AppStateToProps> = (
   props: AppStateToProps
 ): JSX.Element => {
   const {
-    mainState: { searchData, limit, setLimit, page, setPage, lastPage },
+    mainState: { setLimit, page, setPage, lastPage },
   } = props;
 
+  const [currentLimit, setCurrentLimit] = useState<string>('');
+  const firstPage: string = `1`;
+
   const onGetDataWithLimit = (): void => {
-    searchData();
+    setPage(firstPage);
+    setLimit(currentLimit);
   };
 
   const onSetLimit = (event: ChangeEvent<HTMLInputElement>): void => {
-    setLimit(event.target.value.trim());
+    setCurrentLimit(event.target.value.trim());
+  };
+
+  const onPrevPage = (): void => {
+    const prevPage: string = `${+page - +firstPage}`;
+    if (+page > +firstPage) {
+      setPage(prevPage);
+    }
   };
 
   const onNextPage = (): void => {
-    const nexPage: string = `${+page + 1}`;
+    const nextPage: string = `${+page + +firstPage}`;
     if (+page < +lastPage) {
-      setPage(nexPage);
-      searchData();
+      setPage(nextPage);
     }
   };
 
   return (
     <div className="pagination-bar">
       <ul className="pagination">
-        <li className="page-item disabled">
+        <li className="page-item disabled" onClick={onPrevPage}>
           <a className="page-link" href="#">
             &laquo;
           </a>
@@ -47,7 +57,7 @@ const Pagination: React.FC<AppStateToProps> = (
           className="form-control"
           placeholder="Set limit (def=10)..."
           onChange={onSetLimit}
-          value={limit}
+          value={currentLimit}
         />
         <button
           className="btn btn-primary"

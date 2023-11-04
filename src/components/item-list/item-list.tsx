@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { AppStateToProps, Character } from '../types';
 
 import './item-list.css';
@@ -8,13 +7,8 @@ const ItemList: React.FC<AppStateToProps> = (
   props: AppStateToProps
 ): JSX.Element => {
   const {
-    mainState: { data, searchData, loading },
+    mainState: { data, loading },
   } = props;
-
-  useEffect((): void => {
-    searchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   function renderItems(): JSX.Element[] {
     return data.map((person: Character): JSX.Element => {
