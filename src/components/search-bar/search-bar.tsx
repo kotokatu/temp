@@ -5,8 +5,9 @@ const SearchBar: React.FC<AppStateToProps> = (
   props: AppStateToProps
 ): JSX.Element => {
   const {
-    mainState: { term, setTerm, searchData },
+    mainState: { term, page, setTerm, searchData, setPage },
   } = props;
+  const firstPage: string = `1`;
 
   const changeSearchTerm = (event: ChangeEvent<HTMLInputElement>): void => {
     setTerm(event.target.value.trim());
@@ -14,7 +15,8 @@ const SearchBar: React.FC<AppStateToProps> = (
 
   const searchTerm = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    searchData();
+    if (page !== firstPage) setPage(firstPage);
+    else searchData();
   };
 
   return (

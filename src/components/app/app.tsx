@@ -82,7 +82,6 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Main />} />
-          <Route path="char" element={<p>Char</p>} />
         </Route>
       </Routes>
     </StateContext.Provider>

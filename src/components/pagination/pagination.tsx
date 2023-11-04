@@ -39,16 +39,20 @@ const Pagination: React.FC<AppStateToProps> = (
   return (
     <div className="pagination-bar">
       <ul className="pagination">
-        <li className="page-item disabled" onClick={onPrevPage}>
-          <a className="page-link" href="#">
-            &laquo;
-          </a>
+        <li
+          className={`page-item ${+page > +firstPage ? '' : 'disabled'}`}
+          onClick={onPrevPage}
+        >
+          <span className="page-link">&laquo;</span>
         </li>
         <li className="page-item active">
           <span className="page-link">{page}</span>
         </li>
-        <li className="page-item" onClick={onNextPage}>
-          <a className="page-link">&raquo;</a>
+        <li
+          className={`page-item ${+page < +lastPage ? '' : 'disabled'}`}
+          onClick={onNextPage}
+        >
+          <span className="page-link">&raquo;</span>
         </li>
       </ul>
       <div className="limit input-group mb-3">
