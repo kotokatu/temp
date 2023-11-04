@@ -1,0 +1,4 @@
+.section-right {
+  flex-basis: 50%;
+  flex-shrink: 0;
+}

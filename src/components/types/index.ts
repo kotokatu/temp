@@ -38,6 +38,8 @@ export interface AppState {
   getItemData: (id: string) => void;
 }
 
+export type ItemDetailsProps = { itemData: Character[] };
+
 export type HasError = boolean;
 
 export interface ErrorState {

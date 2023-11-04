@@ -75,7 +75,6 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
     <StateContext.Provider value={state}>
       <div className="app">
         <Header />
-        {lastPage}
         <Main />
         <ErrorButton />
       </div>
