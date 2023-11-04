@@ -17,7 +17,7 @@ export type GetByIdResponseBody = {
   kinopoiskVoted?: number;
   kinopoiskUrl?: string;
   tvrageId?: number;
-  imdbId?: string;
+  imdbId?: number;
   imdbRating?: number;
   imdbVoted?: number;
   imdbUrl?: string;

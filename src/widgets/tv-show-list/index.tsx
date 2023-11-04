@@ -1,6 +1,6 @@
-import styles from './tv-show-list.module.css';
 import { TVShowCard } from 'entities/tv-show-card';
 import { ApiShowSummary } from 'shared/api/myshows/types';
+import styles from './tv-show-list.module.css';
 
 type TVShowListProps = { currentList: ApiShowSummary[] };
 
@@ -14,6 +14,7 @@ export const TVShowList = ({ currentList }: TVShowListProps) => {
       {currentList.map((tvShowData) => (
         <li className={`${styles.listItem} shadow`} key={tvShowData.id}>
           <TVShowCard
+            id={tvShowData.id}
             title={tvShowData.title}
             status={tvShowData.status}
             year={tvShowData.year}

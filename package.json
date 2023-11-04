@@ -10,7 +10,7 @@
     "lints:cmd": "stylelint --mw 0",
     "format:cmd": "prettier -u -l",
     "lint": "npm run lint:cmd -- .",
-    "lints": "npm run lints:cmd -- \"**/*.css\"",
+    "lints": "npm run lints:cmd -- \"src/**/*.css\"",
     "format": "npm run format:cmd -- .",
     "lint:fix": "npm run lint -- --fix",
     "lints:fix": "npm run lints -- --fix",

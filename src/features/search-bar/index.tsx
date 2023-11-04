@@ -1,17 +1,20 @@
 import { FormEvent } from 'react';
+import { Form } from 'react-router-dom';
 import styles from './search-bar.module.css';
 import searchIconSrc from './ui/search-icon.svg';
 
 type SearchBarProps = {
-  searchQuery: string;
-  onSearchSubmit: (searchQuery?: string) => void;
+  queryName: string;
+  query: string;
+  onSearchSubmit: (query?: string) => void;
 };
 
-export const SearchBar = ({ searchQuery, onSearchSubmit }: SearchBarProps) => {
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-
-    const { target } = e;
+export const SearchBar = ({
+  queryName,
+  query,
+  onSearchSubmit,
+}: SearchBarProps) => {
+  const handleSubmit = ({ target }: FormEvent) => {
     if (target instanceof HTMLFormElement) {
       const formData = new FormData(target);
       onSearchSubmit(formData.get('search')?.toString());
@@ -19,19 +22,19 @@ export const SearchBar = ({ searchQuery, onSearchSubmit }: SearchBarProps) => {
   };
 
   return (
-    <form className={styles.searchBar} onSubmit={handleSubmit}>
+    <Form className={styles.searchBar} onSubmit={handleSubmit}>
       <input
         type="search"
         placeholder="Search…"
         className={styles.searchInput}
-        name="search"
-        defaultValue={searchQuery}
+        name={queryName}
+        defaultValue={query}
         autoFocus={true}
         autoComplete={'off'}
       />
       <button type="submit" className={styles.searchSubmit}>
         <img src={searchIconSrc} alt="search button" width={24} height={24} />
       </button>
-    </form>
+    </Form>
   );
 };

@@ -33,3 +33,20 @@
 .dead {
   filter: drop-shadow(var(--shadow-value) red);
 }
+
+.navLink {
+  display: block;
+  color: #000;
+  text-decoration: none;
+}
+
+.navLink:hover {
+  box-shadow: 0 0 0.2rem 0.1rem #00000080;
+}
+
+.active {
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 0.2rem 0.05rem #000,
+    0 0 0.2rem 0.05rem #000;
+}

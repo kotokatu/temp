@@ -1,72 +1,65 @@
+import { ImagePlaceholder } from 'entities/image-placeholder';
 import { ErrorAlertButton } from 'features/error-alert-button';
-import { Loader } from 'features/loader';
-import { Pagination } from 'features/pagination';
 import { SearchBar } from 'features/search-bar';
-import { useMemo, useState } from 'react';
-import { Header } from 'widgets/header';
-import { TVShowDetails } from 'widgets/tv-show-details';
+import { Suspense } from 'react';
+import { Outlet } from 'react-router';
+import { Await, useLoaderData } from 'react-router-dom';
+import { isTVShowListResponse } from 'shared/api/myshows/myshows.service';
+import { isObject } from 'shared/lib/is-object';
 import { TVShowList } from 'widgets/tv-show-list';
-import { useFetchTVShowDetails } from './lib/use-fetch-tv-show-details';
-import { useFetchTVShowList } from './lib/use-fetch-tv-show-list';
 import styles from './main-page.module.css';
 
-const searchQueryLocalStorageKey = '[ER-23Q4]searchQuery';
-const lang = 'en';
-
 export const MainPage = () => {
-  const [searchQuery, setSearchQuery] = useState(
-    localStorage.getItem(searchQueryLocalStorageKey) ?? ''
-  );
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(30);
+  const loaderData = useLoaderData();
 
-  const fetchTVShowListParams = useMemo(
-    () => ({ search: { query: searchQuery }, page: page - 1, pageSize }),
-    [searchQuery, page, pageSize]
-  );
+  if (!isObject(loaderData)) {
+    throw new Error('MainPage loaderData is not object');
+  }
 
-  const id = 48017;
-  const fetchTVShowDetailsParams = useMemo(
-    () => ({ showId: id, withEpisodes: true }),
-    [id]
-  );
+  const { search, searchQueryLocalStorageKey, tvShowListData } = loaderData;
 
-  const {
-    count,
-    list,
-    isFetching: isFetchingList,
-  } = useFetchTVShowList(fetchTVShowListParams, lang);
-  const { details, isFetching: isFetchingDetails } = useFetchTVShowDetails(
-    fetchTVShowDetailsParams,
-    lang
-  );
+  if (typeof search !== 'string') {
+    throw new Error('MainPage loaderData.search is not string');
+  }
 
-  const paginationProps = { pageSize, setPageSize, count, page, setPage };
+  if (typeof searchQueryLocalStorageKey !== 'string') {
+    throw new Error(
+      'MainPage loaderData.searchQueryLocalStorageKey is not string'
+    );
+  }
 
-  const handleSearchSubmit = (query = '') => {
-    setSearchQuery(query);
+  const handleSearchSubmit = (query: string = '') => {
     localStorage.setItem(searchQueryLocalStorageKey, query);
   };
 
   return (
     <>
-      <Header>
+      <header className={`${styles.header} shadow`}>
+        <h1 hidden={true}>TV Shows List</h1>
         <SearchBar
-          searchQuery={searchQuery}
+          queryName="search"
+          query={search}
           onSearchSubmit={handleSearchSubmit}
         />
-      </Header>
+      </header>
       <main className={styles.main}>
         <div className={styles.listSection}>
           <ErrorAlertButton />
-          <Loader enabled={isFetchingList}>
-            <TVShowList currentList={list} />
-          </Loader>
-          <Loader enabled={isFetchingDetails}>
-            <TVShowDetails {...details} />
-          </Loader>
+          <Suspense fallback={<ImagePlaceholder />}>
+            <Await resolve={tvShowListData}>
+              {(tvShowListData) => {
+                if (!isTVShowListResponse(tvShowListData)) {
+                  throw new Error('wrong TVShowListResponse type');
+                }
+
+                return (
+                  <TVShowList currentList={tvShowListData.list}></TVShowList>
+                );
+              }}
+            </Await>
+          </Suspense>
+          <Outlet />
         </div>
-        {!isFetchingList && <Pagination {...paginationProps} />}
       </main>
     </>
   );

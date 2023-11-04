@@ -1,6 +1,7 @@
-import styles from './tv-show-card.module.css';
 import { SyntheticEvent } from 'react';
+import { NavLink } from 'react-router-dom';
 import { ApiShowSummary } from 'shared/api/myshows/types';
+import styles from './tv-show-card.module.css';
 import cardImagePlaceholderSrc from './ui/card-image-placeholder.webp';
 
 const getStyledStatus = (status = '') => {
@@ -14,7 +15,7 @@ const getStyledStatus = (status = '') => {
 };
 
 export const TVShowCard = (props: ApiShowSummary) => {
-  const { title, status, year, image, totalSeasons, rating } = props;
+  const { id, title, status, year, image, totalSeasons, rating } = props;
 
   const styledStatusData = getStyledStatus(status);
   const styledStatus = styledStatusData && (
@@ -28,7 +29,12 @@ export const TVShowCard = (props: ApiShowSummary) => {
   };
 
   return (
-    <>
+    <NavLink
+      to={`/details/${id}`}
+      className={({ isActive }) => {
+        return styles.navLink + (isActive ? ` ${styles.active}` : '');
+      }}
+    >
       <h2 className={styles.cardHeading}>{title}</h2>
       <img
         className={styles.image}
@@ -47,6 +53,6 @@ export const TVShowCard = (props: ApiShowSummary) => {
         <br />
         Seasons: {totalSeasons}
       </p>
-    </>
+    </NavLink>
   );
 };

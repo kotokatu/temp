@@ -1,3 +1,15 @@
+.header {
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 1rem;
+
+  background-color: #fff;
+}
+
 .main {
   overflow-y: auto;
   display: flex;
@@ -8,6 +20,8 @@
 .listSection {
   overflow-y: auto;
   display: flex;
+  justify-content: space-between;
+
   width: 100%;
   max-width: 100rem;
 }

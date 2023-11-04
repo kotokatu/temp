@@ -10,5 +10,5 @@ export type ApiEpisodeSummary = {
   image?: string;
   shortName?: string;
   commentsCount?: number;
-  isSpecial?: number;
+  isSpecial?: boolean;
 };

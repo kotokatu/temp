@@ -1,4 +1,7 @@
+import { isObject } from 'shared/lib/is-object';
 import { Language } from 'shared/types/Language';
+import { isApiShowSummary } from './typeguards/is-api-show-summary.guard';
+import { isGetByIdResponseBody } from './typeguards/is-get-by-id-response-body.guard';
 import {
   ApiShowSummary,
   GetByIdRequest,
@@ -25,15 +28,32 @@ const fetchJson = async <TRequest, TResponse>(
     },
     body: JSON.stringify(body),
   });
-  const json = await response.json();
 
-  return json;
+  return response.json();
+};
+
+type TVShowListResponse = {
+  count: number;
+  list: ApiShowSummary[];
+};
+
+export const isTVShowListResponse = (
+  obj: unknown
+): obj is TVShowListResponse => {
+  if (!isObject(obj)) {
+    return false;
+  }
+  return (
+    typeof obj.count === 'number' &&
+    Array.isArray(obj.list) &&
+    obj.list.every(isApiShowSummary)
+  );
 };
 
 export const fetchTVShowList = async (
   params: GetRequestBody,
   lang: Language
-): Promise<{ count: number; list: ApiShowSummary[] }> => {
+): Promise<TVShowListResponse> => {
   type TRequest = [GetRequest, GetRequest];
   type TResponse = [GetResponse<number>, GetResponse<ApiShowSummary[]>];
 
@@ -54,10 +74,16 @@ export const fetchTVShowList = async (
 
   const [count, list] = await fetchJson<TRequest, TResponse>(body, lang);
 
-  return {
+  const result = {
     count: count.result,
     list: list.result,
   };
+
+  if (!isTVShowListResponse(result)) {
+    throw Error('wrong type from api');
+  }
+
+  return result;
 };
 
 export const fetchTVShowById = async (
@@ -75,6 +101,10 @@ export const fetchTVShowById = async (
     body,
     lang
   );
+
+  if (!isGetByIdResponseBody(result)) {
+    throw Error('wrong type from api');
+  }
 
   return result;
 };
