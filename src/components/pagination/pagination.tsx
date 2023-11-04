@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 import './pagination.css';
 import { AppStateToProps } from '../types';
@@ -7,13 +7,14 @@ const Pagination: React.FC<AppStateToProps> = (
   props: AppStateToProps
 ): JSX.Element => {
   const {
-    mainState: { setLimit, page, setPage, lastPage },
+    mainState: { setLimit, page, setPage, lastPage, limit },
   } = props;
 
-  const [currentLimit, setCurrentLimit] = useState<string>('');
+  const [currentLimit, setCurrentLimit] = useState<string>(limit);
   const firstPage: string = `1`;
 
-  const onGetDataWithLimit = (): void => {
+  const onGetDataWithLimit = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
     setPage(firstPage);
     setLimit(currentLimit);
   };
@@ -46,7 +47,7 @@ const Pagination: React.FC<AppStateToProps> = (
           <span className="page-link">&laquo;</span>
         </li>
         <li className="page-item active">
-          <span className="page-link">{page}</span>
+          <span className="page-link current-page">{page}</span>
         </li>
         <li
           className={`page-item ${+page < +lastPage ? '' : 'disabled'}`}
@@ -55,7 +56,7 @@ const Pagination: React.FC<AppStateToProps> = (
           <span className="page-link">&raquo;</span>
         </li>
       </ul>
-      <div className="limit input-group mb-3">
+      <form className="limit input-group mb-3" onSubmit={onGetDataWithLimit}>
         <input
           type="text"
           className="form-control"
@@ -63,14 +64,10 @@ const Pagination: React.FC<AppStateToProps> = (
           onChange={onSetLimit}
           value={currentLimit}
         />
-        <button
-          className="btn btn-primary"
-          type="button"
-          onClick={onGetDataWithLimit}
-        >
+        <button className="btn btn-primary" type="button">
           Set limit
         </button>
-      </div>
+      </form>
     </div>
   );
 };
