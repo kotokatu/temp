@@ -1,68 +1,80 @@
-import { Dispatch, SetStateAction } from 'react';
+import { useFetcher, useSearchParams } from 'react-router-dom';
+import {
+  defaultPageSizeValue,
+  defaultPageValue,
+  pageParamName,
+  pageSizeParamName,
+} from 'shared/constants';
 import styles from './pagination.module.css';
 
 type PaginationProps = {
   count: number;
-  pageSize: number;
-  setPageSize: Dispatch<SetStateAction<number>>;
-  page: number;
-  setPage: Dispatch<SetStateAction<number>>;
+  pageSizeOptions: number[];
 };
 
-export const Pagination = ({
-  count,
-  pageSize,
-  setPageSize,
-  page,
-  setPage,
-}: PaginationProps) => {
-  const pageSizeOptions = [5, 10, 20, 30, 50];
-  const defaultPageSize = pageSizeOptions.includes(pageSize)
-    ? pageSize
-    : pageSizeOptions[3];
+export const Pagination = ({ count, pageSizeOptions }: PaginationProps) => {
+  const fetcher = useFetcher();
+  const [params, setParams] = useSearchParams();
 
-  const [min, max] = [1, Math.ceil(count / pageSize)];
+  const page =
+    +(params.get(pageParamName) ?? defaultPageValue) || defaultPageValue;
+
+  const paramsPageSize = +(
+    params.get(pageSizeParamName) ?? defaultPageSizeValue
+  );
+  const pageSize = pageSizeOptions.includes(paramsPageSize)
+    ? paramsPageSize
+    : defaultPageSizeValue;
+
+  const [min, max] = [defaultPageValue, Math.ceil(count / pageSize)];
   const [prevPage, nextPage] = [
     Math.max(min, page - 1),
     Math.min(page + 1, max),
   ];
 
-  const buttons: [string, number | null][] = [
+  const buttons: [string, number][] = [
     ['«', min],
     ['‹', prevPage],
-    [`${page}`, null],
+    [`${page}`, page],
     ['›', nextPage],
     ['»', max],
   ];
 
   return (
-    <div className={styles.wrapper + ' shadow'}>
-      <div className={`${styles.container} `}>
-        {buttons.map(([name, value]) => (
-          <button
-            className={styles.button}
-            disabled={page === value}
-            onClick={() => value && setPage(value)}
-            key={name}
-          >
-            {name}
-          </button>
-        ))}
-        <select
-          onChange={(e) => {
-            setPageSize(+e.target.value);
-            setPage(min);
+    <fetcher.Form className={styles.container}>
+      {buttons.map(([name, value]) => (
+        <button
+          key={name}
+          className={styles.button}
+          disabled={page === value}
+          onClick={() => {
+            setParams((prev) => {
+              prev.set(pageParamName, `${value}`);
+              return prev;
+            });
           }}
-          defaultValue={defaultPageSize}
-          aria-label="items per page select element"
         >
-          {pageSizeOptions.map((value) => (
-            <option value={value} key={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </div>
-    </div>
+          {name}
+        </button>
+      ))}
+      <select
+        className={styles.select}
+        aria-label="items per page select element"
+        defaultValue={pageSize}
+        onChange={(e) => {
+          setParams((prev) => ({
+            ...Object.fromEntries(prev.entries()),
+            [pageSizeParamName]: e.target.value,
+            [pageParamName]: defaultPageValue.toString(),
+          }));
+        }}
+      >
+        {pageSizeOptions.map((value) => (
+          <option value={value} key={value}>
+            {value}
+          </option>
+        ))}
+      </select>
+    </fetcher.Form>
   );
 };

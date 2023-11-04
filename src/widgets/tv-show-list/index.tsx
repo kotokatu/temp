@@ -11,19 +11,21 @@ export const TVShowList = ({ currentList }: TVShowListProps) => {
 
   return (
     <ul className={`${styles.list} scrollbar`}>
-      {currentList.map((tvShowData) => (
-        <li className={`${styles.listItem} shadow`} key={tvShowData.id}>
-          <TVShowCard
-            id={tvShowData.id}
-            title={tvShowData.title}
-            status={tvShowData.status}
-            year={tvShowData.year}
-            image={tvShowData.image}
-            totalSeasons={tvShowData.totalSeasons}
-            rating={tvShowData.rating}
-          />
-        </li>
-      ))}
+      {currentList.map(
+        ({ id, title, status, year, image, totalSeasons, rating }) => (
+          <li className={styles.listItem} key={id}>
+            <TVShowCard
+              id={id}
+              title={title}
+              status={status}
+              year={year}
+              image={image}
+              totalSeasons={totalSeasons}
+              rating={rating}
+            />
+          </li>
+        )
+      )}
     </ul>
   );
 };

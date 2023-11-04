@@ -1,24 +1,49 @@
-import { LoaderFunction, createSearchParams, defer } from 'react-router-dom';
+import { LoaderFunction, redirect } from 'react-router-dom';
 import { fetchTVShowList } from 'shared/api/myshows/myshows.service';
+import {
+  defaultLanguage,
+  defaultPageSizeValue,
+  defaultPageValue,
+  defaultQueryValue,
+  pageParamName,
+  pageSizeParamName,
+  queryParamName,
+  searchQueryLocalStorageKey,
+} from 'shared/constants';
 
-export const searchQueryLocalStorageKey = '[ER-23Q4]searchQuery';
-export const defaultSearch = '';
-export const defaultPage = 1;
-export const defaultPageSize = 30;
+const getSearchParams = (searchParams: URLSearchParams) => {
+  const query =
+    searchParams.get(queryParamName) ??
+    localStorage.getItem(searchQueryLocalStorageKey) ??
+    defaultQueryValue;
+
+  const page = searchParams.get(pageParamName) ?? `${defaultPageValue}`;
+  const pageSize =
+    searchParams.get(pageSizeParamName) ?? `${defaultPageSizeValue}`;
+
+  return { query, page, pageSize };
+};
 
 export const mainPageLoader: LoaderFunction = async ({ request }) => {
-  const params = createSearchParams(request.url);
-  const search =
-    params.get('search') ??
-    localStorage.getItem(searchQueryLocalStorageKey) ??
-    defaultSearch;
-  const page = +(params.get('page') ?? defaultPage) - 1;
-  const pageSize = +(params.get('pageSize') ?? defaultPageSize);
+  const url = new URL(request.url);
+
+  const { query, page, pageSize } = getSearchParams(url.searchParams);
+
+  const params = {
+    [queryParamName]: query,
+    [pageParamName]: page,
+    [pageSizeParamName]: pageSize,
+  } as const;
+
+  if (Object.keys(params).some((param) => !url.searchParams.has(param))) {
+    Object.entries(params).forEach((args) => url.searchParams.set(...args));
+    return redirect(url.toString());
+  }
 
   const tvShowListData = fetchTVShowList(
-    { search: { query: search }, page, pageSize },
-    'en'
+    { search: { query }, page: +page - 1, pageSize: +pageSize },
+    defaultLanguage
   );
 
-  return defer({ search, tvShowListData, searchQueryLocalStorageKey });
+  return { tvShowListData };
 };

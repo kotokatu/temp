@@ -1,5 +1,5 @@
 import { SyntheticEvent } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { ApiShowSummary } from 'shared/api/myshows/types';
 import styles from './tv-show-card.module.css';
 import cardImagePlaceholderSrc from './ui/card-image-placeholder.webp';
@@ -15,6 +15,7 @@ const getStyledStatus = (status = '') => {
 };
 
 export const TVShowCard = (props: ApiShowSummary) => {
+  const location = useLocation();
   const { id, title, status, year, image, totalSeasons, rating } = props;
 
   const styledStatusData = getStyledStatus(status);
@@ -30,7 +31,7 @@ export const TVShowCard = (props: ApiShowSummary) => {
 
   return (
     <NavLink
-      to={`/details/${id}`}
+      to={`/details/${id}${location.search}`}
       className={({ isActive }) => {
         return styles.navLink + (isActive ? ` ${styles.active}` : '');
       }}

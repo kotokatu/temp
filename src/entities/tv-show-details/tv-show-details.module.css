@@ -1,0 +1,31 @@
+.container {
+  position: relative;
+  z-index: 3;
+
+  overflow-y: auto;
+  flex: 1 1 50%;
+
+  padding-inline: 1rem;
+
+  background-color: #fff;
+}
+
+.detailList {
+  padding-inline: 0.5rem 0;
+  list-style: none;
+}
+
+.title {
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
+
+.close {
+  cursor: pointer;
+
+  display: block;
+
+  aspect-ratio: 1;
+  height: 3rem;
+  margin-top: 1rem;
+}

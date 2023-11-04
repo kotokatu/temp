@@ -67,11 +67,11 @@ A student can achieve a maximum of 100 points.
 #### Cross-check (score can be less if some parts of the functionality don't work)
 
 - [x] Conversion of class components to functional components with hooks - **20**
-- [ ] Pagination is present in both URL and on the page - **30**
-- [ ] User-initiated change of items per page triggers a new request, displaying the first page - **20**
-- [ ] Upon clicking, open details panel on the right side of the page: - **5**
-  - [ ] use router outlet, left side of the page should continue displaying the list of results - **10**
-  - [ ] initiate an additional API call, display a loader, and update the URL - **5**
+- [x] Pagination is present in both URL and on the page - **30**
+- [x] User-initiated change of items per page triggers a new request, displaying the first page - **20**
+- [x] Upon clicking, open details panel on the right side of the page: - **5**
+  - [x] use router outlet, left side of the page should continue displaying the list of results - **10**
+  - [x] initiate an additional API call, display a loader, and update the URL - **5**
   - [ ] Details panel should be closed either on the "close" button click or on the main panel click - **10**
 
 #### Penalties

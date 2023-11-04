@@ -1,15 +1,19 @@
-.wrapper {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
 .container {
-  display: flex;
-  padding: 1rem;
+  display: inline-grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.2rem;
+
+  width: 100%;
+  max-width: fit-content;
 }
 
-.button {
-  min-width: 1.5rem;
-  font-size: 1rem;
+.button,
+.select {
+  user-select: none;
+  aspect-ratio: 1;
+}
+
+.button:not(:disabled),
+.select:not(:disabled) {
+  cursor: pointer;
 }

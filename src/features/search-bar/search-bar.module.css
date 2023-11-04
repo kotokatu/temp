@@ -1,15 +1,21 @@
-.searchBar {
-  display: flex;
+.container {
+  display: inline-flex;
   width: 100%;
   max-width: 30rem;
   height: 3rem;
 }
 
-.searchInput {
+.input {
   flex-grow: 1;
   padding-inline: 0.5rem;
 }
 
-.searchSubmit {
+.input::-webkit-search-cancel-button {
+  cursor: pointer;
+  padding: 0.15rem;
+}
+
+.submit {
+  cursor: pointer;
   aspect-ratio: 1;
 }

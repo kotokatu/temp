@@ -1,13 +1,14 @@
 .list {
-  overflow-y: auto;
-  flex: 1 0 11rem;
-
+  overflow: visible;
   margin-block: 0;
   padding-inline-start: 0;
-
   list-style: none;
 }
 
 .listItem {
-  margin: 1rem;
+  box-shadow: 0 0 1rem;
+}
+
+.listItem:not(:first-child) {
+  margin-top: 1rem;
 }
