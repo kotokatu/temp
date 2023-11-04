@@ -7,6 +7,12 @@
   display: flex;
   flex-direction: row;
   width: 400px;
+  transition: all ease-in 0.3s;
+  cursor: pointer;
+}
+
+.character-card:hover {
+  border-color: rgb(55, 90, 127);
 }
 
 .character-image {

@@ -26,6 +26,7 @@ export interface AppState {
   term: string;
   data: Character[];
   itemData: Character[];
+  id: string;
   limit: string;
   page: string;
   lastPage: string;
@@ -34,11 +35,11 @@ export interface AppState {
   setTerm: ReactSet;
   setLimit: ReactSet;
   setPage: ReactSet;
+  setId: ReactSet;
   searchData: () => void;
-  getItemData: (id: string) => void;
 }
 
-export type ItemDetailsProps = { itemData: Character[] };
+export type ItemDetailsProps = { setId: ReactSet; itemData: Character[] };
 
 export type HasError = boolean;
 

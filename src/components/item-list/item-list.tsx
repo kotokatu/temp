@@ -8,7 +8,7 @@ const ItemList: React.FC<AppStateToProps> = (
   props: AppStateToProps
 ): JSX.Element => {
   const {
-    mainState: { data, loading, itemData, getItemData },
+    mainState: { data, loading, itemData, setId, id },
   } = props;
 
   function renderItems(): JSX.Element[] {
@@ -17,9 +17,11 @@ const ItemList: React.FC<AppStateToProps> = (
 
       return (
         <div
-          className="character-card card d-flex flex-row mb-3"
+          className={`character-card card d-flex flex-row mb-3 ${
+            id === _id ? 'border-success' : ''
+          }`}
           key={_id}
-          onClick={() => getItemData(_id)}
+          onClick={() => setId(_id)}
         >
           <div className={`character-image ${race.toLowerCase()}`} />
           <div className="card-body">
@@ -53,7 +55,7 @@ const ItemList: React.FC<AppStateToProps> = (
   return (
     <div className="item-list">
       <section className="section-left"> {items}</section>
-      <ItemDetails itemData={itemData} />
+      <ItemDetails setId={setId} itemData={itemData} />
       {message}
     </div>
   );

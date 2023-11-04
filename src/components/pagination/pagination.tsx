@@ -64,7 +64,7 @@ const Pagination: React.FC<AppStateToProps> = (
           onChange={onSetLimit}
           value={currentLimit}
         />
-        <button className="btn btn-primary" type="button">
+        <button className="btn btn-primary" type="submit">
           Set limit
         </button>
       </form>

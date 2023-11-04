@@ -2,3 +2,14 @@
   flex-basis: 50%;
   flex-shrink: 0;
 }
+
+.section-right .details-card {
+  position: relative;
+}
+
+.details-card .btn-close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  transition: all ease-in 0.3s;
+}

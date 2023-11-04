@@ -22,19 +22,21 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
   const [limit, setLimit] = useState<string>(searchParams.get('limit') || '10');
   const [page, setPage] = useState<string>(searchParams.get('page') || '1');
   const [lastPage, setLastPage] = useState<string>('');
+  const [id, setId] = useState<string>(searchParams.get('id') || '');
+  const query = { name: term, page: page, limit: limit, id: id };
 
   useEffect(() => {
     searchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, limit]);
 
+  useEffect(() => {
+    getItemData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
   async function searchData(): Promise<void> {
     if (loading) return;
-    const query = {
-      name: term,
-      page: page,
-      limit: limit,
-    };
     setSearchParams(query);
     setLoading(true);
     localStorage.setItem('termForSearching', term);
@@ -48,12 +50,17 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
     }
   }
 
-  async function getItemData(id: string): Promise<void> {
-    const response: ResponseApi | string = await api.getItemByID(id);
-    if (typeof response === 'string') {
-      setMessageError(response);
+  async function getItemData(): Promise<void> {
+    setSearchParams(query);
+    if (!id) {
+      setItemData([]);
     } else {
-      setItemData(response.docs);
+      const response: ResponseApi | string = await api.getItemByID(id);
+      if (typeof response === 'string') {
+        setMessageError(response);
+      } else {
+        setItemData(response.docs);
+      }
     }
   }
 
@@ -61,6 +68,7 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
     term: term,
     data: data,
     itemData: itemData,
+    id: id,
     limit: limit,
     page: `${page}`,
     lastPage: `${lastPage}`,
@@ -69,8 +77,8 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
     setTerm: setTerm,
     setLimit: setLimit,
     setPage: setPage,
+    setId: setId,
     searchData: searchData,
-    getItemData: getItemData,
   };
 
   if (messageError) {
