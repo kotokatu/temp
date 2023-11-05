@@ -1,14 +1,14 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 type Props = {
   current: number;
   count: number;
   linesPerPage: number;
   linksToPages: number;
-  setCurrent: (current: number) => void;
 };
 type PageButton = { link: number; label: string };
-
+const pageLimits: number[] = [5, 10, 20, 50, 100];
 const Page = (props: Props) => {
   const count = Math.ceil(props.count / props.linesPerPage);
   const pageStart = Math.max(1, props.current - props.linksToPages);
@@ -34,15 +34,26 @@ const Page = (props: Props) => {
       {pages.map(({ link, label }, index) => {
         return (
           <li className="pages" key={`page-${index}`}>
-            <button
-              key={`page-button-${index}`}
-              onClick={() => props.setCurrent(link)}
+            <NavLink
+              className="page-link"
+              to={`/search?&page=${link}&limit=${props.linesPerPage}`}
             >
               {label}
-            </button>
+            </NavLink>
           </li>
         );
       })}
+      <li>
+        {pageLimits.map((limit, index) => (
+          <NavLink
+            className="page-link"
+            key={`page-limits-${index}`}
+            to={`/search?&page=1&limit=${limit}`}
+          >
+            {limit}
+          </NavLink>
+        ))}
+      </li>
     </ul>
   );
 };

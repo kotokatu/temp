@@ -14,7 +14,7 @@ const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState(localStorage.getItem('Search') ?? '');
   const [url, setUrl] = useState('');
-  const [page, setPage] = useState(Number(searchParams.get('page') ?? 4));
+  const [page, setPage] = useState(Number(searchParams.get('page') ?? 1));
   const [names, setNames] = useState<string[]>([]);
   const [count, setCount] = useState(0);
   const [status, setStatus] = useState('');
@@ -46,6 +46,12 @@ const SearchPage = () => {
   }, [page]);
 
   useEffect(() => {
+    setPage(Number(searchParams.get('page') ?? 1));
+    setLinesPerPages(Number(searchParams.get('limit') ?? 10));
+  }, [searchParams]);
+
+  useEffect(() => {
+    // console.log('...', searchParams);
     goToPage(page);
     console.log('#url', url, page);
     if (!url) return;
@@ -159,7 +165,6 @@ const SearchPage = () => {
               count={count}
               linesPerPage={linesPerPage}
               linksToPages={linksToPages}
-              setCurrent={goToPage}
             />
           </>
         )}
