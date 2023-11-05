@@ -22,7 +22,7 @@ export interface ResponseApi {
 
 type ReactSet = (value: React.SetStateAction<string>) => void;
 
-export interface AppState {
+export interface AppContext {
   term: string;
   data: Character[];
   itemData: Character[];
@@ -51,8 +51,8 @@ export interface EmptyProps {}
 
 export interface EmptyState {}
 
-export interface AppStateToProps {
-  mainState: AppState;
+export interface AppContextToProps {
+  context: AppContext;
 }
 
 export type WithChildrenProps = {

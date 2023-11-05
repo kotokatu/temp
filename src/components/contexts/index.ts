@@ -1,3 +1,3 @@
-import { StateContext } from './state-context';
+import { Context } from './context';
 
-export { StateContext };
+export { Context };

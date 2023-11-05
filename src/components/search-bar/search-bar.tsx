@@ -1,11 +1,11 @@
 import { ChangeEvent, FormEvent } from 'react';
-import { AppStateToProps } from '../types';
+import { AppContextToProps } from '../types';
 
-const SearchBar: React.FC<AppStateToProps> = (
-  props: AppStateToProps
+const SearchBar: React.FC<AppContextToProps> = (
+  props: AppContextToProps
 ): JSX.Element => {
   const {
-    mainState: { term, page, setTerm, searchData, setPage },
+    context: { term, page, setTerm, searchData, setPage },
   } = props;
   const firstPage: string = `1`;
 

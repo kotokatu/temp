@@ -1,4 +1,4 @@
-import { StateContext } from '../contexts';
+import { Context } from '../contexts';
 
 import './main.css';
 import ItemList from '../item-list';
@@ -8,17 +8,17 @@ import Pagination from '../pagination';
 const Main: React.FC<EmptyProps> = (): JSX.Element => {
   return (
     <div className="main container-fluid">
-      <StateContext.Consumer>
+      <Context.Consumer>
         {(state) => {
-          return <Pagination mainState={state} />;
+          return <Pagination context={state} />;
         }}
-      </StateContext.Consumer>
+      </Context.Consumer>
       <h2 className="text-center mb-3">Characters</h2>
-      <StateContext.Consumer>
+      <Context.Consumer>
         {(state) => {
-          return <ItemList mainState={state} />;
+          return <ItemList context={state} />;
         }}
-      </StateContext.Consumer>
+      </Context.Consumer>
     </div>
   );
 };

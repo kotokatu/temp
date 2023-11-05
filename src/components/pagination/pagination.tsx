@@ -1,13 +1,13 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 
 import './pagination.css';
-import { AppStateToProps } from '../types';
+import { AppContextToProps } from '../types';
 
-const Pagination: React.FC<AppStateToProps> = (
-  props: AppStateToProps
+const Pagination: React.FC<AppContextToProps> = (
+  props: AppContextToProps
 ): JSX.Element => {
   const {
-    mainState: { setLimit, page, setPage, lastPage, limit },
+    context: { setLimit, page, setPage, lastPage, limit },
   } = props;
 
   const [currentLimit, setCurrentLimit] = useState<string>(limit);

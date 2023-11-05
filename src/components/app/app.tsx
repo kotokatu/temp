@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Character, EmptyProps, AppState, ResponseApi } from '../types';
-import { StateContext } from '../contexts';
+import { Character, EmptyProps, AppContext, ResponseApi } from '../types';
+import { Context } from '../contexts';
 import { Route, Routes, useSearchParams } from 'react-router-dom';
 
 import './app.css';
@@ -64,7 +64,7 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
     }
   }
 
-  const state: AppState = {
+  const context: AppContext = {
     term: term,
     data: data,
     itemData: itemData,
@@ -86,13 +86,13 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
   }
 
   return (
-    <StateContext.Provider value={state}>
+    <Context.Provider value={context}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Main />} />
         </Route>
       </Routes>
-    </StateContext.Provider>
+    </Context.Provider>
   );
 };
 

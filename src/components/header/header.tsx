@@ -1,4 +1,4 @@
-import { StateContext } from '../contexts';
+import { Context } from '../contexts';
 import SearchBar from '../search-bar';
 import { EmptyProps } from '../types';
 import Logo from '../../assets/icons/logo.png';
@@ -13,11 +13,11 @@ const Header: React.FC<EmptyProps> = (): JSX.Element => {
     >
       <div className="container-fluid">
         <img className="navbar-brand" src={Logo} />
-        <StateContext.Consumer>
+        <Context.Consumer>
           {(state) => {
-            return <SearchBar mainState={state} />;
+            return <SearchBar context={state} />;
           }}
-        </StateContext.Consumer>
+        </Context.Consumer>
       </div>
     </div>
   );

@@ -1,14 +1,14 @@
-import { AppStateToProps, Character } from '../types';
+import { AppContextToProps, Character } from '../types';
 
 import './item-list.css';
 import Loader from '../loader';
 import ItemDetails from '../item-details';
 
-const ItemList: React.FC<AppStateToProps> = (
-  props: AppStateToProps
+const ItemList: React.FC<AppContextToProps> = (
+  props: AppContextToProps
 ): JSX.Element => {
   const {
-    mainState: { data, loading, itemData, setId, id },
+    context: { data, loading, itemData, setId, id },
   } = props;
 
   function renderItems(): JSX.Element[] {
