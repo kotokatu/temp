@@ -29,3 +29,19 @@
   padding-right: 1em;
 }
 
+.section-list {
+  display: inline-block;
+  vertical-align: top;
+}
+.section-info {
+  margin-top: 2em;
+  display: inline-block;
+  vertical-align: top;
+  width: 30em;
+  text-align: left;
+}
+
+.button-close {
+  float: right;
+  display: inline-block
+}

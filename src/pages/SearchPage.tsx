@@ -3,17 +3,21 @@ import Search from '../components/Search';
 import Status from '../components/Status';
 import Page from '../components/Page';
 import List from '../components/List';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useParams, Outlet } from 'react-router-dom';
 
 const linksToPages = 2;
 const baseUrl = 'https://swapi.dev/api/people/?search=';
-
+export interface Detail {
+  name: string;
+}
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const params = useParams();
+  const { id } = params;
   const [search, setSearch] = useState(localStorage.getItem('Search') ?? '');
   const [url, setUrl] = useState('');
   const [page, setPage] = useState(Number(searchParams.get('page') ?? 1));
-  const [names, setNames] = useState<string[]>([]);
+  const [names, setNames] = useState<Detail[]>([]);
   const [count, setCount] = useState(0);
   const [status, setStatus] = useState('');
   const [result, setResult] = useState('');
@@ -51,7 +55,7 @@ const SearchPage = () => {
   }, [url, page]);
 
   const getList = async (url: string, page: number, limit: number) => {
-    const tempList: string[] = [];
+    const tempList: Detail[] = [];
     let count = 0;
     let totalCount = 0;
     await fetch(url)
@@ -92,7 +96,8 @@ const SearchPage = () => {
           )
         );
       })
-      .then((flatList) => flatList.map(({ name }) => tempList.push(name)))
+      // .then((flatList) => flatList.map(({ name }) => tempList.push(name)))
+      .then((flatList) => flatList.map((item) => tempList.push(item)))
       .catch((error) =>
         setStatus(`Error: Unable perform the request ${error}`)
       );
@@ -113,29 +118,36 @@ const SearchPage = () => {
   return (
     <>
       <h1>Star Wars Heroes</h1>
-      <div className="search">
-        <Search input={search} setSearch={setSearch} setStatus={setStatus} />
-      </div>
-      <div>
-        <Status status={status} linesPerPage={linesPerPage} />
+      <section className="section-list">
+        <div className="search">
+          <Search input={search} setSearch={setSearch} setStatus={setStatus} />
+        </div>
+        <div>
+          <Status status={status} linesPerPage={linesPerPage} />
+          {status !== '...Loading' && (
+            <>
+              {result}
+              <List
+                current={page}
+                count={count}
+                items={names}
+                linesPerPage={linesPerPage}
+              />
+              <Page
+                current={page}
+                count={count}
+                linesPerPage={linesPerPage}
+                linksToPages={linksToPages}
+              />
+            </>
+          )}
+        </div>
+      </section>
+      <section className="section-info">
         {status !== '...Loading' && (
-          <>
-            {result}
-            <List
-              current={page}
-              count={count}
-              items={names}
-              linesPerPage={linesPerPage}
-            />
-            <Page
-              current={page}
-              count={count}
-              linesPerPage={linesPerPage}
-              linksToPages={linksToPages}
-            />
-          </>
+          <Outlet context={names[Number(id) - 1 ?? 0]} />
         )}
-      </div>
+      </section>
     </>
   );
 };
