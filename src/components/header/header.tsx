@@ -14,7 +14,7 @@ const Header: React.FC<AppContextToProps> = (
   } = props;
 
   return (
-    <header className="header" onClick={() => setId('')}>
+    <header className="header" onClick={(): void => setId('')}>
       <div className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
         <div className="container-fluid">
           <img className="navbar-brand" src={Logo} />

@@ -28,7 +28,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({
           <button
             type="button"
             className="btn-close"
-            onClick={() => setId('')}
+            onClick={(): void => setId('')}
           ></button>
           <div className="card-body">
             <h4>{name}</h4>

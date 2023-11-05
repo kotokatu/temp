@@ -1,3 +1,4 @@
+import { MouseEvent, useRef } from 'react';
 import { AppContextToProps, Character } from '../types';
 
 import './item-list.css';
@@ -11,10 +12,17 @@ const ItemList: React.FC<AppContextToProps> = (
     context: { data, loading, loadingItem, itemData, setId, id },
   } = props;
 
+  const leftList: React.MutableRefObject<null> = useRef(null);
+
   function onChangeId(_id: string): void {
     if (_id === id) setId('');
     else setId(_id);
   }
+
+  const onCloseDetails = (event: MouseEvent<HTMLDivElement>): void => {
+    event.stopPropagation();
+    if (leftList.current === event.target) setId('');
+  };
 
   function renderItems(): JSX.Element[] {
     return data.map((character: Character): JSX.Element => {
@@ -26,7 +34,7 @@ const ItemList: React.FC<AppContextToProps> = (
             id === _id ? 'border-success' : ''
           }`}
           key={_id}
-          onClick={() => onChangeId(_id)}
+          onClick={(): void => onChangeId(_id)}
         >
           <div className={`character-image ${race.toLowerCase()}`} />
           <div className="card-body">
@@ -59,7 +67,9 @@ const ItemList: React.FC<AppContextToProps> = (
 
   return (
     <div className="item-list">
-      <section className="section-left"> {items}</section>
+      <div className="section-left" onClick={onCloseDetails} ref={leftList}>
+        {items}
+      </div>
       <ItemDetails
         loadingItem={loadingItem}
         setId={setId}
