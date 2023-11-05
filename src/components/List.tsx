@@ -9,12 +9,12 @@ type Props = {
 };
 
 const List = (props: Props) => {
-  const items: Items[] = Array(10).fill('');
+  const items: Items[] = Array(props.linesPerPage).fill('');
   const count = props.count;
   const start = (props.current - 1) * props.linesPerPage;
   const end = Math.min(start + props.linesPerPage, count);
   if (!count || start > end || start < 0) return <></>;
-
+  console.log('???', count);
   return (
     <ol start={start + 1}>
       {items.map((item, index) =>

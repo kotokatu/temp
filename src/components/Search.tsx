@@ -8,6 +8,7 @@ type Props = {
 
 const Search = (props: Props) => {
   const [input, setInput] = useState(props.input);
+
   return (
     <div>
       <input
