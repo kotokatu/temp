@@ -36,10 +36,10 @@ const ItemList: React.FC<AppContextToProps> = (
                 <span>{`Gender: ${gender}`}</span>
               </li>
               <li className="list-group-item">
-                <span>{`Birth: ${birth}`}</span>
+                <span>{`Race: ${race}`}</span>
               </li>
               <li className="list-group-item">
-                <span>{`Race: ${race}`}</span>
+                <span>{`Birth: ${birth}`}</span>
               </li>
             </ul>
           </div>

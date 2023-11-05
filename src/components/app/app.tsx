@@ -44,6 +44,7 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
 
   async function searchData(): Promise<void> {
     if (loading) return;
+    setId('');
     setSearchParams(query);
     setLoading(true);
     localStorage.setItem('termForSearching', term);
