@@ -1,8 +1,13 @@
+import Loader from '../loader';
 import { ItemDetailsProps } from '../types';
 
 import './item-details.css';
 
-const ItemDetails: React.FC<ItemDetailsProps> = ({ setId, itemData }) => {
+const ItemDetails: React.FC<ItemDetailsProps> = ({
+  loadingItem,
+  setId,
+  itemData,
+}) => {
   function renderItem(): JSX.Element {
     const { name, gender, race, birth, _id } = itemData[0];
     return (
@@ -33,8 +38,15 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({ setId, itemData }) => {
   }
 
   const item: JSX.Element | null = itemData.length ? renderItem() : null;
+  const content: JSX.Element | null = loadingItem ? (
+    <section className="section-right">
+      <Loader />
+    </section>
+  ) : (
+    item
+  );
 
-  return item;
+  return content;
 };
 
 export default ItemDetails;

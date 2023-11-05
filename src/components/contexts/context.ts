@@ -11,6 +11,7 @@ export const Context: React.Context<AppContext> =
     page: '',
     lastPage: '',
     loading: false,
+    loadingItem: false,
     messageError: '',
     setTerm: (): void => {},
     setLimit: (): void => {},

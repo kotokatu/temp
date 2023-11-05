@@ -18,6 +18,7 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
   const [data, setData] = useState<Character[]>([]);
   const [itemData, setItemData] = useState<Character[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [loadingItem, setLoadingItem] = useState<boolean>(false);
   const [messageError, setMessageError] = useState<string>('');
   const [limit, setLimit] = useState<string>(searchParams.get('limit') || '10');
   const [page, setPage] = useState<string>(searchParams.get('page') || '1');
@@ -51,15 +52,19 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
   }
 
   async function getItemData(): Promise<void> {
+    if (loadingItem) return;
     setSearchParams(query);
+    setLoadingItem(true);
     if (!id) {
       setItemData([]);
+      setLoadingItem(false);
     } else {
       const response: ResponseApi | string = await api.getItemByID(id);
       if (typeof response === 'string') {
         setMessageError(response);
       } else {
         setItemData(response.docs);
+        setLoadingItem(false);
       }
     }
   }
@@ -73,6 +78,7 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
     page: `${page}`,
     lastPage: `${lastPage}`,
     loading: loading,
+    loadingItem: loadingItem,
     messageError: messageError,
     setTerm: setTerm,
     setLimit: setLimit,

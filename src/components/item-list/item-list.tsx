@@ -8,8 +8,13 @@ const ItemList: React.FC<AppContextToProps> = (
   props: AppContextToProps
 ): JSX.Element => {
   const {
-    context: { data, loading, itemData, setId, id },
+    context: { data, loading, loadingItem, itemData, setId, id },
   } = props;
+
+  function onChangeId(_id: string): void {
+    if (_id === id) setId('');
+    else setId(_id);
+  }
 
   function renderItems(): JSX.Element[] {
     return data.map((character: Character): JSX.Element => {
@@ -21,7 +26,7 @@ const ItemList: React.FC<AppContextToProps> = (
             id === _id ? 'border-success' : ''
           }`}
           key={_id}
-          onClick={() => setId(_id)}
+          onClick={() => onChangeId(_id)}
         >
           <div className={`character-image ${race.toLowerCase()}`} />
           <div className="card-body">
@@ -55,7 +60,11 @@ const ItemList: React.FC<AppContextToProps> = (
   return (
     <div className="item-list">
       <section className="section-left"> {items}</section>
-      <ItemDetails setId={setId} itemData={itemData} />
+      <ItemDetails
+        loadingItem={loadingItem}
+        setId={setId}
+        itemData={itemData}
+      />
       {message}
     </div>
   );

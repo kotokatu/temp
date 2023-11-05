@@ -31,6 +31,7 @@ export interface AppContext {
   page: string;
   lastPage: string;
   loading: boolean;
+  loadingItem: boolean;
   messageError: string;
   setTerm: ReactSet;
   setLimit: ReactSet;
@@ -39,7 +40,11 @@ export interface AppContext {
   searchData: () => void;
 }
 
-export type ItemDetailsProps = { setId: ReactSet; itemData: Character[] };
+export type ItemDetailsProps = {
+  loadingItem: boolean;
+  setId: ReactSet;
+  itemData: Character[];
+};
 
 export type HasError = boolean;
 
