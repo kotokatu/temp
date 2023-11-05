@@ -24,3 +24,7 @@ body {
   justify-content: space-between;
   max-height: inherit;
 }
+
+#root > * {
+  flex: 1 1 50%;
+}
