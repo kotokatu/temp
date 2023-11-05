@@ -2,7 +2,7 @@ import { ImagePlaceholder } from 'entities/image-placeholder';
 import { Loader } from 'features/loader';
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { defaultLanguage } from 'shared/constants';
+import { Endpoint, defaultLanguage } from 'shared/constants';
 import { useLoaderDataObject } from 'shared/lib/use-loader-data-object';
 import { useFetchTVShowDetails } from './lib/use-fetch-tv-show-details';
 import styles from './tv-show-details.module.css';
@@ -45,7 +45,7 @@ export const TVShowDetails = () => {
   }
 
   const handleClose = () => {
-    navigation(`/${location.search}`);
+    navigation(`${Endpoint.ROOT}${location.search}`);
   };
 
   const fetchTVShowDetailsParams = useMemo(

@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { ApiShowSummary } from 'shared/api/myshows/types';
 import styles from './tv-show-card.module.css';
 import cardImagePlaceholderSrc from './ui/card-image-placeholder.webp';
+import { Endpoint } from 'shared/constants';
 
 const getStyledStatus = (status = '') => {
   const dict: Record<string, { style: string; text: string }> = {
@@ -31,7 +32,7 @@ export const TVShowCard = (props: ApiShowSummary) => {
 
   return (
     <NavLink
-      to={`/details/${id}${location.search}`}
+      to={`${Endpoint.DETAILS}${id}${location.search}`}
       className={({ isActive }) => {
         return styles.navLink + (isActive ? ` ${styles.active}` : '');
       }}

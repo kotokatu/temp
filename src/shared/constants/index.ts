@@ -10,3 +10,8 @@ export const pageSizeParamName = 'pageSize';
 export const defaultPageSizeValue = 30;
 
 export const defaultLanguage = 'en';
+
+export const enum Endpoint {
+  ROOT = '/',
+  DETAILS = '/details/',
+}

@@ -4,22 +4,22 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ErrorPage } from './error-page';
 import { MainPage } from './main-page';
 import { mainPageLoader } from './main-page/api/main-page-loader';
+import { Endpoint } from 'shared/constants';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: Endpoint.ROOT,
     element: <MainPage />,
     errorElement: <ErrorPage />,
     loader: mainPageLoader,
     children: [
       {
-        path: '/details/:id',
+        path: `${Endpoint.DETAILS}:id`,
         loader: tvShowDetailsLoader,
         element: <TVShowDetails />,
       },
     ],
   },
-  { path: '*', element: <h1>404. Not Found</h1> },
 ]);
 
 export const Router = () => <RouterProvider router={router} />;
