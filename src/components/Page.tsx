@@ -1,5 +1,5 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { RouterPath } from './AppRoutes';
 
 type Props = {
   current: number;
@@ -36,7 +36,7 @@ const Page = (props: Props) => {
           <li className="pages" key={`page-${index}`}>
             <NavLink
               className="page-link"
-              to={`/search?&page=${link}&limit=${props.linesPerPage}`}
+              to={`${RouterPath.SEARCH}?&page=${link}&limit=${props.linesPerPage}`}
             >
               {label}
             </NavLink>
@@ -48,7 +48,7 @@ const Page = (props: Props) => {
           <NavLink
             className="page-link"
             key={`page-limits-${index}`}
-            to={`/search?&page=1&limit=${limit}`}
+            to={`${RouterPath.SEARCH}?&page=1&limit=${limit}`}
           >
             {limit}
           </NavLink>

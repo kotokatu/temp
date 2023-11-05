@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Search from '../components/Search';
 import Status from '../components/Status';
 import Page from '../components/Page';
 import List from '../components/List';
 import { useSearchParams } from 'react-router-dom';
-// type Result = { name: string };
 
-// const linesPerPage = 10;
 const linksToPages = 2;
 const baseUrl = 'https://swapi.dev/api/people/?search=';
 
@@ -22,19 +20,12 @@ const SearchPage = () => {
   const [linesPerPage, setLinesPerPages] = useState(
     Number(searchParams.get('limit') ?? 10)
   );
+
   useEffect(() => {
     goToPage(page);
-    getList(
-      `https://swapi.dev/api/people/?search=${search}`,
-      page,
-      linesPerPage
-    );
-    // console.log(
-    //   '>>>',
-    //   await getList('https://swapi.dev/api/people/?search=lu')
-    // );
-    console.log('##', names, page);
+    getList(`${baseUrl}${search}`, page, linesPerPage);
   }, []);
+
   useEffect(() => {
     const page = 1;
     setPage(page);
@@ -51,41 +42,22 @@ const SearchPage = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    // console.log('...', searchParams);
     goToPage(page);
-    console.log('#url', url, page);
     if (!url) return;
     if (status === '...Loading') return;
     localStorage.setItem('Search', search);
     setStatus('...Loading');
     getList(url, page, linesPerPage);
-    // fetch(url)
-    //   .then((response) => {
-    //     if (response.ok) return response.json();
-    //   })
-    //   .then((response) => {
-    //     const { count, results } = response;
-    //     setCount(count);
-    //     setNames(results.map(({ name }: Result) => name));
-    //     setStatus('');
-    //     setResult(`${count} found`);
-    //   })
-    //   .catch((error) =>
-    //     setStatus(`Error: Unable perform the request ${error}`)
-    //   );
   }, [url, page]);
 
   const getList = async (url: string, page: number, limit: number) => {
     const tempList: string[] = [];
     let count = 0;
-    console.log('url', url);
     let totalCount = 0;
     await fetch(url)
       .then((response) => (response.ok ? response.json() : []))
       .then((result) => {
-        const { count, results, next } = result;
-        const names = results.map(({ name }: { name: string }) => name);
-        console.log(count, names, next);
+        const { count } = result;
         totalCount = count;
       })
       .catch((error) => console.error(error));
@@ -101,10 +73,6 @@ const SearchPage = () => {
     const urls: string[] = [];
     for (let pageIndex = startPage; pageIndex <= finishPage; pageIndex++)
       urls.push(`${baseUrl}${search}&page=${pageIndex}`);
-    console.log(urls);
-    console.log('start/finish', startIndex, finishIndex /* , totalCount */);
-    console.log('start/finish pages', startPage, finishPage);
-    console.log('offsets', startOffset, finishOffset);
     await Promise.allSettled(urls.map((url) => fetch(url)))
       .then((promises) =>
         promises.map((promise) => Object(promise).value.json())
@@ -133,7 +101,6 @@ const SearchPage = () => {
     setStatus('');
     setResult(`${count} found`);
     setLinesPerPages(limit);
-    console.log('###', names);
   };
   const goToPage = (page: number) => {
     setPage(page);

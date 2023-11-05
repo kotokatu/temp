@@ -1,5 +1,3 @@
-import React from 'react';
-
 type Items = string;
 type Props = {
   current: number;
@@ -14,7 +12,7 @@ const List = (props: Props) => {
   const start = (props.current - 1) * props.linesPerPage;
   const end = Math.min(start + props.linesPerPage, count);
   if (!count || start > end || start < 0) return <></>;
-  console.log('???', count);
+
   return (
     <ol start={start + 1}>
       {items.map((item, index) =>
