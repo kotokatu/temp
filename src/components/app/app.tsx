@@ -14,6 +14,7 @@ import './app.css';
 import Api from '../../services/api';
 import Layout from '../router/layout';
 import Main from '../main';
+import NotFoundPage from '../pages';
 
 const api: Api = new Api();
 
@@ -109,7 +110,7 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Main />} />
         </Route>
-        <Route path="*" element={<h2>Page not found</h2>} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Context.Provider>
   );

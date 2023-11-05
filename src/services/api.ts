@@ -1,11 +1,11 @@
-import { ErrorFetch, Errors, ResponseApi } from '../components/types';
+import { ApiKeys, ErrorFetch, Errors, ResponseApi } from '../components/types';
 
 export default class Api {
   private baseApi: string = 'https://the-one-api.dev/v2';
 
   private headers = {
     Accept: 'application/json',
-    Authorization: 'Bearer wkoXezrpBmu_Ap4_XAKL',
+    Authorization: `Bearer ${ApiKeys.second}`,
   };
 
   private errorHandler(text: string, status: string): ErrorFetch {

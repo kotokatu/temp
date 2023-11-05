@@ -1,13 +1,21 @@
 import Header from '../header';
 import ErrorButton from '../error-button';
 import { Outlet } from 'react-router';
+import { EmptyProps } from '../types';
+import { Context } from '../contexts';
 
-export default function Layout(): JSX.Element {
+const Layout: React.FC<EmptyProps> = (): JSX.Element => {
   return (
     <div className="app">
-      <Header />
+      <Context.Consumer>
+        {(context) => {
+          return <Header context={context} />;
+        }}
+      </Context.Consumer>
       <Outlet />
       <ErrorButton />
     </div>
   );
-}
+};
+
+export default Layout;

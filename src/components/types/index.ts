@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent } from 'react';
-import { Errors } from './constants';
+import { Errors, ApiKeys } from './constants';
 
 export interface Character {
   _id: string;
@@ -23,7 +23,7 @@ export interface ResponseApi {
   total: number;
 }
 
-type ReactSet = (value: React.SetStateAction<string>) => void;
+export type ReactSet = (value: React.SetStateAction<string>) => void;
 
 export type EventForm = (event: FormEvent<HTMLFormElement>) => void;
 
@@ -87,4 +87,4 @@ export interface ErrorFetch {
   code: string;
 }
 
-export { Errors };
+export { Errors, ApiKeys };
