@@ -60,7 +60,7 @@ const Pagination: React.FC<AppContextToProps> = (
       </ul>
       <form className="limit input-group mb-3" onSubmit={onGetDataWithLimit}>
         <input
-          type="text"
+          type="number"
           className="form-control"
           placeholder="default 10..."
           onChange={onSetLimit}
