@@ -40,7 +40,7 @@ export default class Api {
       return response;
     }
 
-    return response;
+    return this.transformData(response);
   };
 
   public getItemByID = async (id: string): Promise<ResponseApi | string> => {
@@ -52,6 +52,45 @@ export default class Api {
       return response;
     }
 
-    return response;
+    return this.transformData(response);
   };
+
+  private setInfoForField(field: string) {
+    return !field || field === 'NaN' ? `no info` : field;
+  }
+
+  private transformData(data: ResponseApi): ResponseApi {
+    return {
+      ...data,
+      docs: data.docs.map(
+        ({
+          _id,
+          birth,
+          death,
+          gender,
+          hair,
+          height,
+          name,
+          race,
+          realm,
+          spouse,
+          wikiUrl,
+        }) => {
+          return {
+            _id: _id,
+            birth: this.setInfoForField(birth),
+            death: this.setInfoForField(death),
+            gender: this.setInfoForField(gender),
+            hair: this.setInfoForField(hair),
+            height: this.setInfoForField(height),
+            name: this.setInfoForField(name),
+            race: this.setInfoForField(race),
+            realm: this.setInfoForField(realm),
+            spouse: this.setInfoForField(spouse),
+            wikiUrl: this.setInfoForField(wikiUrl),
+          };
+        }
+      ),
+    };
+  }
 }

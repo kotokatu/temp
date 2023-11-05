@@ -63,3 +63,7 @@ export interface AppContextToProps {
 export type WithChildrenProps = {
   children: React.ReactNode;
 };
+
+export interface Query {
+  [key: string]: string;
+}

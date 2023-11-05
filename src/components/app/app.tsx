@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Character, EmptyProps, AppContext, ResponseApi } from '../types';
+import {
+  Character,
+  EmptyProps,
+  AppContext,
+  ResponseApi,
+  Query,
+} from '../types';
 import { Context } from '../contexts';
 import { Route, Routes, useSearchParams } from 'react-router-dom';
 
@@ -24,7 +30,7 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
   const [page, setPage] = useState<string>(searchParams.get('page') || '1');
   const [lastPage, setLastPage] = useState<string>('');
   const [id, setId] = useState<string>(searchParams.get('id') || '');
-  const query = { name: term, page: page, limit: limit, id: id };
+  const query: Query = { name: term, page: page, limit: limit, id: id };
 
   useEffect(() => {
     searchData();
@@ -97,6 +103,7 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Main />} />
         </Route>
+        <Route path="*" element={<h2>Page not found</h2>} />
       </Routes>
     </Context.Provider>
   );

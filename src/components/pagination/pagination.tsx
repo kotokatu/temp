@@ -47,7 +47,9 @@ const Pagination: React.FC<AppContextToProps> = (
           <span className="page-link">&laquo;</span>
         </li>
         <li className="page-item active">
-          <span className="page-link current-page">{page}</span>
+          <span className="page-link current-page">
+            {page} . . . {lastPage}
+          </span>
         </li>
         <li
           className={`page-item ${+page < +lastPage ? '' : 'disabled'}`}
