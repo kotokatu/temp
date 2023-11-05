@@ -19,7 +19,7 @@ const api: Api = new Api();
 
 const App: React.FC<EmptyProps> = (): JSX.Element => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [term, setTerm] = useState(
+  const [term, setTerm] = useState<string>(
     searchParams.get('name') || localStorage.getItem('termForSearching') || ''
   );
   const [data, setData] = useState<Character[]>([]);
@@ -33,12 +33,12 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
   const [id, setId] = useState<string>(searchParams.get('id') || '');
   const query: Query = { name: term, page: page, limit: limit, id: id };
 
-  useEffect(() => {
+  useEffect((): void => {
     searchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, limit]);
 
-  useEffect(() => {
+  useEffect((): void => {
     getItemData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);

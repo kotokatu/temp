@@ -1,3 +1,4 @@
+import { ChangeEvent, FormEvent } from 'react';
 import { Errors } from './constants';
 
 export interface Character {
@@ -23,6 +24,12 @@ export interface ResponseApi {
 }
 
 type ReactSet = (value: React.SetStateAction<string>) => void;
+
+export type EventForm = (event: FormEvent<HTMLFormElement>) => void;
+
+export type EventChange = (event: ChangeEvent<HTMLInputElement>) => void;
+
+export type FunctionVoid = () => void;
 
 export interface AppContext {
   term: string;

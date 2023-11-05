@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent } from 'react';
-import { AppContextToProps } from '../types';
+import { AppContextToProps, EventChange, EventForm } from '../types';
 
 const SearchBar: React.FC<AppContextToProps> = (
   props: AppContextToProps
@@ -9,11 +9,13 @@ const SearchBar: React.FC<AppContextToProps> = (
   } = props;
   const firstPage: string = `1`;
 
-  const changeSearchTerm = (event: ChangeEvent<HTMLInputElement>): void => {
+  const changeSearchTerm: EventChange = (
+    event: ChangeEvent<HTMLInputElement>
+  ): void => {
     setTerm(event.target.value.trim());
   };
 
-  const searchTerm = (event: FormEvent<HTMLFormElement>): void => {
+  const searchTerm: EventForm = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     if (page !== firstPage) setPage(firstPage);
     else searchData();

@@ -1,7 +1,12 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 
 import './pagination.css';
-import { AppContextToProps } from '../types';
+import {
+  AppContextToProps,
+  EventChange,
+  EventForm,
+  FunctionVoid,
+} from '../types';
 
 const Pagination: React.FC<AppContextToProps> = (
   props: AppContextToProps
@@ -13,24 +18,28 @@ const Pagination: React.FC<AppContextToProps> = (
   const [currentLimit, setCurrentLimit] = useState<string>(limit);
   const firstPage: string = `1`;
 
-  const onGetDataWithLimit = (event: FormEvent<HTMLFormElement>): void => {
+  const onGetDataWithLimit: EventForm = (
+    event: FormEvent<HTMLFormElement>
+  ): void => {
     event.preventDefault();
     setPage(firstPage);
     setLimit(currentLimit);
   };
 
-  const onSetLimit = (event: ChangeEvent<HTMLInputElement>): void => {
+  const onSetLimit: EventChange = (
+    event: ChangeEvent<HTMLInputElement>
+  ): void => {
     setCurrentLimit(event.target.value.trim());
   };
 
-  const onPrevPage = (): void => {
+  const onPrevPage: FunctionVoid = (): void => {
     const prevPage: string = `${+page - +firstPage}`;
     if (+page > +firstPage) {
       setPage(prevPage);
     }
   };
 
-  const onNextPage = (): void => {
+  const onNextPage: FunctionVoid = (): void => {
     const nextPage: string = `${+page + +firstPage}`;
     if (+page < +lastPage) {
       setPage(nextPage);
