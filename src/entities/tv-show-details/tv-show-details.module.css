@@ -29,3 +29,13 @@
   height: 3rem;
   margin-top: 1rem;
 }
+
+.interceptor {
+  cursor: pointer;
+
+  position: fixed;
+  z-index: 3;
+  inset: 0;
+
+  backdrop-filter: brightness(0.9) blur(0.05rem);
+}

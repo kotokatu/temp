@@ -12,13 +12,13 @@ import {
   GetRequestBody,
   GetResponse,
 } from './types';
+import { defaultLanguage } from 'shared/constants';
 
 const baseUrl = 'https://api.myshows.me/v2/rpc/';
-const defaultLang: Language = 'en';
 
 const fetchJson = async <TRequest, TResponse>(
   body: TRequest,
-  lang: Language = defaultLang
+  lang: Language = defaultLanguage
 ): Promise<TResponse> => {
   const response = await fetch(baseUrl, {
     method: 'POST',
@@ -37,9 +37,7 @@ type TVShowListResponse = {
   list: ApiShowSummary[];
 };
 
-export const isTVShowListResponse = (
-  obj: unknown
-): obj is TVShowListResponse => {
+const isTVShowListResponse = (obj: unknown): obj is TVShowListResponse => {
   if (!isObject(obj)) {
     return false;
   }

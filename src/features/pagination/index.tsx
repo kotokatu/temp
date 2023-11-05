@@ -48,10 +48,10 @@ export const Pagination = ({ count, pageSizeOptions }: PaginationProps) => {
           className={styles.button}
           disabled={page === value}
           onClick={() => {
-            setParams((prev) => {
-              prev.set(pageParamName, `${value}`);
-              return prev;
-            });
+            setParams((prev) => ({
+              ...Object.fromEntries(prev.entries()),
+              [pageParamName]: value.toString(),
+            }));
           }}
         >
           {name}
