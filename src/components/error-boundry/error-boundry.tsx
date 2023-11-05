@@ -9,17 +9,19 @@ export default class ErrorBoundry extends Component<
 > {
   public state: ErrorState = {
     hasError: false,
+    messageError: '',
   };
 
-  public componentDidCatch(): void {
+  public componentDidCatch(err: Error): void {
     this.setState({
       hasError: true,
+      messageError: err.message,
     });
   }
 
   public render(): React.ReactNode {
     if (this.state.hasError) {
-      return <ErrorMessage />;
+      return <ErrorMessage message={this.state.messageError} />;
     }
 
     return this.props.children;

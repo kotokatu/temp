@@ -1,4 +1,4 @@
-import { ResponseApi } from '../components/types';
+import { ErrorFetch, Errors, ResponseApi } from '../components/types';
 
 export default class Api {
   private baseApi: string = 'https://the-one-api.dev/v2';
@@ -8,21 +8,27 @@ export default class Api {
     Authorization: 'Bearer wkoXezrpBmu_Ap4_XAKL',
   };
 
-  private async getData(url: string): Promise<ResponseApi | string> {
+  private errorHandler(text: string, status: string): ErrorFetch {
+    const message = status === '429' ? Errors.many : text;
+    const error = {
+      message: message,
+      code: status,
+    };
+    return error;
+  }
+
+  private async getData(url: string): Promise<ResponseApi | ErrorFetch> {
     try {
       const response: Response = await fetch(`${this.baseApi}${url}`, {
         headers: this.headers,
       });
-      if (
-        response.status !== 200 &&
-        'statusText' in response &&
-        typeof response.statusText === 'string'
-      ) {
-        return response.statusText;
+      if (response.status !== 200 && 'statusText' && 'status' in response) {
+        return this.errorHandler(response.statusText, `${response.status}`);
       }
       return response.json();
     } catch (error) {
-      if (error instanceof Error) return error.message;
+      if (error instanceof Error)
+        return this.errorHandler(error.message, Errors.err);
       throw new Error('Something bad happened!');
     }
   }
@@ -31,24 +37,26 @@ export default class Api {
     term: string,
     limit: string,
     page: string
-  ): Promise<ResponseApi | string> => {
-    const response: ResponseApi | string = await this.getData(
+  ): Promise<ResponseApi | ErrorFetch> => {
+    const response: ResponseApi | ErrorFetch = await this.getData(
       `/character?name=/${term}/i&page=${page || '1'}&limit=${limit || '10'}`
     );
 
-    if (typeof response === 'string') {
+    if ('code' in response) {
       return response;
     }
 
     return this.transformData(response);
   };
 
-  public getItemByID = async (id: string): Promise<ResponseApi | string> => {
-    const response: ResponseApi | string = await this.getData(
+  public getItemByID = async (
+    id: string
+  ): Promise<ResponseApi | ErrorFetch> => {
+    const response: ResponseApi | ErrorFetch = await this.getData(
       `/character/${id}`
     );
 
-    if (typeof response === 'string') {
+    if ('code' in response) {
       return response;
     }
 

@@ -12,3 +12,7 @@
 .error-icon {
   width: 200px;
 }
+
+.error-message .text-info {
+  text-align: center;
+}

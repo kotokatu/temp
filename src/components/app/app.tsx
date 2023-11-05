@@ -5,6 +5,7 @@ import {
   AppContext,
   ResponseApi,
   Query,
+  ErrorFetch,
 } from '../types';
 import { Context } from '../contexts';
 import { Route, Routes, useSearchParams } from 'react-router-dom';
@@ -48,9 +49,13 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
     setSearchParams(query);
     setLoading(true);
     localStorage.setItem('termForSearching', term);
-    const response: ResponseApi | string = await api.search(term, limit, page);
-    if (typeof response === 'string') {
-      setMessageError(response);
+    const response: ResponseApi | ErrorFetch = await api.search(
+      term,
+      limit,
+      page
+    );
+    if ('code' in response) {
+      setMessageError(response.message);
     } else {
       setData(response.docs);
       setLastPage(`${response.pages}`);
@@ -66,9 +71,9 @@ const App: React.FC<EmptyProps> = (): JSX.Element => {
       setItemData([]);
       setLoadingItem(false);
     } else {
-      const response: ResponseApi | string = await api.getItemByID(id);
-      if (typeof response === 'string') {
-        setMessageError(response);
+      const response: ResponseApi | ErrorFetch = await api.getItemByID(id);
+      if ('code' in response) {
+        setMessageError(response.message);
       } else {
         setItemData(response.docs);
         setLoadingItem(false);

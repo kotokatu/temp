@@ -1,3 +1,5 @@
+import { Errors } from './constants';
+
 export interface Character {
   _id: string;
   birth: string;
@@ -48,8 +50,13 @@ export type ItemDetailsProps = {
 
 export type HasError = boolean;
 
+export interface ErrorProps {
+  message: string;
+}
+
 export interface ErrorState {
   hasError: HasError;
+  messageError: string;
 }
 
 export interface EmptyProps {}
@@ -67,3 +74,10 @@ export type WithChildrenProps = {
 export interface Query {
   [key: string]: string;
 }
+
+export interface ErrorFetch {
+  message: string;
+  code: string;
+}
+
+export { Errors };

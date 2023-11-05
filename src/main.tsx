@@ -1,4 +1,4 @@
-// TODO import React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app';
 
@@ -7,10 +7,11 @@ import ErrorBoundry from './components/error-boundry';
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  //TODO add <React.StrictMode>
-  <ErrorBoundry>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </ErrorBoundry>
+  <React.StrictMode>
+    <ErrorBoundry>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ErrorBoundry>
+  </React.StrictMode>
 );
