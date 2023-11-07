@@ -1,9 +1,9 @@
 import { SyntheticEvent } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { ApiShowSummary } from 'shared/api/myshows/types';
-import styles from './tv-show-card.module.css';
-import cardImagePlaceholderSrc from './ui/card-image-placeholder.webp';
 import { Endpoint } from 'shared/constants';
+import styles from './card.module.css';
+import { CardProps } from './model/types';
+import cardImagePlaceholderSrc from './ui/card-image-placeholder.webp';
 
 const getStyledStatus = (status = '') => {
   const dict: Record<string, { style: string; text: string }> = {
@@ -15,7 +15,7 @@ const getStyledStatus = (status = '') => {
   return dict[status];
 };
 
-export const TVShowCard = (props: ApiShowSummary) => {
+export const Card = (props: CardProps) => {
   const location = useLocation();
   const { id, title, status, year, image, totalSeasons, rating } = props;
 

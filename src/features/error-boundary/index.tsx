@@ -1,13 +1,5 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
-
-type TProps = {
-  fallback: ReactNode;
-  children: ReactNode;
-};
-
-type TState = {
-  hasError: boolean;
-};
+import { Component, ErrorInfo } from 'react';
+import { TProps, TState } from './model/types';
 
 export class ErrorBoundary extends Component<TProps, TState> {
   state: TState = {

@@ -1,10 +1,6 @@
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 
-type ErrorMessageProps = {
-  error: unknown;
-};
-
-const ErrorMessage = ({ error }: ErrorMessageProps) => {
+const ErrorMessage = ({ error }: { error: unknown }) => {
   if (!error) {
     return null;
   }

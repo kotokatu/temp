@@ -6,7 +6,7 @@ import {
 } from 'shared/api/myshows/types';
 import { Language } from 'shared/types/Language';
 
-export const useFetchTVShowDetails = (
+export const useFetchDetailedCardData = (
   params: GetByIdRequestBody,
   lang: Language
 ) => {

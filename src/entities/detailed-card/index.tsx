@@ -1,19 +1,13 @@
 import { ImagePlaceholder } from 'entities/image-placeholder';
-import { Loader } from 'features/loader';
+import { Skeleton } from 'features/skeleton';
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Endpoint, defaultLanguage } from 'shared/constants';
 import { useLoaderDataObject } from 'shared/lib/use-loader-data-object';
-import { useFetchTVShowDetails } from './lib/use-fetch-tv-show-details';
-import styles from './tv-show-details.module.css';
+import styles from './detailed-card.module.css';
+import { useFetchDetailedCardData } from './lib/use-fetch-detailed-card-data';
+import { DetailType } from './model/types';
 import closeIconSrc from './ui/close-icon.svg';
-
-type DetailType = {
-  title: string;
-  value?: string | number;
-  secondaryValue?: string;
-  href?: string;
-};
 
 const Detail = ({ title, value, secondaryValue, href }: DetailType) => {
   if (value) {
@@ -35,7 +29,7 @@ const Detail = ({ title, value, secondaryValue, href }: DetailType) => {
   }
 };
 
-export const TVShowDetails = () => {
+export const DetailedCard = () => {
   const { id } = useLoaderDataObject();
   const location = useLocation();
   const navigation = useNavigate();
@@ -52,7 +46,7 @@ export const TVShowDetails = () => {
     () => ({ showId: +id, withEpisodes: true }),
     [id]
   );
-  const { details, isFetching } = useFetchTVShowDetails(
+  const { details, isFetching } = useFetchDetailedCardData(
     fetchTVShowDetailsParams,
     defaultLanguage
   );
@@ -82,7 +76,7 @@ export const TVShowDetails = () => {
   } = details;
 
   return (
-    <Loader enabled={isFetching}>
+    <Skeleton enabled={isFetching}>
       <div className={styles.interceptor} onClick={handleClose} />
       <aside className={`${styles.container} scrollbar`}>
         <button className={styles.close} onClick={handleClose}>
@@ -135,6 +129,6 @@ export const TVShowDetails = () => {
           />
         </dl>
       </aside>
-    </Loader>
+    </Skeleton>
   );
 };

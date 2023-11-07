@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import errorAlertIconSrc from './ui/error-alert-icon.svg';
-import styles from './error-alert-button.module.css';
+import errorAlertIconSrc from './ui/error-button-icon.svg';
+import styles from './error-throwing-button.module.css';
 
-export const ErrorAlertButton = () => {
+export const ErrorThrowingButton = () => {
   const [errorTriggered, setErrorTriggered] = useState(false);
 
   if (errorTriggered) {

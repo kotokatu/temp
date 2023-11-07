@@ -7,10 +7,10 @@ import {
   queryParamName,
   searchQueryLocalStorageKey,
 } from 'shared/constants';
-import styles from './search-bar.module.css';
+import styles from './search.module.css';
 import searchIconSrc from './ui/search-icon.svg';
 
-export const SearchBar = () => {
+export const Search = () => {
   const fetcher = useFetcher();
   const [searchParams, setSearchParams] = useSearchParams();
 

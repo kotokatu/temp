@@ -6,11 +6,7 @@ import {
   pageSizeParamName,
 } from 'shared/constants';
 import styles from './pagination.module.css';
-
-type PaginationProps = {
-  count: number;
-  pageSizeOptions: number[];
-};
+import { PaginationProps } from './model/types';
 
 export const Pagination = ({ count, pageSizeOptions }: PaginationProps) => {
   const fetcher = useFetcher();
