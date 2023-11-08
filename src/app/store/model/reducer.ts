@@ -8,13 +8,16 @@ export const storeReducer: Reducer<State, Action> = (prevState, action) => {
     case ActionType.ChangedSearchValueState: {
       return { ...prevState, searchValue: action.searchValue };
     }
+
     case ActionType.SavedSearchValueToLocalStorage: {
       localStorage.setItem(searchQueryLocalStorageKey, action.searchValue);
       return prevState;
     }
+
     case ActionType.ChangedFetchedListState: {
       return { ...prevState, fetchedList: action.fetchedList };
     }
+
     default: {
       throw new Error(`Unknown action`);
     }
