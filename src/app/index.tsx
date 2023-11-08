@@ -6,7 +6,7 @@ import { StoreProvider } from './store';
 export const App: FC = () => {
   return (
     <StoreProvider>
-      <Router />;
+      <Router />
     </StoreProvider>
   );
 };
