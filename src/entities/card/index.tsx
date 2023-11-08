@@ -1,11 +1,11 @@
-import { SyntheticEvent } from 'react';
+import { FC, ReactEventHandler } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Endpoint } from 'shared/constants';
 import styles from './card.module.css';
 import { CardProps } from './model/types';
 import cardImagePlaceholderSrc from './ui/card-image-placeholder.webp';
 
-const getStyledStatus = (status = '') => {
+const getStyledStatus = (status = ''): { style: string; text: string } => {
   const dict: Record<string, { style: string; text: string }> = {
     'Canceled/Ended': { style: styles.dead, text: 'Closed' },
     'Returning Series': { style: styles.onAir, text: 'On Air' },
@@ -15,16 +15,23 @@ const getStyledStatus = (status = '') => {
   return dict[status];
 };
 
-export const Card = (props: CardProps) => {
+export const Card: FC<CardProps> = ({
+  id,
+  title,
+  status,
+  year,
+  image,
+  totalSeasons,
+  rating,
+}) => {
   const location = useLocation();
-  const { id, title, status, year, image, totalSeasons, rating } = props;
 
   const styledStatusData = getStyledStatus(status);
   const styledStatus = styledStatusData && (
     <span className={styledStatusData.style}>{styledStatusData.text}</span>
   );
 
-  const handleImageError = (e: SyntheticEvent<HTMLImageElement>) => {
+  const handleImageError: ReactEventHandler = (e) => {
     if (e.target instanceof HTMLImageElement) {
       e.target.src = cardImagePlaceholderSrc;
     }
@@ -33,7 +40,7 @@ export const Card = (props: CardProps) => {
   return (
     <NavLink
       to={`${Endpoint.DETAILS}${id}${location.search}`}
-      className={({ isActive }) => {
+      className={({ isActive }): string => {
         return styles.navLink + (isActive ? ` ${styles.active}` : '');
       }}
     >

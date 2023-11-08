@@ -1,20 +1,21 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import errorAlertIconSrc from './ui/error-button-icon.svg';
 import styles from './error-throwing-button.module.css';
 
-export const ErrorThrowingButton = () => {
+export const ErrorThrowingButton: FC = () => {
   const [errorTriggered, setErrorTriggered] = useState(false);
 
   if (errorTriggered) {
     throw new Error('Oops! Something gone wrong >_<');
   }
 
-  const handleClick = () => {
-    setErrorTriggered(true);
-  };
-
   return (
-    <button className={styles.fab} onClick={handleClick}>
+    <button
+      className={styles.fab}
+      onClick={(): void => {
+        setErrorTriggered(true);
+      }}
+    >
       <img
         src={errorAlertIconSrc}
         alt="error alert icon"

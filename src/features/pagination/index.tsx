@@ -7,8 +7,9 @@ import {
 } from 'shared/constants';
 import styles from './pagination.module.css';
 import { PaginationProps } from './model/types';
+import { FC } from 'react';
 
-export const Pagination = ({ count, pageSizeOptions }: PaginationProps) => {
+export const Pagination: FC<PaginationProps> = ({ count, pageSizeOptions }) => {
   const fetcher = useFetcher();
   const [params, setParams] = useSearchParams();
 
@@ -43,7 +44,7 @@ export const Pagination = ({ count, pageSizeOptions }: PaginationProps) => {
           key={name}
           className={styles.button}
           disabled={page === value}
-          onClick={() => {
+          onClick={(): void => {
             setParams((prev) => ({
               ...Object.fromEntries(prev.entries()),
               [pageParamName]: value.toString(),
@@ -57,7 +58,7 @@ export const Pagination = ({ count, pageSizeOptions }: PaginationProps) => {
         className={styles.select}
         aria-label="items per page select element"
         defaultValue={pageSize}
-        onChange={(e) => {
+        onChange={(e): void => {
           setParams((prev) => ({
             ...Object.fromEntries(prev.entries()),
             [pageSizeParamName]: e.target.value,

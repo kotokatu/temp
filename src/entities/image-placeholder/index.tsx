@@ -1,7 +1,8 @@
+import { FC } from 'react';
 import styles from './image-placeholder.module.css';
 import loaderImageSrc from './ui/placeholder-image.webp';
 
-export const ImagePlaceholder = () => {
+export const ImagePlaceholder: FC = () => {
   return (
     <div className={styles.background}>
       <img

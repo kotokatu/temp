@@ -1,4 +1,4 @@
-import { FormEvent } from 'react';
+import { FC, FormEventHandler } from 'react';
 import { useFetcher, useSearchParams } from 'react-router-dom';
 import {
   defaultPageValue,
@@ -10,11 +10,11 @@ import {
 import styles from './search.module.css';
 import searchIconSrc from './ui/search-icon.svg';
 
-export const Search = () => {
+export const Search: FC = () => {
   const fetcher = useFetcher();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     if (e.target instanceof HTMLFormElement) {
       const formData = new FormData(e.target);

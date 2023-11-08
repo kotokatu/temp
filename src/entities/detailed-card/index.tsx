@@ -1,6 +1,6 @@
 import { ImagePlaceholder } from 'entities/image-placeholder';
 import { Skeleton } from 'features/skeleton';
-import { useMemo } from 'react';
+import { FC, MouseEventHandler, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Endpoint, defaultLanguage } from 'shared/constants';
 import { useLoaderDataObject } from 'shared/lib/use-loader-data-object';
@@ -9,7 +9,7 @@ import { useFetchDetailedCardData } from './lib/use-fetch-detailed-card-data';
 import { DetailType } from './model/types';
 import closeIconSrc from './ui/close-icon.svg';
 
-const Detail = ({ title, value, secondaryValue, href }: DetailType) => {
+const Detail: FC<DetailType> = ({ title, value, secondaryValue, href }) => {
   if (value) {
     return (
       <>
@@ -29,7 +29,7 @@ const Detail = ({ title, value, secondaryValue, href }: DetailType) => {
   }
 };
 
-export const DetailedCard = () => {
+export const DetailedCard: FC = () => {
   const { id } = useLoaderDataObject();
   const location = useLocation();
   const navigation = useNavigate();
@@ -38,7 +38,7 @@ export const DetailedCard = () => {
     throw new Error('Wrong query types');
   }
 
-  const handleClose = () => {
+  const handleClose: MouseEventHandler = () => {
     navigation(`${Endpoint.ROOT}${location.search}`);
   };
 

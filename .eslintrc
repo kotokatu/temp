@@ -28,7 +28,8 @@
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-var-requires": "off",
     "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/explicit-function-return-type": "error"
   },
   "settings": { "react": { "pragma": "React", "version": "detect" } }
 }

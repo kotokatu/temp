@@ -4,11 +4,19 @@ import {
   GetByIdRequestBody,
   GetByIdResponseBody,
 } from 'shared/api/myshows/types';
-import { Language } from 'shared/types/Language';
+import { Language } from 'shared/types/language';
 
-export const useFetchDetailedCardData = (
+type useFetchDetailedCardDataType = (
   params: GetByIdRequestBody,
   lang: Language
+) => {
+  readonly details: GetByIdResponseBody | null;
+  readonly isFetching: boolean;
+};
+
+export const useFetchDetailedCardData: useFetchDetailedCardDataType = (
+  params,
+  lang
 ) => {
   const [details, setDetails] = useState<GetByIdResponseBody | null>(null);
   const [isFetching, setIsFetching] = useState(false);
@@ -29,5 +37,5 @@ export const useFetchDetailedCardData = (
     };
   }, [params, lang]);
 
-  return { details, isFetching };
+  return { details, isFetching } as const;
 };

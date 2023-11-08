@@ -1,7 +1,8 @@
 import { ErrorThrowingButton } from 'features/error-throwing-button';
 import { Pagination } from 'features/pagination';
 import { Search } from 'features/search';
-import { useEffect, useMemo } from 'react';
+import { Skeleton } from 'features/skeleton';
+import { FC, useEffect, useMemo } from 'react';
 import { Outlet } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import {
@@ -11,12 +12,11 @@ import {
   queryParamName,
 } from 'shared/constants';
 import { useLoaderDataObject } from 'shared/lib/use-loader-data-object';
-import { useFetchTVShowList } from './lib/use-fetch-tv-show-list';
-import styles from './main-page.module.css';
-import { Skeleton } from 'features/skeleton';
 import { CardList } from 'widgets/card-list';
+import { useFetchCardListData } from './lib/use-fetch-card-list-data';
+import styles from './main-page.module.css';
 
-export const MainPage = () => {
+export const MainPage: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { query, page, pageSize } = useLoaderDataObject();
 
@@ -47,7 +47,7 @@ export const MainPage = () => {
     () => ({ search: { query }, page: +page - 1, pageSize: +pageSize }),
     [query, page, pageSize]
   );
-  const { count, list, isFetching } = useFetchTVShowList(
+  const { count, list, isFetching } = useFetchCardListData(
     fetchTVShowListParams,
     defaultLanguage
   );

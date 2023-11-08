@@ -1,9 +1,17 @@
-import { Router } from 'pages/router';
+import { FC } from 'react';
 import './index.css';
+import { Router } from './router';
+import { StoreProvider } from './store';
 
-export const App = () => {
-  return <Router />;
+export const App: FC = () => {
+  return (
+    <StoreProvider>
+      <Router />;
+    </StoreProvider>
+  );
 };
+
+//
 
 //?Store
 // Utilize the created context to store both the value entered in the Search component and the list of items received from the API;

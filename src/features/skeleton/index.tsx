@@ -1,6 +1,6 @@
 import { ImagePlaceholder } from 'entities/image-placeholder';
-import { SkeletonProps } from './model/types';
-
-export const Skeleton = ({ children, enabled }: SkeletonProps) => {
+import { FC } from 'react';
+import { SkeletonProps } from './model/skeleton-props';
+export const Skeleton: FC<SkeletonProps> = ({ children, enabled }) => {
   return enabled ? <ImagePlaceholder /> : children;
 };
