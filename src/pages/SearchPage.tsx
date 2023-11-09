@@ -16,6 +16,7 @@ export interface Context {
   linesPerPage: number;
   linksToPages: number;
   items: Detail[];
+  status: string;
 }
 export const ThemeContext = React.createContext<Context>({
   page: 1,
@@ -23,6 +24,7 @@ export const ThemeContext = React.createContext<Context>({
   linesPerPage: 10,
   linksToPages: linksToPages,
   items: [],
+  status: '',
 });
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -133,7 +135,7 @@ const SearchPage = () => {
 
   return (
     <ThemeContext.Provider
-      value={{ page, count, linesPerPage, linksToPages, items: names }}
+      value={{ page, count, linesPerPage, linksToPages, items: names, status }}
     >
       <h1>Star Wars Heroes</h1>
       <section className="section-list">
@@ -141,7 +143,7 @@ const SearchPage = () => {
           <Search input={search} setSearch={setSearch} setStatus={setStatus} />
         </div>
         <div>
-          <Status status={status} linesPerPage={linesPerPage} />
+          <Status />
           {status !== '...Loading' && (
             <>
               {result}

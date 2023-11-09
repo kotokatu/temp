@@ -1,10 +1,8 @@
-type Props = {
-  status: string;
-  linesPerPage: number;
-};
+import { useContext } from 'react';
+import { ThemeContext } from '../pages/SearchPage';
 
-const Status = (props: Props) => {
-  const { status } = props;
+const Status = () => {
+  const { status } = useContext(ThemeContext);
 
   return <>{status}</>;
 };
