@@ -1,32 +1,15 @@
 import { useStore } from 'app/store';
 import { ActionType } from 'app/store/model/enums';
 import { ChangeEventHandler, FC, FormEventHandler } from 'react';
-import { useFetcher, useSearchParams } from 'react-router-dom';
-import {
-  defaultPageValue,
-  defaultQueryValue,
-  pageParamName,
-  queryParamName,
-} from 'shared/constants';
+import { useFetcher } from 'react-router-dom';
+import { defaultQueryValue, queryParamName } from 'shared/constants';
 import styles from './search.module.css';
 import searchIconSrc from './ui/search-icon.svg';
 
 export const Search: FC = () => {
   const fetcher = useFetcher();
   const { state, dispatch } = useStore();
-  const [, setSearchParams] = useSearchParams();
-
-  const saveSearchValueToLocalStorage = (searchValue: string): void => {
-    dispatch({ type: ActionType.SavedSearchValueToLocalStorage, searchValue });
-  };
-
-  const saveSearchValueToSearchParams = (searchValue: string): void => {
-    setSearchParams((prev) => ({
-      ...Object.fromEntries(prev.entries()),
-      [queryParamName]: searchValue,
-      [pageParamName]: defaultPageValue.toString(),
-    }));
-  };
+  const { searchValue } = state;
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const searchValue = e.target.value;
@@ -37,12 +20,12 @@ export const Search: FC = () => {
     e.preventDefault();
     if (e.target instanceof HTMLFormElement) {
       const formData = new FormData(e.target);
-      const submittedValue =
-        formData.get(queryParamName)?.toString() ?? defaultQueryValue;
-
-      saveSearchValueToLocalStorage(submittedValue);
-
-      saveSearchValueToSearchParams(submittedValue);
+      const formDataEntryValue = formData.get(queryParamName);
+      const submitValue = formDataEntryValue?.toString() ?? defaultQueryValue;
+      dispatch({
+        type: ActionType.ClickedSearchSubmit,
+        searchValue: submitValue,
+      });
     }
   };
 
@@ -53,7 +36,7 @@ export const Search: FC = () => {
         placeholder="Search…"
         className={styles.input}
         name={queryParamName}
-        value={state.searchValue}
+        value={searchValue}
         onChange={handleInputChange}
         autoFocus={true}
         autoComplete={'off'}

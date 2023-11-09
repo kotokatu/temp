@@ -1,3 +1,7 @@
+:root {
+  --background-color: #fff;
+}
+
 body {
   max-height: 100dvh;
   margin: 0;

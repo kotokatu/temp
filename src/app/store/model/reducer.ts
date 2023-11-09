@@ -5,21 +5,18 @@ import { Action, State } from './types';
 
 export const storeReducer: Reducer<State, Action> = (prevState, action) => {
   switch (action.type) {
-    case ActionType.ChangedSearchValueState: {
-      return { ...prevState, searchValue: action.searchValue };
-    }
-
-    case ActionType.SavedSearchValueToLocalStorage: {
+    case ActionType.ClickedSearchSubmit: {
       localStorage.setItem(searchQueryLocalStorageKey, action.searchValue);
       return prevState;
     }
-
+    case ActionType.ChangedSearchValueState: {
+      return { ...prevState, searchValue: action.searchValue };
+    }
     case ActionType.ChangedFetchedListState: {
       return { ...prevState, fetchedList: action.fetchedList };
     }
-
     default: {
-      throw new Error(`Unknown action`);
+      throw new Error('Unknown action type');
     }
   }
 };

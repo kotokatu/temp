@@ -1,0 +1,10 @@
+.searchBarSection {
+  z-index: 2;
+
+  padding: 1rem;
+
+  text-align: center;
+
+  background-color: var(--background-color);
+  box-shadow: 0 0 1rem;
+}

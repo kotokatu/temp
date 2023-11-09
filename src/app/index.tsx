@@ -1,14 +1,9 @@
 import { FC } from 'react';
 import './index.css';
 import { Router } from './router';
-import { StoreProvider } from './store';
 
 export const App: FC = () => {
-  return (
-    <StoreProvider>
-      <Router />
-    </StoreProvider>
-  );
+  return <Router />;
 };
 
 //

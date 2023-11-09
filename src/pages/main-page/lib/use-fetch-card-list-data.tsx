@@ -13,7 +13,7 @@ type UseFetchCardListDataType = (
 };
 
 export const useFetchCardListData: UseFetchCardListDataType = (
-  params,
+  { search: { query }, page, pageSize },
   lang
 ) => {
   const [count, setCount] = useState(0);
@@ -24,17 +24,19 @@ export const useFetchCardListData: UseFetchCardListDataType = (
     let ignore = false;
     setIsFetching(true);
 
-    fetchTVShowList(params, lang).then(({ count, list }) => {
-      if (!ignore) {
-        setCount(count);
-        setList(list);
-        setIsFetching(false);
+    fetchTVShowList({ search: { query }, page, pageSize }, lang).then(
+      ({ count, list }) => {
+        if (!ignore) {
+          setCount(count);
+          setList(list);
+          setIsFetching(false);
+        }
       }
-    });
+    );
     return (): void => {
       ignore = true;
     };
-  }, [params, lang]);
+  }, [lang, page, pageSize, query]);
 
   return { count, list, isFetching } as const;
 };

@@ -1,4 +1,11 @@
-import { FC, ReactNode, useContext, useMemo, useReducer } from 'react';
+import {
+  FC,
+  ReactNode,
+  useCallback,
+  useContext,
+  useMemo,
+  useReducer,
+} from 'react';
 import { StoreContext, initialState } from './model/context';
 import { storeReducer } from './model/reducer';
 import { Store } from './model/types';
@@ -9,9 +16,19 @@ export const useStore = (): Store => {
 
 export const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(storeReducer, initialState);
-  const context = useMemo<Store>(() => ({ state, dispatch }), [state]);
+  const { fetchedList, searchValue } = state;
+
+  const memoDispatch = useCallback(dispatch, [dispatch]);
+  const memoFetchedList = useMemo(() => fetchedList, [fetchedList]);
+  const store = useMemo(
+    () => ({
+      state: { fetchedList: memoFetchedList, searchValue },
+      dispatch: memoDispatch,
+    }),
+    [memoDispatch, memoFetchedList, searchValue]
+  );
 
   return (
-    <StoreContext.Provider value={context}>{children}</StoreContext.Provider>
+    <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
   );
 };
