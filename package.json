@@ -17,7 +17,8 @@
     "format:fix": "npm run format -- -w",
     "fix": "npm run format:fix && npm run lint:fix && npm run lints:fix",
     "preview": "vite preview",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "echo \"TESTING!!\""
   },
   "devDependencies": {
     "@types/node": "^20.8.8",
