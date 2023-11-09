@@ -1,62 +1,46 @@
 import { useStore } from 'app/store';
 import { ActionType } from 'app/store/model/enums';
+import { CardList } from 'features/card-list';
 import { Pagination } from 'features/pagination';
 import { Skeleton } from 'features/skeleton';
-import { FC, useEffect, useState } from 'react';
-import { fetchTVShowList } from 'shared/api/myshows/myshows.service';
+import { useFetchCardListData } from 'pages/main-page/lib/use-fetch-card-list-data';
+import { FC, useCallback } from 'react';
 import {
   defaultLanguage,
   defaultQueryValue,
   searchQueryLocalStorageKey,
 } from 'shared/constants';
 import styles from './bottom-section.module.css';
+import { TVShowListResponse } from 'shared/api/myshows/myshows.service';
 
 export const BottomSection: FC = () => {
   const { dispatch } = useStore();
-  const [isFetching, setIsFetching] = useState(false);
-  const [count, setCount] = useState(0);
 
   const page = 1;
   const pageSize = 30;
 
-  useEffect(() => {
-    let ignore = false;
-    setIsFetching(true);
+  const query =
+    localStorage.getItem(searchQueryLocalStorageKey) ?? defaultQueryValue;
 
-    fetchTVShowList(
-      {
-        search: {
-          query:
-            localStorage.getItem(searchQueryLocalStorageKey) ??
-            defaultQueryValue,
-        },
-        page,
-        pageSize,
-      },
-      defaultLanguage
-    ).then(({ count, list }) => {
-      if (!ignore) {
-        dispatch({
-          type: ActionType.ChangedFetchedListState,
-          fetchedList: list,
-        });
-        setIsFetching(false);
-        setCount(count);
-      }
-    });
-    return (): void => {
-      ignore = true;
-    };
-  }, [dispatch]);
+  const updateFetchedList = useCallback(
+    (fetchedListData: TVShowListResponse) => {
+      dispatch({ type: ActionType.ChangedFetchedListState, fetchedListData });
+    },
+    [dispatch]
+  );
+  const isFetching = useFetchCardListData(
+    { search: { query }, page: +page - 1, pageSize: +pageSize },
+    defaultLanguage,
+    updateFetchedList
+  );
 
   return (
     <Skeleton enabled={isFetching}>
       <div className={`${styles.tvShowListSection} scrollbar`}>
-        {count}
-        {/* <CardList list={list}></CardList> */}
+        <CardList />
       </div>
       <div className={styles.paginationSection}>
-        <Pagination count={count} pageSizeOptions={[5, 10, 20, 30, 50]} />
+        <Pagination />
       </div>
     </Skeleton>
   );

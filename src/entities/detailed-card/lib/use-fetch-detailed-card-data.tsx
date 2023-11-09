@@ -22,18 +22,26 @@ export const useFetchDetailedCardData: useFetchDetailedCardDataType = (
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
-    let ignore = false;
+    let controller: AbortController | null = new AbortController();
+    const { signal } = controller;
+
     setIsFetching(true);
 
-    fetchTVShowById(params, lang).then((details) => {
-      if (!ignore) {
-        setDetails(details);
+    fetchTVShowById(params, lang, signal)
+      .then((details) => {
+        setDetails(details); // callback(details);
         setIsFetching(false);
-      }
-    });
+        controller = null;
+      })
+      .catch((e: unknown) => {
+        if (e instanceof Error && e.name !== 'AbortError') {
+          throw e;
+        }
+      });
 
     return () => {
-      ignore = true;
+      controller?.abort();
+      controller = null;
     };
   }, [params, lang]);
 

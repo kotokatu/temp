@@ -5,10 +5,13 @@ import {
 } from 'shared/constants';
 import { State, Store } from './types';
 
+const initialSearchValue =
+  localStorage.getItem(searchQueryLocalStorageKey) ?? defaultQueryValue;
+
 export const initialState: State = {
-  searchValue:
-    localStorage.getItem(searchQueryLocalStorageKey) ?? defaultQueryValue,
-  fetchedList: [],
+  searchInputValue: initialSearchValue,
+  searchSubmitValue: initialSearchValue,
+  fetchedListData: { count: 0, list: [] },
 };
 
 export const StoreContext = createContext<Store>({

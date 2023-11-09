@@ -1,5 +1,5 @@
 export enum ActionType {
-  ChangedSearchValueState,
+  ChangedSearchInputValueState,
   ChangedFetchedListState,
   ClickedSearchSubmit,
 }

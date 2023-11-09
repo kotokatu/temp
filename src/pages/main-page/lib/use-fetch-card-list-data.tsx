@@ -1,42 +1,49 @@
 import { useEffect, useState } from 'react';
-import { fetchTVShowList } from 'shared/api/myshows/myshows.service';
-import { ApiShowSummary, GetRequestBody } from 'shared/api/myshows/types';
+import {
+  TVShowListResponse,
+  fetchTVShowList,
+} from 'shared/api/myshows/myshows.service';
+import { GetRequestBody } from 'shared/api/myshows/types';
 import { Language } from 'shared/types/language';
 
 type UseFetchCardListDataType = (
   params: GetRequestBody,
-  lang: Language
-) => {
-  readonly count: number;
-  readonly list: ApiShowSummary[];
-  readonly isFetching: boolean;
-};
-
+  lang: Language,
+  callback: (list: TVShowListResponse) => void
+) => boolean;
 export const useFetchCardListData: UseFetchCardListDataType = (
   { search: { query }, page, pageSize },
-  lang
+  lang,
+  resolve
 ) => {
-  const [count, setCount] = useState(0);
-  const [list, setList] = useState<ApiShowSummary[]>([]);
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
-    let ignore = false;
+    let controller: AbortController | null = new AbortController();
+    const { signal } = controller;
+
     setIsFetching(true);
 
-    fetchTVShowList({ search: { query }, page, pageSize }, lang).then(
-      ({ count, list }) => {
-        if (!ignore) {
-          setCount(count);
-          setList(list);
-          setIsFetching(false);
+    fetchTVShowList({ search: { query }, page, pageSize }, lang, signal)
+      .then((response) => {
+        resolve(response);
+        setIsFetching(false);
+        controller = null;
+      })
+      .catch((e: unknown) => {
+        if (e instanceof Error && e.name !== 'AbortError') {
+          throw e;
         }
-      }
-    );
-    return (): void => {
-      ignore = true;
-    };
-  }, [lang, page, pageSize, query]);
+      });
 
-  return { count, list, isFetching } as const;
+    return () => {
+      controller?.abort();
+      controller = null;
+    };
+  }, [resolve, lang, page, pageSize, query]);
+
+  return isFetching;
 };
+
+// todo положить данные списка в один стейт
+// todo убрать изфетчинг

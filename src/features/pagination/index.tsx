@@ -6,10 +6,12 @@ import {
   pageSizeParamName,
 } from 'shared/constants';
 import styles from './pagination.module.css';
-import { PaginationProps } from './model/types';
 import { FC } from 'react';
+import { useStore } from 'app/store';
 
-export const Pagination: FC<PaginationProps> = ({ count, pageSizeOptions }) => {
+export const Pagination: FC = () => {
+  const pageSizeOptions = [5, 10, 20, 30, 50];
+  const { count } = useStore().state.fetchedListData;
   const fetcher = useFetcher();
   const [params, setParams] = useSearchParams();
 

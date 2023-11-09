@@ -9,11 +9,11 @@ import searchIconSrc from './ui/search-icon.svg';
 export const Search: FC = () => {
   const fetcher = useFetcher();
   const { state, dispatch } = useStore();
-  const { searchValue } = state;
+  const { searchInputValue } = state;
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const searchValue = e.target.value;
-    dispatch({ type: ActionType.ChangedSearchValueState, searchValue });
+    dispatch({ type: ActionType.ChangedSearchInputValueState, searchValue });
   };
 
   const handleFormSubmit: FormEventHandler<HTMLFormElement> = (e) => {
@@ -36,7 +36,7 @@ export const Search: FC = () => {
         placeholder="Search…"
         className={styles.input}
         name={queryParamName}
-        value={searchValue}
+        value={searchInputValue}
         onChange={handleInputChange}
         autoFocus={true}
         autoComplete={'off'}
