@@ -2,13 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import Error404Page from '../pages/Error404Page';
 import SearchPage from '../pages/SearchPage';
 import DetailPage from '../pages/DetailPage';
-
-enum RouterPath {
-  SEARCH = '/search',
-  DETAIL = '/detail',
-  ERROR_404 = '/error404',
-  NOT_FOUND = '*',
-}
+import { RouterPath } from '../router/routes';
 
 const AppRoutes = () => {
   return (
@@ -21,4 +15,4 @@ const AppRoutes = () => {
   );
 };
 
-export { AppRoutes, RouterPath };
+export { AppRoutes };

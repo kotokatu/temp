@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Search from '../components/Search';
 import Status from '../components/Status';
-import Page from '../components/Page';
+import Page from '../components/Page/Page';
 import List from '../components/List/List';
 import { useSearchParams, useParams, Outlet } from 'react-router-dom';
 

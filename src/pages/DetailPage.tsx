@@ -3,7 +3,7 @@ import {
   useNavigate,
   useOutletContext,
 } from 'react-router-dom';
-import { RouterPath } from '../components/AppRoutes';
+import { RouterPath } from '../router/routes';
 import { Detail } from './SearchPage';
 
 const DetailPage = () => {

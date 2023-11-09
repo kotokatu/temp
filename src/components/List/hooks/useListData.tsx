@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { ThemeContext } from '../../../pages/SearchPage';
-import { RouterPath } from '../../AppRoutes';
+import { getSearchLink } from '../../../router/routes';
 
-const useListMath = () => {
+const useListData = () => {
   const context = useContext(ThemeContext);
   const count = context.count;
   const start = (context.page - 1) * context.linesPerPage;
@@ -12,7 +12,7 @@ const useListMath = () => {
   const hidden = !count || start > finish || start < 0;
   const getName = (index: number) => context.items[index]?.name;
   const getLink = (index: number) =>
-    `${RouterPath.SEARCH}/${index}?page=${context.page}&limit=${context.linesPerPage}`;
+    getSearchLink(index, context.page, context.linesPerPage);
 
   return {
     count,
@@ -27,4 +27,4 @@ const useListMath = () => {
   };
 };
 
-export default useListMath;
+export default useListData;

@@ -17,16 +17,18 @@
 }
 
 .pages {
-  color: green;
+  /* color: green;
   margin: 0;
-  padding: 0;
-  display: inline-block;
-  list-style-type: none;
+  padding: 0; */
+  /* display: inline-block;
+  list-style-type: none; */
 
 }
 
 .page-link {
   padding-right: 1em;
+  list-style-type: none;
+  display: inline-block;
 }
 
 .section-list {
