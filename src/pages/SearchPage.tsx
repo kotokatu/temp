@@ -10,17 +10,19 @@ const baseUrl = 'https://swapi.dev/api/people/?search=';
 export interface Detail {
   name: string;
 }
-export interface List {
+export interface Context {
   page: number;
   count: number;
   linesPerPage: number;
   linksToPages: number;
+  items: Detail[];
 }
-export const ThemeContext = React.createContext<List>({
+export const ThemeContext = React.createContext<Context>({
   page: 1,
   count: 0,
   linesPerPage: 10,
   linksToPages: linksToPages,
+  items: [],
 });
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -128,8 +130,11 @@ const SearchPage = () => {
 
   if (status === 'error') throw new Error('Simulated error');
   const current = (Number(id) - 1 ?? 0) % linesPerPage;
+
   return (
-    <ThemeContext.Provider value={{ page, count, linesPerPage, linksToPages }}>
+    <ThemeContext.Provider
+      value={{ page, count, linesPerPage, linksToPages, items: names }}
+    >
       <h1>Star Wars Heroes</h1>
       <section className="section-list">
         <div className="search">
@@ -140,12 +145,7 @@ const SearchPage = () => {
           {status !== '...Loading' && (
             <>
               {result}
-              <List
-                current={page}
-                count={count}
-                items={names}
-                linesPerPage={linesPerPage}
-              />
+              <List />
               <Page />
             </>
           )}

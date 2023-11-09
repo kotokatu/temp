@@ -1,5 +1,5 @@
-import { ThemeContext } from '../pages/SearchPage';
 import { useContext } from 'react';
+import { ThemeContext } from '../pages/SearchPage';
 import { NavLink } from 'react-router-dom';
 import { RouterPath } from './AppRoutes';
 
