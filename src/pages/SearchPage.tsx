@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Search from '../components/Search';
 import Status from '../components/Status';
 import Page from '../components/Page';
@@ -10,6 +10,18 @@ const baseUrl = 'https://swapi.dev/api/people/?search=';
 export interface Detail {
   name: string;
 }
+export interface List {
+  page: number;
+  count: number;
+  linesPerPage: number;
+  linksToPages: number;
+}
+export const ThemeContext = React.createContext<List>({
+  page: 1,
+  count: 0,
+  linesPerPage: 10,
+  linksToPages: linksToPages,
+});
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const params = useParams();
@@ -117,7 +129,7 @@ const SearchPage = () => {
   if (status === 'error') throw new Error('Simulated error');
   const current = (Number(id) - 1 ?? 0) % linesPerPage;
   return (
-    <>
+    <ThemeContext.Provider value={{ page, count, linesPerPage, linksToPages }}>
       <h1>Star Wars Heroes</h1>
       <section className="section-list">
         <div className="search">
@@ -134,12 +146,7 @@ const SearchPage = () => {
                 items={names}
                 linesPerPage={linesPerPage}
               />
-              <Page
-                current={page}
-                count={count}
-                linesPerPage={linesPerPage}
-                linksToPages={linksToPages}
-              />
+              <Page />
             </>
           )}
         </div>
@@ -147,7 +154,7 @@ const SearchPage = () => {
       <section className="section-info">
         {status !== '...Loading' && <Outlet context={names[current]} />}
       </section>
-    </>
+    </ThemeContext.Provider>
   );
 };
 export default SearchPage;

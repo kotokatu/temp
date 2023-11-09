@@ -1,33 +1,30 @@
+import { ThemeContext } from '../pages/SearchPage';
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { RouterPath } from './AppRoutes';
 
-type Props = {
-  current: number;
-  count: number;
-  linesPerPage: number;
-  linksToPages: number;
-};
 type PageButton = { link: number; label: string };
 const pageLimits: number[] = [5, 10, 20, 50, 100];
-const Page = (props: Props) => {
-  const count = Math.ceil(props.count / props.linesPerPage);
-  const pageStart = Math.max(1, props.current - props.linksToPages);
-  const pageEnd = Math.min(props.current + props.linksToPages, count);
-  const plusStart = pageStart - props.current + props.linksToPages;
-  const plusEnd = props.current + 1 - pageEnd;
+const Page = () => {
+  const context = useContext(ThemeContext);
+  const count = Math.ceil(context.count / context.linesPerPage);
+  const pageStart = Math.max(1, context.page - context.linksToPages);
+  const pageEnd = Math.min(context.page + context.linksToPages, count);
+  const plusStart = pageStart - context.page + context.linksToPages;
+  const plusEnd = context.page + 1 - pageEnd;
 
   const pages: PageButton[] = [];
   const start = Math.max(1, pageStart - plusStart - plusEnd - 1);
-  const end = Math.min(start + 2 * props.linksToPages, count);
-  if (props.current >= start && props.current <= count) {
-    if (props.current > 1) pages.push({ link: props.current - 1, label: '<' });
+  const end = Math.min(start + 2 * context.linksToPages, count);
+  if (context.page >= start && context.page <= count) {
+    if (context.page > 1) pages.push({ link: context.page - 1, label: '<' });
     for (let i = start; i <= end; i++) {
-      const label = i === props.current ? `[${props.current}]` : `${i}`;
+      const label = i === context.page ? `[${context.page}]` : `${i}`;
       const link = i;
       pages.push({ link, label });
     }
-    if (props.current < count)
-      pages.push({ link: props.current + 1, label: '>' });
+    if (context.page < count)
+      pages.push({ link: context.page + 1, label: '>' });
   }
   return (
     <ul className="pages">
@@ -36,7 +33,7 @@ const Page = (props: Props) => {
           <li className="pages" key={`page-${index}`}>
             <NavLink
               className="page-link"
-              to={`${RouterPath.SEARCH}?&page=${link}&limit=${props.linesPerPage}`}
+              to={`${RouterPath.SEARCH}?&page=${link}&limit=${context.linesPerPage}`}
             >
               {label}
             </NavLink>
