@@ -115,6 +115,7 @@ const SearchPage = () => {
   };
 
   if (status === 'error') throw new Error('Simulated error');
+  const current = (Number(id) - 1 ?? 0) % linesPerPage;
   return (
     <>
       <h1>Star Wars Heroes</h1>
@@ -144,9 +145,7 @@ const SearchPage = () => {
         </div>
       </section>
       <section className="section-info">
-        {status !== '...Loading' && (
-          <Outlet context={names[Number(id) - 1 ?? 0]} />
-        )}
+        {status !== '...Loading' && <Outlet context={names[current]} />}
       </section>
     </>
   );

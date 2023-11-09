@@ -24,7 +24,7 @@ const List = (props: Props) => {
         index + start < count ? (
           <li key={index}>
             <NavLink to={link(index + start + 1)}>
-              {props.items[index].name}
+              {props.items[index]?.name}
             </NavLink>
           </li>
         ) : (
