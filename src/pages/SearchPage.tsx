@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Search from '../components/Search';
 import Status from '../components/Status';
 import Page from '../components/Page';
-import List from '../components/List';
+import List from '../components/List/List';
 import { useSearchParams, useParams, Outlet } from 'react-router-dom';
 
 const linksToPages = 2;
