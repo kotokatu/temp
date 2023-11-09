@@ -4,7 +4,7 @@ import { FC } from 'react';
 import styles from './card-list.module.css';
 
 export const CardList: FC = () => {
-  const { list } = useStore().state.fetchedListData;
+  const { list } = useStore().fetchedListData;
 
   if (list.length <= 0) {
     return <p>No results</p>;

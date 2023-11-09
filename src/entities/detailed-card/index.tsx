@@ -1,9 +1,8 @@
 import { ImagePlaceholder } from 'entities/image-placeholder';
 import { Skeleton } from 'features/skeleton';
 import { FC, MouseEventHandler, useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Endpoint, defaultLanguage } from 'shared/constants';
-import { useLoaderDataObject } from 'shared/lib/use-loader-data-object';
 import styles from './detailed-card.module.css';
 import { useFetchDetailedCardData } from './lib/use-fetch-detailed-card-data';
 import { DetailType } from './model/types';
@@ -30,11 +29,11 @@ const Detail: FC<DetailType> = ({ title, value, secondaryValue, href }) => {
 };
 
 export const DetailedCard: FC = () => {
-  const { id } = useLoaderDataObject();
+  const { id } = useParams();
   const location = useLocation();
   const navigation = useNavigate();
 
-  if (typeof id !== 'string') {
+  if (typeof id === 'undefined') {
     throw new Error('Wrong query types');
   }
 

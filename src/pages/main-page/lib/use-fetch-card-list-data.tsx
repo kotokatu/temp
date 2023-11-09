@@ -9,7 +9,7 @@ import { Language } from 'shared/types/language';
 type UseFetchCardListDataType = (
   params: GetRequestBody,
   lang: Language,
-  callback: (list: TVShowListResponse) => void
+  resolve: (list: TVShowListResponse) => void
 ) => boolean;
 export const useFetchCardListData: UseFetchCardListDataType = (
   { search: { query }, page, pageSize },
@@ -40,10 +40,7 @@ export const useFetchCardListData: UseFetchCardListDataType = (
       controller?.abort();
       controller = null;
     };
-  }, [resolve, lang, page, pageSize, query]);
+  }, [lang, page, pageSize, query, resolve]);
 
   return isFetching;
 };
-
-// todo положить данные списка в один стейт
-// todo убрать изфетчинг

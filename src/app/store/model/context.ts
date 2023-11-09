@@ -1,9 +1,9 @@
-import { createContext } from 'react';
+import { Dispatch, createContext } from 'react';
 import {
   defaultQueryValue,
   searchQueryLocalStorageKey,
 } from 'shared/constants';
-import { State, Store } from './types';
+import { Action, State } from './types';
 
 const initialSearchValue =
   localStorage.getItem(searchQueryLocalStorageKey) ?? defaultQueryValue;
@@ -14,9 +14,8 @@ export const initialState: State = {
   fetchedListData: { count: 0, list: [] },
 };
 
-export const StoreContext = createContext<Store>({
-  state: initialState,
-  dispatch: () => {
-    throw new Error('Function not implemented.');
-  },
+export const StoreContext = createContext<State>(initialState);
+
+export const StoreDispatchContext = createContext<Dispatch<Action>>(() => {
+  throw new Error('Function not implemented.');
 });

@@ -13,6 +13,7 @@
 .input::-webkit-search-cancel-button {
   cursor: pointer;
   padding: 0.15rem;
+  transition: 0.25s;
 }
 
 .submit {

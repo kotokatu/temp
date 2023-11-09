@@ -1,4 +1,5 @@
-import { useFetcher, useSearchParams } from 'react-router-dom';
+import { FC } from 'react';
+import { Form, useSearchParams } from 'react-router-dom';
 import {
   defaultPageSizeValue,
   defaultPageValue,
@@ -6,20 +7,18 @@ import {
   pageSizeParamName,
 } from 'shared/constants';
 import styles from './pagination.module.css';
-import { FC } from 'react';
 import { useStore } from 'app/store';
 
 export const Pagination: FC = () => {
   const pageSizeOptions = [5, 10, 20, 30, 50];
-  const { count } = useStore().state.fetchedListData;
-  const fetcher = useFetcher();
-  const [params, setParams] = useSearchParams();
+  const { count } = useStore().fetchedListData;
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const page =
-    +(params.get(pageParamName) ?? defaultPageValue) || defaultPageValue;
+  const paramPage = +(searchParams.get(pageParamName) ?? defaultPageValue);
+  const page = paramPage > 0 ? paramPage : defaultPageValue;
 
   const paramsPageSize = +(
-    params.get(pageSizeParamName) ?? defaultPageSizeValue
+    searchParams.get(pageSizeParamName) ?? defaultPageSizeValue
   );
   const pageSize = pageSizeOptions.includes(paramsPageSize)
     ? paramsPageSize
@@ -40,14 +39,15 @@ export const Pagination: FC = () => {
   ];
 
   return (
-    <fetcher.Form className={styles.container}>
+    <Form className={styles.container}>
       {buttons.map(([name, value]) => (
         <button
+          type="button"
           key={name}
           className={styles.button}
           disabled={page === value}
           onClick={(): void => {
-            setParams((prev) => ({
+            setSearchParams((prev) => ({
               ...Object.fromEntries(prev.entries()),
               [pageParamName]: value.toString(),
             }));
@@ -61,7 +61,7 @@ export const Pagination: FC = () => {
         aria-label="items per page select element"
         defaultValue={pageSize}
         onChange={(e): void => {
-          setParams((prev) => ({
+          setSearchParams((prev) => ({
             ...Object.fromEntries(prev.entries()),
             [pageSizeParamName]: e.target.value,
             [pageParamName]: defaultPageValue.toString(),
@@ -74,6 +74,6 @@ export const Pagination: FC = () => {
           </option>
         ))}
       </select>
-    </fetcher.Form>
+    </Form>
   );
 };

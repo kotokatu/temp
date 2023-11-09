@@ -1,26 +1,30 @@
-import { useStore } from 'app/store';
+import { useStore, useStoreDispatch } from 'app/store';
 import { ActionType } from 'app/store/model/enums';
 import { CardList } from 'features/card-list';
 import { Pagination } from 'features/pagination';
 import { Skeleton } from 'features/skeleton';
 import { useFetchCardListData } from 'pages/main-page/lib/use-fetch-card-list-data';
 import { FC, useCallback } from 'react';
+import { TVShowListResponse } from 'shared/api/myshows/myshows.service';
 import {
   defaultLanguage,
-  defaultQueryValue,
-  searchQueryLocalStorageKey,
+  defaultPageSizeValue,
+  defaultPageValue,
+  pageParamName,
+  pageSizeParamName,
 } from 'shared/constants';
 import styles from './bottom-section.module.css';
-import { TVShowListResponse } from 'shared/api/myshows/myshows.service';
+import { useSearchParams } from 'react-router-dom';
 
 export const BottomSection: FC = () => {
-  const { dispatch } = useStore();
+  const dispatch = useStoreDispatch();
+  const { searchSubmitValue } = useStore();
+  const [searchParams] = useSearchParams();
 
-  const page = 1;
-  const pageSize = 30;
-
-  const query =
-    localStorage.getItem(searchQueryLocalStorageKey) ?? defaultQueryValue;
+  const page = +(searchParams.get(pageParamName) ?? defaultPageValue);
+  const pageSize = +(
+    searchParams.get(pageSizeParamName) ?? defaultPageSizeValue
+  );
 
   const updateFetchedList = useCallback(
     (fetchedListData: TVShowListResponse) => {
@@ -29,7 +33,11 @@ export const BottomSection: FC = () => {
     [dispatch]
   );
   const isFetching = useFetchCardListData(
-    { search: { query }, page: +page - 1, pageSize: +pageSize },
+    {
+      search: { query: searchSubmitValue },
+      page: page - 1,
+      pageSize,
+    },
     defaultLanguage,
     updateFetchedList
   );

@@ -1,4 +1,4 @@
-import { useStore } from 'app/store';
+import { useStore, useStoreDispatch } from 'app/store';
 import { ActionType } from 'app/store/model/enums';
 import { ChangeEventHandler, FC, FormEventHandler } from 'react';
 import { useFetcher } from 'react-router-dom';
@@ -8,7 +8,8 @@ import searchIconSrc from './ui/search-icon.svg';
 
 export const Search: FC = () => {
   const fetcher = useFetcher();
-  const { state, dispatch } = useStore();
+  const state = useStore();
+  const dispatch = useStoreDispatch();
   const { searchInputValue } = state;
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
