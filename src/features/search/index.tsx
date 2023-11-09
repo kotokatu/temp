@@ -1,16 +1,16 @@
-import { useStore, useStoreDispatch } from 'app/store';
+import { useSearchInputContext, useStoreDispatch } from 'app/store';
 import { ActionType } from 'app/store/model/enums';
 import { ChangeEventHandler, FC, FormEventHandler } from 'react';
 import { useFetcher } from 'react-router-dom';
-import { defaultQueryValue, queryParamName } from 'shared/constants';
+import { defaultQueryValue } from 'shared/constants';
 import styles from './search.module.css';
 import searchIconSrc from './ui/search-icon.svg';
 
 export const Search: FC = () => {
+  const searchName = 'search';
   const fetcher = useFetcher();
-  const state = useStore();
+  const searchInputValue = useSearchInputContext();
   const dispatch = useStoreDispatch();
-  const { searchInputValue } = state;
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const searchValue = e.target.value;
@@ -21,7 +21,7 @@ export const Search: FC = () => {
     e.preventDefault();
     if (e.target instanceof HTMLFormElement) {
       const formData = new FormData(e.target);
-      const formDataEntryValue = formData.get(queryParamName);
+      const formDataEntryValue = formData.get(searchName);
       const submitValue = formDataEntryValue?.toString() ?? defaultQueryValue;
       dispatch({
         type: ActionType.ClickedSearchSubmit,
@@ -36,7 +36,7 @@ export const Search: FC = () => {
         type="search"
         placeholder="Search…"
         className={styles.input}
-        name={queryParamName}
+        name={searchName}
         value={searchInputValue}
         onChange={handleInputChange}
         autoFocus={true}

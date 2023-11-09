@@ -1,3 +1,4 @@
+import { useFetchedListDataContext } from 'app/store';
 import { FC } from 'react';
 import { Form, useSearchParams } from 'react-router-dom';
 import {
@@ -7,11 +8,10 @@ import {
   pageSizeParamName,
 } from 'shared/constants';
 import styles from './pagination.module.css';
-import { useStore } from 'app/store';
 
 export const Pagination: FC = () => {
   const pageSizeOptions = [5, 10, 20, 30, 50];
-  const { count } = useStore().fetchedListData;
+  const { count } = useFetchedListDataContext();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const paramPage = +(searchParams.get(pageParamName) ?? defaultPageValue);

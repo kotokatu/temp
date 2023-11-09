@@ -1,10 +1,11 @@
-import { useStore, useStoreDispatch } from 'app/store';
+import { useSearchSubmitContext, useStoreDispatch } from 'app/store';
 import { ActionType } from 'app/store/model/enums';
 import { CardList } from 'features/card-list';
 import { Pagination } from 'features/pagination';
 import { Skeleton } from 'features/skeleton';
 import { useFetchCardListData } from 'pages/main-page/lib/use-fetch-card-list-data';
 import { FC, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { TVShowListResponse } from 'shared/api/myshows/myshows.service';
 import {
   defaultLanguage,
@@ -14,11 +15,10 @@ import {
   pageSizeParamName,
 } from 'shared/constants';
 import styles from './bottom-section.module.css';
-import { useSearchParams } from 'react-router-dom';
 
 export const BottomSection: FC = () => {
   const dispatch = useStoreDispatch();
-  const { searchSubmitValue } = useStore();
+  const searchSubmitValue = useSearchSubmitContext();
   const [searchParams] = useSearchParams();
 
   const page = +(searchParams.get(pageParamName) ?? defaultPageValue);

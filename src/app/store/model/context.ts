@@ -14,7 +14,15 @@ export const initialState: State = {
   fetchedListData: { count: 0, list: [] },
 };
 
-export const StoreContext = createContext<State>(initialState);
+export const SearchInputContext = createContext(initialState.searchInputValue);
+
+export const SearchSubmitContext = createContext(
+  initialState.searchSubmitValue
+);
+
+export const FetchedListDataContext = createContext(
+  initialState.fetchedListData
+);
 
 export const StoreDispatchContext = createContext<Dispatch<Action>>(() => {
   throw new Error('Function not implemented.');

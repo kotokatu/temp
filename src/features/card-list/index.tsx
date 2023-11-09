@@ -1,10 +1,10 @@
-import { useStore } from 'app/store';
+import { useFetchedListDataContext } from 'app/store';
 import { Card } from 'entities/card';
 import { FC } from 'react';
 import styles from './card-list.module.css';
 
 export const CardList: FC = () => {
-  const { list } = useStore().fetchedListData;
+  const { list } = useFetchedListDataContext();
 
   if (list.length <= 0) {
     return <p>No results</p>;
