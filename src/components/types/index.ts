@@ -78,7 +78,7 @@ export interface Query {
 
 export interface ErrorFetch {
   message: string;
-  code: string;
+  status: string;
 }
 
 export { Errors, ApiKeys };

@@ -12,23 +12,24 @@ export default class Api {
     const message = status === '429' ? Errors.many : text;
     const error = {
       message: message,
-      code: status,
+      status: status,
     };
     return error;
   }
 
-  private async getData(url: string): Promise<ResponseApi | ErrorFetch> {
+  private async getData(url: string): Promise<ResponseApi> {
     try {
       const response: Response = await fetch(`${this.baseApi}${url}`, {
         headers: this.headers,
       });
       if (response.status !== 200 && 'statusText' && 'status' in response) {
-        return this.errorHandler(response.statusText, `${response.status}`);
+        throw new Error(
+          this.errorHandler(response.statusText, `${response.status}`).message
+        );
       }
       return response.json();
     } catch (error) {
-      if (error instanceof Error)
-        return this.errorHandler(error.message, Errors.err);
+      if (error instanceof Error) throw new Error(error.message);
       throw new Error('Something bad happened!');
     }
   }
@@ -37,28 +38,16 @@ export default class Api {
     term: string,
     limit: string,
     page: string
-  ): Promise<ResponseApi | ErrorFetch> => {
-    const response: ResponseApi | ErrorFetch = await this.getData(
+  ): Promise<ResponseApi> => {
+    const response: ResponseApi = await this.getData(
       `/character?name=/${term}/i&page=${page || '1'}&limit=${limit || '10'}`
     );
-
-    if ('code' in response) {
-      return response;
-    }
 
     return this.transformData(response);
   };
 
-  public getItemByID = async (
-    id: string
-  ): Promise<ResponseApi | ErrorFetch> => {
-    const response: ResponseApi | ErrorFetch = await this.getData(
-      `/character/${id}`
-    );
-
-    if ('code' in response) {
-      return response;
-    }
+  public getItemByID = async (id: string): Promise<ResponseApi> => {
+    const response: ResponseApi = await this.getData(`/character/${id}`);
 
     return this.transformData(response);
   };
