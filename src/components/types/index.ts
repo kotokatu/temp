@@ -49,12 +49,6 @@ export interface AppContext {
   searchData: () => void;
 }
 
-export type ItemDetailsProps = {
-  loadingItem: boolean;
-  setId: ReactSet;
-  itemData: Character[];
-};
-
 export type HasError = boolean;
 
 export interface ErrorProps {
@@ -69,10 +63,6 @@ export interface ErrorState {
 export interface EmptyProps {}
 
 export interface EmptyState {}
-
-export interface AppContextToProps {
-  context: AppContext;
-}
 
 export type WithChildrenProps = {
   children: React.ReactNode;

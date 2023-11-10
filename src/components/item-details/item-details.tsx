@@ -1,13 +1,14 @@
+import { useContext } from 'react';
+import { Context } from '../contexts';
 import Loader from '../loader';
-import { ItemDetailsProps } from '../types';
+import { AppContext, EmptyProps } from '../types';
 
 import './item-details.css';
 
-const ItemDetails: React.FC<ItemDetailsProps> = ({
-  loadingItem,
-  setId,
-  itemData,
-}) => {
+const ItemDetails: React.FC<EmptyProps> = (): JSX.Element | null => {
+  const context: AppContext = useContext<AppContext>(Context);
+  const { loadingItem, itemData, setId } = context;
+
   function renderItem(): JSX.Element {
     const {
       _id,

@@ -1,17 +1,14 @@
-import { MouseEvent, useRef } from 'react';
-import { AppContextToProps, Character } from '../types';
+import { MouseEvent, useContext, useRef } from 'react';
+import { AppContext, Character, EmptyProps } from '../types';
 
 import './item-list.css';
 import Loader from '../loader';
 import ItemDetails from '../item-details';
+import { Context } from '../contexts';
 
-const ItemList: React.FC<AppContextToProps> = (
-  props: AppContextToProps
-): JSX.Element => {
-  const {
-    context: { data, loading, loadingItem, itemData, setId, id },
-  } = props;
-
+const ItemList: React.FC<EmptyProps> = (): JSX.Element => {
+  const context: AppContext = useContext<AppContext>(Context);
+  const { data, loading, setId, id } = context;
   const leftList: React.MutableRefObject<null> = useRef(null);
 
   function onChangeId(_id: string): void {
@@ -70,11 +67,7 @@ const ItemList: React.FC<AppContextToProps> = (
       <div className="section-left" onClick={onCloseDetails} ref={leftList}>
         {items}
       </div>
-      <ItemDetails
-        loadingItem={loadingItem}
-        setId={setId}
-        itemData={itemData}
-      />
+      <ItemDetails />
       {message}
     </div>
   );

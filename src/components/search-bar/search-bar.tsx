@@ -1,12 +1,10 @@
-import { ChangeEvent, FormEvent } from 'react';
-import { AppContextToProps, EventChange, EventForm } from '../types';
+import { ChangeEvent, FormEvent, useContext } from 'react';
+import { AppContext, EmptyProps, EventChange, EventForm } from '../types';
+import { Context } from '../contexts';
 
-const SearchBar: React.FC<AppContextToProps> = (
-  props: AppContextToProps
-): JSX.Element => {
-  const {
-    context: { term, page, setTerm, searchData, setPage },
-  } = props;
+const SearchBar: React.FC<EmptyProps> = (): JSX.Element => {
+  const context: AppContext = useContext<AppContext>(Context);
+  const { term, page, setTerm, searchData, setPage } = context;
   const firstPage: string = `1`;
 
   const changeSearchTerm: EventChange = (

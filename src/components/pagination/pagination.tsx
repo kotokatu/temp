@@ -1,20 +1,18 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useContext, useState } from 'react';
 
 import './pagination.css';
 import {
-  AppContextToProps,
+  AppContext,
+  EmptyProps,
   EventChange,
   EventForm,
   FunctionVoid,
 } from '../types';
+import { Context } from '../contexts';
 
-const Pagination: React.FC<AppContextToProps> = (
-  props: AppContextToProps
-): JSX.Element => {
-  const {
-    context: { setLimit, page, setPage, lastPage, limit },
-  } = props;
-
+const Pagination: React.FC<EmptyProps> = (): JSX.Element => {
+  const context: AppContext = useContext<AppContext>(Context);
+  const { setLimit, page, setPage, lastPage, limit } = context;
   const [currentLimit, setCurrentLimit] = useState<string>(limit);
   const firstPage: string = `1`;
 
