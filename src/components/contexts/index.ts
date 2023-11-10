@@ -1,3 +1,4 @@
 import { Context } from './context';
+import useCreateContext from './create-context-hook';
 
-export { Context };
+export { Context, useCreateContext };

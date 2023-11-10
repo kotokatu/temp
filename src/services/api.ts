@@ -5,7 +5,7 @@ export default class Api {
 
   private headers = {
     Accept: 'application/json',
-    Authorization: `Bearer ${ApiKeys.second}`,
+    Authorization: `Bearer ${ApiKeys.main}`,
   };
 
   private errorHandler(text: string, status: string): ErrorFetch {
