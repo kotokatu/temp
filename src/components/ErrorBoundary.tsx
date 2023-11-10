@@ -26,14 +26,14 @@ class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.errorInfo) {
       return (
-        <div>
-          <h2>Something went wrong.</h2>
+        <>
+          <h2 data-testid="error-boundary">Something went wrong.</h2>
           <details className="error-info">
             {`${this.state.error}`}
             <br />
             {Object(this.state.errorInfo).componentStack.toString()}
           </details>
-        </div>
+        </>
       );
     }
     return this.props.children;
