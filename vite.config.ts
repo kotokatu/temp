@@ -1,10 +1,19 @@
-import { defineConfig } from 'vite';
+/// <reference types="vitest" />
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
+import { defineConfig } from 'vite';
 
-const layers = ['app', 'entities', 'features', 'pages', 'shared', 'widgets'];
+const layers = [
+  'app',
+  'entities',
+  'features',
+  'pages',
+  'shared',
+  'widgets',
+  'tests',
+];
 const aliases = layers.reduce((acc, item) => {
-  return { ...acc, [item]: resolve(__dirname, 'src', item) };
+  return { ...acc, [item]: resolve('src', item) };
 }, {});
 
 // https://vitejs.dev/config/
@@ -12,4 +21,5 @@ export default defineConfig({
   base: './',
   plugins: [react()],
   resolve: { alias: { ...aliases } },
+  test: { environment: 'jsdom', globals: true },
 });
