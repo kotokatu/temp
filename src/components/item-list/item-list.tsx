@@ -5,16 +5,12 @@ import './item-list.css';
 import Loader from '../loader';
 import ItemDetails from '../item-details';
 import { Context } from '../contexts';
+import ItemCard from '../item-card';
 
 const ItemList: React.FC<EmptyProps> = (): JSX.Element => {
   const context: AppContext = useContext<AppContext>(Context);
-  const { data, loading, setId, id } = context;
+  const { data, loading, setId } = context;
   const leftList: React.MutableRefObject<null> = useRef(null);
-
-  function onChangeId(_id: string): void {
-    if (_id === id) setId('');
-    else setId(_id);
-  }
 
   const onCloseDetails = (event: MouseEvent<HTMLDivElement>): void => {
     event.stopPropagation();
@@ -22,35 +18,11 @@ const ItemList: React.FC<EmptyProps> = (): JSX.Element => {
   };
 
   function renderItems(): JSX.Element[] {
-    return data.map((character: Character): JSX.Element => {
-      const { name, gender, race, birth, _id } = character;
-
-      return (
-        <div
-          className={`character-card card d-flex flex-row mb-3 ${
-            id === _id ? 'border-success' : ''
-          }`}
-          key={_id}
-          onClick={(): void => onChangeId(_id)}
-        >
-          <div className={`character-image ${race.toLowerCase()}`} />
-          <div className="card-body">
-            <h4>{name}</h4>
-            <ul className="list-group list-group-flush">
-              <li className="list-group-item">
-                <span>{`Gender: ${gender}`}</span>
-              </li>
-              <li className="list-group-item">
-                <span>{`Race: ${race}`}</span>
-              </li>
-              <li className="list-group-item">
-                <span>{`Birth: ${birth}`}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      );
-    });
+    return data.map(
+      (character: Character): JSX.Element => (
+        <ItemCard character={character} key={character._id} />
+      )
+    );
   }
 
   if (loading) return <Loader />;

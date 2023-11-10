@@ -23,6 +23,10 @@ export interface ResponseApi {
   total: number;
 }
 
+export interface ItemCardProps {
+  character: Character;
+}
+
 export type ReactSet = (value: React.SetStateAction<string>) => void;
 
 export type EventForm = (event: FormEvent<HTMLFormElement>) => void;
