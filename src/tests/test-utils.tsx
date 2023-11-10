@@ -16,6 +16,11 @@ import {
   createMemoryRouter,
 } from 'react-router-dom';
 import { Endpoint } from 'shared/constants';
+import mockResponseJson from './model/mock-response.json';
+import {
+  TVShowListResponse,
+  isTVShowListResponse,
+} from 'shared/api/myshows/myshows.service';
 
 type AllProvidersProps = {
   children: ReactNode;
@@ -71,5 +76,18 @@ export const renderWithNestedRouter = (
   const provider = <RouterProvider router={router} />;
   return render(provider);
 };
+
+const getValidMockResponse = (json: unknown): TVShowListResponse => {
+  if (!isTVShowListResponse(json)) {
+    throw new Error('wrong mock type');
+  }
+  return json;
+};
+
+export const mockResponse = getValidMockResponse({
+  count: mockResponseJson[0].result,
+  list: mockResponseJson[1].result,
+});
+export const mockListItem = mockResponse.list[0];
 
 export * from '@testing-library/react';

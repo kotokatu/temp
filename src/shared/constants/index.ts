@@ -16,3 +16,5 @@ export const enum Endpoint {
   ROOT = '/',
   DETAILS = '/details/',
 }
+
+export const noResultsMessage = 'No results';

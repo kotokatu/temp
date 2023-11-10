@@ -38,7 +38,9 @@ export type TVShowListResponse = {
   list: ApiShowSummary[];
 };
 
-const isTVShowListResponse = (obj: unknown): obj is TVShowListResponse => {
+export const isTVShowListResponse = (
+  obj: unknown
+): obj is TVShowListResponse => {
   if (!isObject(obj)) {
     return false;
   }
