@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import Search from '../components/Search';
 import Status from '../components/Status';
 import Page from '../components/Page/Page';
@@ -18,7 +18,7 @@ export interface Context {
   items: Detail[];
   status: string;
 }
-export const ThemeContext = React.createContext<Context>({
+export const ThemeContext = createContext<Context>({
   page: 1,
   count: 0,
   linesPerPage: 10,
