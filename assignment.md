@@ -9,7 +9,7 @@
 
 - [x] Card List
 - [x] Card
-- [ ] Detailed Card
+- [x] Detailed Card ?
 - [ ] Pagination
 - [ ] Search
 - [ ] 404 Page

@@ -30,20 +30,21 @@ export const Pagination: FC = () => {
     Math.min(page + 1, max),
   ];
 
-  const buttons: [string, number][] = [
-    ['«', min],
-    ['‹', prevPage],
-    [`${page}`, page],
-    ['›', nextPage],
-    ['»', max],
-  ];
+  const buttons = [
+    { label: '«', value: min, alt: 'go to first' },
+    { label: '‹', value: prevPage, alt: 'go to prev' },
+    { label: `${page}`, value: page, alt: 'current page' },
+    { label: '›', value: nextPage, alt: 'go to next' },
+    { label: '»', value: max, alt: 'go to last' },
+  ] as const;
 
   return (
     <Form className={styles.container}>
-      {buttons.map(([name, value]) => (
+      {buttons.map(({ label, value, alt }) => (
         <button
           type="button"
-          key={name}
+          key={label}
+          aria-label={alt}
           className={styles.button}
           disabled={page === value}
           onClick={(): void => {
@@ -53,7 +54,7 @@ export const Pagination: FC = () => {
             }));
           }}
         >
-          {name}
+          {label}
         </button>
       ))}
       <select
