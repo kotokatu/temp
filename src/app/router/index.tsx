@@ -6,7 +6,7 @@ import { FC } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Endpoint } from 'shared/constants';
 
-const router = createBrowserRouter([
+export const routes = [
   {
     path: Endpoint.ROOT,
     element: <MainPage />,
@@ -20,6 +20,8 @@ const router = createBrowserRouter([
     ],
   },
   { path: '*', element: <NotFoundPage />, errorElement: <ErrorPage /> },
-]);
+];
 
-export const Router: FC = () => <RouterProvider router={router} />;
+export const Router: FC = () => (
+  <RouterProvider router={createBrowserRouter(routes)} />
+);

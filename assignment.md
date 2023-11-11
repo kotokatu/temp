@@ -10,6 +10,6 @@
 - [x] Card List
 - [x] Card
 - [x] Detailed Card ?
-- [ ] Pagination
+- [x] Pagination
 - [ ] Search
-- [ ] 404 Page
+- [x] 404 Page
