@@ -80,13 +80,22 @@ export const fetchTVShowList = async (
     signal
   );
 
+  if ('error' in count) {
+    const { code, message, data } = count.error;
+    throw new Error(`[${code}] ${message}: ${data}`);
+  }
+  if ('error' in list) {
+    const { code, message, data } = list.error;
+    throw new Error(`[${code}] ${message}: ${data}`);
+  }
+
   const result = {
     count: count.result,
     list: list.result,
   };
 
   if (!isTVShowListResponse(result)) {
-    throw Error('wrong type from api');
+    throw new Error('wrong type from api');
   }
 
   return result;
@@ -104,15 +113,20 @@ export const fetchTVShowById = async (
     id: 1,
   };
 
-  const { result } = await fetchJson<GetByIdRequest, GetByIdResponse>(
+  const response = await fetchJson<GetByIdRequest, GetByIdResponse>(
     body,
     lang,
     signal
   );
 
-  if (!isGetByIdResponseBody(result)) {
-    throw Error('wrong type from api');
+  if ('error' in response) {
+    const { code, message, data } = response.error;
+    throw new Error(`[${code}] ${message}: ${data}`);
   }
 
-  return result;
+  if (!isGetByIdResponseBody(response.result)) {
+    throw new Error('wrong type from api');
+  }
+
+  return response.result;
 };

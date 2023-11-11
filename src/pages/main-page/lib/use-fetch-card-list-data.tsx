@@ -10,13 +10,17 @@ type UseFetchCardListDataType = (
   params: GetRequestBody,
   lang: Language,
   resolve: (list: TVShowListResponse) => void
-) => boolean;
+) => {
+  readonly isFetching: boolean;
+  readonly error: Error | null;
+};
 export const useFetchCardListData: UseFetchCardListDataType = (
   { search: { query }, page, pageSize },
   lang,
   resolve
 ) => {
   const [isFetching, setIsFetching] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     let controller: AbortController | null = new AbortController();
@@ -32,7 +36,7 @@ export const useFetchCardListData: UseFetchCardListDataType = (
       })
       .catch((e: unknown) => {
         if (e instanceof Error && e.name !== 'AbortError') {
-          throw e;
+          setError(e);
         }
       });
 
@@ -42,5 +46,5 @@ export const useFetchCardListData: UseFetchCardListDataType = (
     };
   }, [lang, page, pageSize, query, resolve]);
 
-  return isFetching;
+  return { isFetching, error };
 };

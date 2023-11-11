@@ -1,6 +1,7 @@
 export * from './api-episode-summary.type';
 export * from './api-network.type';
 export * from './api-online-link.type';
+export * from './api-response-error.type';
 export * from './api-show-summary.type';
 export * from './get-by-id-request-body.type';
 export * from './get-by-id-request.type';

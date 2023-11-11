@@ -45,10 +45,15 @@ export const DetailedCard: FC = () => {
     () => ({ showId: +id, withEpisodes: true }),
     [id]
   );
-  const { details, isFetching } = useFetchDetailedCardData(
+
+  const { error, details, isFetching } = useFetchDetailedCardData(
     fetchTVShowDetailsParams,
     defaultLanguage
   );
+
+  if (error) {
+    throw error;
+  }
 
   if (details === null) {
     return <ImagePlaceholder />;

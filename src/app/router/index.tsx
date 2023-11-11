@@ -11,9 +11,15 @@ const router = createBrowserRouter([
     path: Endpoint.ROOT,
     element: <MainPage />,
     errorElement: <ErrorPage />,
-    children: [{ path: `${Endpoint.DETAILS}:id`, element: <DetailedCard /> }],
+    children: [
+      {
+        path: `${Endpoint.DETAILS}:id`,
+        element: <DetailedCard />,
+        errorElement: <ErrorPage />,
+      },
+    ],
   },
-  { path: '*', element: <NotFoundPage /> },
+  { path: '*', element: <NotFoundPage />, errorElement: <ErrorPage /> },
 ]);
 
 export const Router: FC = () => <RouterProvider router={router} />;

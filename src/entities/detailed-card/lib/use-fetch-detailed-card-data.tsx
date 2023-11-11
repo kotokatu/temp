@@ -12,6 +12,7 @@ type useFetchDetailedCardDataType = (
 ) => {
   readonly details: GetByIdResponseBody | null;
   readonly isFetching: boolean;
+  readonly error: Error | null;
 };
 
 export const useFetchDetailedCardData: useFetchDetailedCardDataType = (
@@ -20,6 +21,7 @@ export const useFetchDetailedCardData: useFetchDetailedCardDataType = (
 ) => {
   const [details, setDetails] = useState<GetByIdResponseBody | null>(null);
   const [isFetching, setIsFetching] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     let controller: AbortController | null = new AbortController();
@@ -35,7 +37,7 @@ export const useFetchDetailedCardData: useFetchDetailedCardDataType = (
       })
       .catch((e: unknown) => {
         if (e instanceof Error && e.name !== 'AbortError') {
-          throw e;
+          setError(e);
         }
       });
 
@@ -45,5 +47,5 @@ export const useFetchDetailedCardData: useFetchDetailedCardDataType = (
     };
   }, [params, lang]);
 
-  return { details, isFetching } as const;
+  return { details, isFetching, error } as const;
 };

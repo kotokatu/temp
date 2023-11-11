@@ -15,8 +15,8 @@ import {
   isTVShowListResponse,
 } from 'shared/api/myshows/myshows.service';
 import { Endpoint } from 'shared/constants';
-import mockListResponseJson from './model/mock-list-response.json';
 import mockDetailsResponseJson from './model/mock-details-response.json';
+import mockListResponseJson from './model/mock-list-response.json';
 
 type AllProvidersProps = {
   children: ReactNode;

@@ -32,7 +32,7 @@ export const BottomSection: FC = () => {
     },
     [dispatch]
   );
-  const isFetching = useFetchCardListData(
+  const { error, isFetching } = useFetchCardListData(
     {
       search: { query: searchSubmitValue },
       page: page - 1,
@@ -41,6 +41,10 @@ export const BottomSection: FC = () => {
     defaultLanguage,
     updateFetchedList
   );
+
+  if (error) {
+    throw error;
+  }
 
   return (
     <Skeleton enabled={isFetching}>
