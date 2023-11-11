@@ -28,8 +28,8 @@ describe('Card List', () => {
       </MockContextProvider>
     );
 
-    const result = screen.queryByText(noResultsMessage, { exact: false });
-
-    expect(result).not.toBeNull();
+    expect(
+      screen.queryByText(noResultsMessage, { exact: false })
+    ).not.toBeNull();
   });
 });

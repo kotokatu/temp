@@ -7,15 +7,16 @@ import {
   mockListItem,
   renderWithNestedRouter,
   screen,
+  within,
 } from 'tests/test-utils';
 import { Card } from '.';
 
 describe('Card', () => {
   const user = userEvent.setup();
-  const fetchSpy = vi.spyOn(window, 'fetch');
   const fakeFetch: typeof fetch = async () => {
     return { json: async () => mockDetailsResponse } as Response;
   };
+  const fetchSpy = vi.spyOn(window, 'fetch').mockImplementation(fakeFetch);
 
   beforeEach(() => {
     renderWithNestedRouter(
@@ -31,16 +32,18 @@ describe('Card', () => {
   });
 
   afterEach(() => {
-    vi.clearAllMocks();
+    fetchSpy.mockClear();
   });
 
-  it('Ensure that the card component renders the relevant card data', () => {
+  it('Ensure that the card component renders the relevant card data', async () => {
     const { title, year, image, totalSeasons, rating } = mockListItem;
     const { textContent } = screen.getByLabelText(/card description/i);
     const checklist = [year, totalSeasons, rating];
 
-    expect(screen.getByRole('heading').textContent).toBe(title);
-    expect(screen.getByRole<HTMLImageElement>('img').src).toBe(image);
+    const card = await screen.findByRole('link');
+
+    expect(within(card).getByRole('heading').textContent).toBe(title);
+    expect(within(card).getByRole<HTMLImageElement>('img').src).toBe(image);
     expect(checklist).toSatisfy<typeof checklist>((checklist) => {
       return checklist.every((item) => {
         return (
@@ -51,13 +54,11 @@ describe('Card', () => {
   });
 
   it('Validate that clicking on a card opens a detailed card component', async () => {
-    const link = await screen.findByRole('link');
-    fetchSpy.mockImplementationOnce(fakeFetch);
-
     expect(screen.queryByRole('complementary')).toBeNull();
 
-    await user.click(link);
+    const card = await screen.findByRole('link');
 
+    await user.click(card);
     expect(await screen.findByRole('complementary')).not.toBeNull();
   });
 
@@ -65,7 +66,6 @@ describe('Card', () => {
     expect(fetchSpy).not.toBeCalled();
 
     for (let i = 1; i <= 5; i += 1) {
-      fetchSpy.mockImplementationOnce(fakeFetch);
       await user.click(await screen.findByRole('link'));
       expect(fetchSpy).toBeCalledTimes(i);
 
