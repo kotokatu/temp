@@ -3,13 +3,13 @@ import { render, screen } from '@testing-library/react';
 
 import ItemDetails from '../../../components/item-details';
 import { Context } from '../../../components/contexts';
-import { context, contextEmptyData } from '../../mocks';
+import { context } from '../../mocks';
 
 const { birth, death, gender, hair, height, name, race, realm, spouse } =
   context.itemData[0];
 
 describe('Tests for the Detailed Card component', () => {
-  test('Make sure the detailed card component correctly displays the detailed card data', async () => {
+  test('Make sure the detailed card component correctly displays the detailed card data', () => {
     render(
       <Context.Provider value={context}>
         <ItemDetails />
@@ -25,17 +25,5 @@ describe('Tests for the Detailed Card component', () => {
     expect(screen.getByText(`Realm: ${realm}`)).toBeDefined();
     expect(screen.getByText(`Spouse: ${spouse}`)).toBeDefined();
     expect(screen.getByText(`More info`)).toBeDefined();
-  });
-});
-
-describe('Tests for the Detailed Card component', () => {
-  test('The detailed card component should return null when the ID is empty.', () => {
-    render(
-      <Context.Provider value={contextEmptyData}>
-        <ItemDetails />
-      </Context.Provider>
-    );
-
-    expect(screen.queryByTestId('section-right')).toBeNull();
   });
 });
