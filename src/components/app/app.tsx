@@ -1,4 +1,4 @@
-import { EmptyProps } from '../types';
+import { AppContext, EmptyProps } from '../types';
 import { Context, useCreateContext } from '../contexts';
 import { Route, Routes } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ import Main from '../main';
 import NotFoundPage from '../pages';
 
 const App: React.FC<EmptyProps> = (): JSX.Element => {
-  const context = useCreateContext();
+  const context: AppContext = useCreateContext();
 
   if (context.messageError) {
     throw new Error(context.messageError);

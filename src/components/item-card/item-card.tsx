@@ -18,6 +18,7 @@ const ItemCard: React.FC<ItemCardProps> = (
 
   return (
     <div
+      data-testid="item-card"
       className={`character-card card d-flex flex-row mb-3 ${
         id === _id ? 'border-success' : ''
       }`}

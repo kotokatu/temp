@@ -24,10 +24,11 @@ const ItemDetails: React.FC<EmptyProps> = (): JSX.Element | null => {
       wikiUrl,
     } = itemData[0];
     return (
-      <section className="section-right">
+      <section className="section-right" data-testid="section-right">
         <div className="details-card card d-flex flex-row mb-3" key={_id}>
           <button
             type="button"
+            id="btn-close"
             className="btn-close"
             onClick={(): void => setId('')}
           ></button>
@@ -75,7 +76,7 @@ const ItemDetails: React.FC<EmptyProps> = (): JSX.Element | null => {
 
   const item: JSX.Element | null = itemData.length ? renderItem() : null;
   const content: JSX.Element | null = loadingItem ? (
-    <section className="section-right">
+    <section className="section-right" data-testid="section-right">
       <Loader />
     </section>
   ) : (

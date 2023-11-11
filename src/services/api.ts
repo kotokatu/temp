@@ -27,6 +27,7 @@ export default class Api {
           this.errorHandler(response.statusText, `${response.status}`).message
         );
       }
+
       return response.json();
     } catch (error) {
       if (error instanceof Error) throw new Error(error.message);
