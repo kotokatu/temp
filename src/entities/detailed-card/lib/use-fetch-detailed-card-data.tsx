@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import { fetchTVShowById } from 'shared/api/myshows/myshows.service';
-import {
-  GetByIdRequestBody,
-  GetByIdResponseBody,
-} from 'shared/api/myshows/types';
-import { Language } from 'shared/types/language';
+import { GetByIdRequestBody } from 'shared/api/myshows/types/get-by-id-request-body.type';
+import { GetByIdResponseBody } from 'shared/api/myshows/types/get-by-id-response-body.type';
+import { Language } from 'shared/types/language.type';
 
 type useFetchDetailedCardDataType = (
   params: GetByIdRequestBody,

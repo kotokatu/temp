@@ -1,6 +1,7 @@
+import { isNullOrUndefined } from 'shared/lib/is-null-or-undefined';
 import { isObject } from 'shared/lib/is-object';
 import { isTypesCorrect } from 'shared/lib/is-types-correct';
-import { GetByIdResponseBody } from '../types';
+import { GetByIdResponseBody } from '../types/get-by-id-response-body.type';
 import { isApiEpisodeSummary } from './is-api-episode-summary.guard';
 import { isApiNetwork } from './is-api-network.guard';
 import { isApiOnlineLink } from './is-api-online-link.guard';
@@ -44,12 +45,13 @@ export const isGetByIdResponseBody = (
 
   return (
     isTypesCorrect(obj, types) &&
-    (network === null || (isObject(network) && isApiNetwork(network))) &&
-    (episodes === null ||
+    (isNullOrUndefined(network) ||
+      (isObject(network) && isApiNetwork(network))) &&
+    (isNullOrUndefined(episodes) ||
       (Array.isArray(episodes) && episodes.every(isApiEpisodeSummary))) &&
-    (onlineLinks === null ||
+    (isNullOrUndefined(onlineLinks) ||
       (Array.isArray(onlineLinks) && onlineLinks.every(isApiOnlineLink))) &&
-    (onlineLinkExclusive === null ||
+    (isNullOrUndefined(onlineLinkExclusive) ||
       (isObject(onlineLinkExclusive) && isApiOnlineLink(onlineLinkExclusive)))
   );
 };

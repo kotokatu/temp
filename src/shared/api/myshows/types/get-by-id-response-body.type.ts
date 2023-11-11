@@ -1,4 +1,6 @@
-import { ApiEpisodeSummary, ApiNetwork, ApiOnlineLink } from '.';
+import { ApiEpisodeSummary } from './api-episode-summary.type';
+import { ApiNetwork } from './api-network.type';
+import { ApiOnlineLink } from './api-online-link.type';
 
 export type GetByIdResponseBody = {
   id?: number;

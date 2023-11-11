@@ -1,5 +1,5 @@
 import { isTypesCorrect } from 'shared/lib/is-types-correct';
-import { ApiOnlineLink } from '../types';
+import { ApiOnlineLink } from '../types/api-online-link.type';
 
 export const isApiOnlineLink = (
   obj: Record<string, unknown>

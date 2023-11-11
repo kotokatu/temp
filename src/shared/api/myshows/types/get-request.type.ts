@@ -1,4 +1,4 @@
-import { GetRequestBody } from '.';
+import { GetRequestBody } from './get-request-body.type';
 
 export type GetRequest = {
   jsonrpc: string;

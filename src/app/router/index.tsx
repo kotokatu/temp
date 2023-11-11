@@ -2,8 +2,6 @@ import { DetailedCard } from 'entities/detailed-card';
 import { ErrorPage } from 'pages/error-page';
 import { MainPage } from 'pages/main-page';
 import { NotFoundPage } from 'pages/not-found-page';
-import { FC } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Endpoint } from 'shared/constants';
 
 export const routes = [
@@ -21,7 +19,3 @@ export const routes = [
   },
   { path: '*', element: <NotFoundPage />, errorElement: <ErrorPage /> },
 ];
-
-export const Router: FC = () => (
-  <RouterProvider router={createBrowserRouter(routes)} />
-);

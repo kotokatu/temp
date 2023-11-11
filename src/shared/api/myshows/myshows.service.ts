@@ -1,18 +1,16 @@
 import { defaultLanguage } from 'shared/constants';
 import { isObject } from 'shared/lib/is-object';
-import { Language } from 'shared/types/language';
+import { Language } from 'shared/types/language.type';
 import { isApiShowSummary } from './typeguards/is-api-show-summary.guard';
 import { isGetByIdResponseBody } from './typeguards/is-get-by-id-response-body.guard';
-import {
-  ApiShowSummary,
-  GetByIdRequest,
-  GetByIdRequestBody,
-  GetByIdResponse,
-  GetByIdResponseBody,
-  GetRequest,
-  GetRequestBody,
-  GetResponse,
-} from './types';
+import { ApiShowSummary } from './types/api-show-summary.type';
+import { GetByIdRequestBody } from './types/get-by-id-request-body.type';
+import { GetByIdRequest } from './types/get-by-id-request.type';
+import { GetByIdResponseBody } from './types/get-by-id-response-body.type';
+import { GetByIdResponse } from './types/get-by-id-response.type';
+import { GetRequestBody } from './types/get-request-body.type';
+import { GetRequest } from './types/get-request.type';
+import { GetResponse } from './types/get-response.type';
 
 const baseUrl = 'https://api.myshows.me/v2/rpc/';
 

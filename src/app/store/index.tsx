@@ -15,7 +15,7 @@ import {
   initialState,
 } from './model/context';
 import { storeReducer } from './model/reducer';
-import { Action } from './model/types';
+import { Action } from './model/types.type';
 
 export function useSearchInputContext(): string {
   return useContext(SearchInputContext);

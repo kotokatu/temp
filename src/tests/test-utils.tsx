@@ -4,19 +4,18 @@ import {
   SearchInputContext,
   SearchSubmitContext,
   StoreDispatchContext,
-  initialDispatch,
   initialState,
 } from 'app/store/model/context';
-import { Action, State } from 'app/store/model/types';
+import { Action, State } from 'app/store/model/types.type';
 import { Dispatch, FC, ReactNode } from 'react';
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
+import mockDetailsResponseJson from 'shared/api/myshows/model/mock-details-response.json';
+import mockListResponseJson from 'shared/api/myshows/model/mock-list-response.json';
 import {
   TVShowListResponse,
   isTVShowListResponse,
 } from 'shared/api/myshows/myshows.service';
 import { Endpoint } from 'shared/constants';
-import mockDetailsResponseJson from './model/mock-details-response.json';
-import mockListResponseJson from './model/mock-list-response.json';
 
 type AllProvidersProps = {
   children: ReactNode;
@@ -28,7 +27,9 @@ export const MockContextProvider: FC<AllProvidersProps> = ({
   searchInputValue = initialState.searchInputValue,
   searchSubmitValue = initialState.searchSubmitValue,
   fetchedListData = initialState.fetchedListData,
-  dispatch = initialDispatch,
+  dispatch = (): never => {
+    throw new Error('Function not implemented.');
+  },
 }: AllProvidersProps) => {
   return (
     <SearchInputContext.Provider value={searchInputValue}>

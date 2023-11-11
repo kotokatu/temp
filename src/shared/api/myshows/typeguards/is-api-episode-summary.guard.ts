@@ -1,5 +1,5 @@
 import { isTypesCorrect } from 'shared/lib/is-types-correct';
-import { ApiEpisodeSummary } from '../types';
+import { ApiEpisodeSummary } from '../types/api-episode-summary.type';
 
 export const isApiEpisodeSummary = (
   obj: Record<string, unknown>

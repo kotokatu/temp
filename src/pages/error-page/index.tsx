@@ -2,7 +2,7 @@ import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 import styles from './error-page.module.css';
 import { FC } from 'react';
 
-const ErrorMessage: FC<{ error: unknown }> = ({ error }) => {
+export const ErrorMessage: FC<{ error: unknown }> = ({ error }) => {
   if (!error) {
     return null;
   }

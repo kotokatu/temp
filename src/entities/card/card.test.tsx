@@ -3,6 +3,7 @@ import { DetailedCard } from 'entities/detailed-card';
 import { Outlet } from 'react-router-dom';
 import { Endpoint } from 'shared/constants';
 import {
+  cleanup,
   mockDetailsResponse,
   mockListItem,
   renderWithNestedRouter,
@@ -33,6 +34,7 @@ describe('Card', () => {
 
   afterEach(() => {
     fetchSpy.mockClear();
+    cleanup();
   });
 
   it('Ensure that the card component renders the relevant card data', async () => {

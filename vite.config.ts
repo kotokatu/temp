@@ -24,6 +24,10 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    coverage: { provider: 'v8', all: true },
+    coverage: {
+      provider: 'v8',
+      all: true,
+      exclude: ['**/*.d.ts', '**/*.type.ts'],
+    },
   },
 });

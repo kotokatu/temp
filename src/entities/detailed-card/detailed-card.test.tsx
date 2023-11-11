@@ -3,6 +3,7 @@ import { Card } from 'entities/card';
 import { Outlet } from 'react-router-dom';
 import { Endpoint } from 'shared/constants';
 import {
+  cleanup,
   mockDetailsResponse,
   mockListItem,
   renderWithNestedRouter,
@@ -32,6 +33,7 @@ describe('Detailed Card', () => {
 
   afterEach(() => {
     fetchSpy.mockClear();
+    cleanup();
   });
 
   it('Check that a loading indicator is displayed while fetching data', async () => {

@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { MockContextProvider, render, screen } from 'tests/test-utils';
+import { MockContextProvider, cleanup, render, screen } from 'tests/test-utils';
 import { Pagination } from '.';
 import { pageParamName } from 'shared/constants';
 
@@ -19,6 +19,10 @@ describe('Pagination', () => {
     const router = createBrowserRouter([{ path: '/', element }]);
 
     render(<RouterProvider router={router} />);
+  });
+
+  afterEach(() => {
+    cleanup();
   });
 
   it('Make sure the component updates URL query parameter when page changes', async () => {

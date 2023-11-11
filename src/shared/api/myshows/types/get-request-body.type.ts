@@ -1,4 +1,4 @@
-import { GetRequestBodySearch } from '.';
+import { GetRequestBodySearch } from './get-request-body-search.type';
 
 export type GetRequestBody = {
   search: GetRequestBodySearch;

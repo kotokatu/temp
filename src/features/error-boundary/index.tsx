@@ -2,7 +2,7 @@ import { Component, ErrorInfo, ReactNode } from 'react';
 import {
   ErrorBoundaryProps as Props,
   ErrorBoundaryState as State,
-} from './model/types';
+} from './model/error-boundary.type';
 
 export class ErrorBoundary extends Component<Props, State> {
   state: State = {

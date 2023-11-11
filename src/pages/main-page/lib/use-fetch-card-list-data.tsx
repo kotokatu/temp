@@ -3,8 +3,8 @@ import {
   TVShowListResponse,
   fetchTVShowList,
 } from 'shared/api/myshows/myshows.service';
-import { GetRequestBody } from 'shared/api/myshows/types';
-import { Language } from 'shared/types/language';
+import { GetRequestBody } from 'shared/api/myshows/types/get-request-body.type';
+import { Language } from 'shared/types/language.type';
 
 type UseFetchCardListDataType = (
   params: GetRequestBody,

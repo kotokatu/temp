@@ -1,7 +1,7 @@
 import { Reducer } from 'react';
 import { searchQueryLocalStorageKey } from 'shared/constants';
 import { ActionType } from './enums';
-import { Action, State } from './types';
+import { Action, State } from './types.type';
 
 export const storeReducer: Reducer<State, Action> = (prevState, action) => {
   switch (action.type) {

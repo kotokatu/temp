@@ -1,6 +1,7 @@
 import { noResultsMessage } from 'shared/constants';
 import {
   MockContextProvider,
+  cleanup,
   mockListResponse,
   render,
   renderWithRouter,
@@ -9,6 +10,10 @@ import {
 import { CardList } from '.';
 
 describe('Card List', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   it('Verify that the component renders the specified number of cards', () => {
     const expected = mockListResponse.list.length;
 

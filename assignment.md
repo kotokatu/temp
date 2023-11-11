@@ -11,5 +11,5 @@
 - [x] Card
 - [x] Detailed Card ?
 - [x] Pagination
-- [ ] Search
+- [x] Search
 - [x] 404 Page

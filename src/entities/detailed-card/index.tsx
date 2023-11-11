@@ -5,7 +5,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Endpoint, defaultLanguage } from 'shared/constants';
 import styles from './detailed-card.module.css';
 import { useFetchDetailedCardData } from './lib/use-fetch-detailed-card-data';
-import { DetailType } from './model/types';
+import { DetailType } from './model/detailed-card.type';
 import closeIconSrc from './ui/close-icon.svg';
 
 const Detail: FC<DetailType> = ({ title, value, secondaryValue, href }) => {

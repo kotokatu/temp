@@ -1,5 +1,5 @@
 import { isTypesCorrect } from 'shared/lib/is-types-correct';
-import { ApiNetwork } from '../types';
+import { ApiNetwork } from '../types/api-network.type';
 
 export const isApiNetwork = (
   obj: Record<string, unknown>

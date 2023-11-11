@@ -1,5 +1,5 @@
-import { GetByIdResponseBody } from '.';
 import { ApiResponseError } from './api-response-error.type';
+import { GetByIdResponseBody } from './get-by-id-response-body.type';
 
 export type GetByIdResponse =
   | {

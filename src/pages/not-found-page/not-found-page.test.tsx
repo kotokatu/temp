@@ -1,7 +1,7 @@
 import { routes } from 'app/router';
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import { Endpoint } from 'shared/constants';
-import { render, screen } from 'tests/test-utils';
+import { cleanup, render, screen } from 'tests/test-utils';
 
 describe('404 Page', () => {
   beforeEach(() => {
@@ -16,6 +16,10 @@ describe('404 Page', () => {
         })}
       />
     );
+  });
+
+  afterEach(() => {
+    cleanup();
   });
 
   it('Ensure that the 404 page is displayed when navigating to an invalid route', async () => {

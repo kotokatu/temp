@@ -1,5 +1,5 @@
 import { isTypesCorrect } from 'shared/lib/is-types-correct';
-import { ApiShowSummary } from '../types';
+import { ApiShowSummary } from '../types/api-show-summary.type';
 
 export const isApiShowSummary = (
   obj: Record<string, unknown>

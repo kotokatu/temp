@@ -2,7 +2,7 @@ import { FC, ReactEventHandler } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Endpoint } from 'shared/constants';
 import styles from './card.module.css';
-import { CardProps } from './model/types';
+import { CardProps } from './model/card.type';
 import cardImagePlaceholderSrc from './ui/card-image-placeholder.webp';
 
 const getStyledStatus = (status = ''): { style: string; text: string } => {

@@ -1,4 +1,4 @@
-import { ApiShowSummary } from 'shared/api/myshows/types';
+import { ApiShowSummary } from 'shared/api/myshows/types/api-show-summary.type';
 
 export type CardProps = Pick<
   ApiShowSummary,
