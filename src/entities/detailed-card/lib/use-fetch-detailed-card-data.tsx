@@ -29,7 +29,7 @@ export const useFetchDetailedCardData: useFetchDetailedCardDataType = (
 
     fetchTVShowById(params, lang, signal)
       .then((details) => {
-        setDetails(details); // callback(details);
+        setDetails(details);
         setIsFetching(false);
         controller = null;
       })

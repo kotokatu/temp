@@ -92,7 +92,7 @@ export const getByAllRoles = (): void => {
     .flat()
     .map<[string, HTMLElement[]]>((role) => [role, screen.queryAllByRole(role)])
     .filter(([, list]) => list.length > 0)
-    .map(([role, elements]) => [role, elements.map((el) => el.innerHTML)]);
+    .map(([role, elements]) => [role, elements.map((el) => el.outerHTML)]);
   const dict = Object.fromEntries(roleDictEntries);
   console.info(dict);
 };

@@ -9,18 +9,14 @@ import {
 } from 'app/store/model/context';
 import { Action, State } from 'app/store/model/types';
 import { Dispatch, FC, ReactNode } from 'react';
-import {
-  Outlet,
-  RouteObject,
-  RouterProvider,
-  createMemoryRouter,
-} from 'react-router-dom';
-import { Endpoint } from 'shared/constants';
-import mockResponseJson from './model/mock-response.json';
+import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import {
   TVShowListResponse,
   isTVShowListResponse,
 } from 'shared/api/myshows/myshows.service';
+import { Endpoint } from 'shared/constants';
+import mockListResponseJson from './model/mock-list-response.json';
+import mockDetailsResponseJson from './model/mock-details-response.json';
 
 type AllProvidersProps = {
   children: ReactNode;
@@ -47,34 +43,29 @@ export const MockContextProvider: FC<AllProvidersProps> = ({
   );
 };
 
+type RouterOpts = Parameters<typeof createMemoryRouter>[1];
+
 export const renderWithRouter = (
   element: ReactNode,
-  opts?: Parameters<typeof createMemoryRouter>[1],
+  opts?: RouterOpts,
   path = Endpoint.ROOT
 ): RenderResult => {
-  const route = { path, element };
-  const router = createMemoryRouter([route], opts);
-  const provider = <RouterProvider router={router} />;
-  return render(provider);
+  const router = createMemoryRouter([{ path, element }], opts);
+  return render(<RouterProvider router={router} />);
 };
 
 export const renderWithNestedRouter = (
   element: ReactNode,
-  path: string,
-  opts?: Parameters<typeof createMemoryRouter>[1]
+  children: ReactNode,
+  opts?: Parameters<typeof createMemoryRouter>[1],
+  path: string = Endpoint.ROOT,
+  subPath: string = Endpoint.DETAILS
 ): RenderResult => {
-  const route: RouteObject = {
-    path: Endpoint.ROOT,
-    element: (
-      <div>
-        <Outlet />
-      </div>
-    ),
-    children: [{ path, element }],
-  };
-  const router = createMemoryRouter([route], opts);
-  const provider = <RouterProvider router={router} />;
-  return render(provider);
+  const router = createMemoryRouter(
+    [{ path, element, children: [{ path: subPath, element: children }] }],
+    opts
+  );
+  return render(<RouterProvider router={router} />);
 };
 
 const getValidMockResponse = (json: unknown): TVShowListResponse => {
@@ -84,10 +75,13 @@ const getValidMockResponse = (json: unknown): TVShowListResponse => {
   return json;
 };
 
-export const mockResponse = getValidMockResponse({
-  count: mockResponseJson[0].result,
-  list: mockResponseJson[1].result,
+export const mockListResponse = getValidMockResponse({
+  count: mockListResponseJson[0].result,
+  list: mockListResponseJson[1].result,
 });
-export const mockListItem = mockResponse.list[0];
+
+export const mockListItem = mockListResponse.list[0];
+
+export const mockDetailsResponse = mockDetailsResponseJson;
 
 export * from '@testing-library/react';

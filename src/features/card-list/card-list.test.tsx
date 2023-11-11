@@ -1,7 +1,7 @@
 import { noResultsMessage } from 'shared/constants';
 import {
   MockContextProvider,
-  mockResponse,
+  mockListResponse,
   render,
   renderWithRouter,
   screen,
@@ -10,10 +10,10 @@ import { CardList } from '.';
 
 describe('Card List', () => {
   it('Verify that the component renders the specified number of cards', () => {
-    const expected = mockResponse.list.length;
+    const expected = mockListResponse.list.length;
 
     renderWithRouter(
-      <MockContextProvider fetchedListData={mockResponse}>
+      <MockContextProvider fetchedListData={mockListResponse}>
         <CardList />
       </MockContextProvider>
     );

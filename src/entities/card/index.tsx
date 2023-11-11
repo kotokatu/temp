@@ -53,7 +53,7 @@ export const Card: FC<CardProps> = ({
         height={180}
         onError={handleImageError}
       />
-      <p className={styles.description}>
+      <p className={styles.description} aria-label="card description">
         Year: {year}
         <br />
         Rating: {rating}

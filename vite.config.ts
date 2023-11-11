@@ -21,5 +21,9 @@ export default defineConfig({
   base: './',
   plugins: [react()],
   resolve: { alias: { ...aliases } },
-  test: { environment: 'jsdom', globals: true },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    coverage: { provider: 'v8', all: true },
+  },
 });

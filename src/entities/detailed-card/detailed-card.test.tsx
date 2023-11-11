@@ -1,10 +1,10 @@
-import { Endpoint } from 'shared/constants';
+import { Card } from 'entities/card';
 import { renderWithNestedRouter } from 'tests/test-utils';
 import { DetailedCard } from '.';
 
 describe('Detailed Card', () => {
   beforeEach(() => {
-    renderWithNestedRouter(<DetailedCard />, `${Endpoint.DETAILS}:id`);
+    renderWithNestedRouter(<Card />, <DetailedCard />);
   });
 
   it('Check that a loading indicator is displayed while fetching data', () => {
