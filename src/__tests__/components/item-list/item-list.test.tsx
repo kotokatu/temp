@@ -16,6 +16,7 @@ describe('Tests for the Card List component', () => {
       screen.queryByText(/Oops. There is no such character in our database./i)
     ).toBeDefined();
   });
+
   test('Verify that the component renders the specified number of cards', async () => {
     render(
       <Context.Provider value={context}>

@@ -1,4 +1,18 @@
-import { AppContext, ResponseApi } from '../../components/types';
+import { AppContext, Character, ResponseApi } from '../../components/types';
+
+export const characterTransform: Character = {
+  _id: '5cd99d4bde30eff6ebccfea0',
+  birth: 'Before the the Shaping of Arda',
+  death: 'January 253019 ,Battle of the Peak immortal',
+  gender: 'Male',
+  hair: 'Grey, later white',
+  height: 'no info',
+  name: 'Gandalf',
+  race: 'Maiar',
+  realm: 'no info',
+  spouse: 'no info',
+  wikiUrl: 'http://lotr.wikia.com//wiki/Gandalf',
+};
 
 export const data: ResponseApi = {
   docs: [
@@ -50,19 +64,7 @@ export const data: ResponseApi = {
 
 export const dataTransform: ResponseApi = {
   docs: [
-    {
-      _id: '5cd99d4bde30eff6ebccfea0',
-      birth: 'Before the the Shaping of Arda',
-      death: 'January 253019 ,Battle of the Peak immortal',
-      gender: 'Male',
-      hair: 'Grey, later white',
-      height: 'no info',
-      name: 'Gandalf',
-      race: 'Maiar',
-      realm: 'no info',
-      spouse: 'no info',
-      wikiUrl: 'http://lotr.wikia.com//wiki/Gandalf',
-    },
+    characterTransform,
     {
       _id: '5cd99d4bde30eff6ebccfd8a',
       birth: 'Late ,First Age',
@@ -99,7 +101,7 @@ export const dataTransform: ResponseApi = {
 export const context: AppContext = {
   term: '',
   data: data.docs,
-  itemData: [],
+  itemData: [characterTransform],
   id: '',
   limit: '',
   page: '',
@@ -117,4 +119,5 @@ export const context: AppContext = {
 export const contextEmptyData: AppContext = {
   ...context,
   data: [],
+  itemData: [],
 };
