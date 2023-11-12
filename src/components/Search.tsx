@@ -1,23 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useContext } from 'react';
+import { baseUrl } from '../API/api';
+import { ThemeContext } from '../pages/SearchPage';
 
-type Props = {
-  input: string;
-  setSearch: (value: string) => void;
-  setStatus: (value: string) => void;
-};
+const Search = () => {
+  const context = useContext(ThemeContext);
+  const [input, setInput] = useState(context.search);
 
-const Search = (props: Props) => {
-  const [input, setInput] = useState(props.input);
+  useEffect(() => {
+    const page = 1;
+    context.setPage(page);
+    context.setUrl(`${baseUrl}${context.search.trim()}`);
+  }, [context.search]);
 
   return (
-    <div>
+    <div className="search">
       <input
         className="input-search"
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
-      <button onClick={() => props.setSearch(input.trim())}>Search</button>
-      <button onClick={() => props.setStatus('error')}>Error</button>
+      <button onClick={() => context.setSearch(input.trim())}>Search</button>
+      <button onClick={() => context.setStatus('error')}>Error</button>
     </div>
   );
 };

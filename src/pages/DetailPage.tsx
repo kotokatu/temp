@@ -4,7 +4,7 @@ import {
   useOutletContext,
 } from 'react-router-dom';
 import { RouterPath } from '../router/routes';
-import { Detail } from './SearchPage';
+import { Detail } from '../API/api';
 
 const DetailPage = () => {
   const [searchParams] = useSearchParams();

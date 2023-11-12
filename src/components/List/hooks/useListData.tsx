@@ -1,5 +1,6 @@
 import { useContext } from 'react';
-import { ThemeContext, Context } from '../../../pages/SearchPage';
+import { Context } from '../../../API/api';
+import { ThemeContext } from '../../../pages/SearchPage';
 import { getSearchLink } from '../../../router/routes';
 
 const useListData = (inputContext?: Context) => {

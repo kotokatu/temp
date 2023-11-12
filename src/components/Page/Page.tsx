@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 const pageLimits: number[] = [5, 10, 20, 50, 100];
 const Page = () => {
   const { getPageLinks, getPageLink, getLinesPerPageLink } = usePageData();
-
   const pages = getPageLinks();
   const linkItem = (
     key: string,
@@ -18,7 +17,6 @@ const Page = () => {
       </li>
     );
   };
-
   return (
     <>
       <ul className="pages">
