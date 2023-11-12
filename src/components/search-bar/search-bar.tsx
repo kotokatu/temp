@@ -32,7 +32,11 @@ const SearchBar: React.FC<EmptyProps> = (): JSX.Element => {
         onChange={changeSearchTerm}
         value={term}
       ></input>
-      <button className="btn btn-secondary my-2 my-sm-0" type="submit">
+      <button
+        className="btn btn-secondary my-2 my-sm-0"
+        type="submit"
+        data-testid="search-button"
+      >
         Search
       </button>
     </form>

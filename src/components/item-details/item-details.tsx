@@ -25,7 +25,11 @@ const ItemDetails: React.FC<EmptyProps> = (): JSX.Element | null => {
     } = itemData[0];
     return (
       <section className="section-right" data-testid="section-right">
-        <div className="details-card card d-flex flex-row mb-3" key={_id}>
+        <div
+          className="details-card card d-flex flex-row mb-3"
+          key={_id}
+          data-testid="item-details"
+        >
           <button
             type="button"
             id="btn-close"

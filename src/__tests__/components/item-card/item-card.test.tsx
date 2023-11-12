@@ -21,7 +21,7 @@ describe('Tests for the Card component', () => {
     expect(screen.getByText(`Birth: ${birth}`)).toBeDefined();
   });
 
-  test('Validate that clicking on a card opens a detailed card component', async () => {
+  test('Check that clicking triggers setId with current id card', async () => {
     afterEach((): void => {
       vi.restoreAllMocks();
     });
@@ -35,22 +35,6 @@ describe('Tests for the Card component', () => {
 
     await userEvent.click(screen.getByTestId('item-card'));
     expect(spy).toHaveBeenCalledTimes(1);
-    expect(spy).toHaveBeenCalledWith(characterTransform._id);
-  });
-
-  test('Check that clicking triggers an additional API call to fetch detailed information', async () => {
-    afterEach((): void => {
-      vi.restoreAllMocks();
-    });
-    const spy: SpyInstance<[value: React.SetStateAction<string>], void> =
-      vi.spyOn(context, 'setId');
-    render(
-      <Context.Provider value={context}>
-        <ItemCard character={characterTransform} />
-      </Context.Provider>
-    );
-
-    await userEvent.click(screen.getByTestId('item-card'));
     expect(spy).toHaveBeenCalledWith(characterTransform._id);
   });
 });
