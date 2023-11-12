@@ -24,9 +24,35 @@ describe('Tests for the Search component:', (): void => {
       </MemoryRouter>
     );
     const searchButton: HTMLElement = screen.getByTestId('search-button');
-    const searchInput: HTMLElement = screen.getByTestId('search-input');
+    const searchInput: HTMLInputElement = screen.getByTestId('search-input');
     await userEvent.type(searchInput, 'Frodo');
     await userEvent.click(searchButton);
     expect(localStorage.getItem('termForSearching')).toEqual('Frodo');
+  });
+
+  test('Check that the component retrieves the value from the local storage upon mounting', async (): Promise<void> => {
+    fetchMocker.mockResponse(JSON.stringify(data));
+
+    const { unmount } = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+    const searchButton: HTMLElement = screen.getByTestId('search-button');
+    const searchInput: HTMLInputElement = screen.getByTestId('search-input');
+    expect(localStorage.getItem('termForSearching')).toEqual('Frodo');
+    expect(searchInput.value).toEqual('Frodo');
+    await userEvent.clear(searchInput);
+    await userEvent.type(searchInput, 'Gandalf');
+    await userEvent.click(searchButton);
+    unmount();
+
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+    expect(localStorage.getItem('termForSearching')).toEqual('Gandalf');
+    expect(searchInput.value).toEqual('Gandalf');
   });
 });
