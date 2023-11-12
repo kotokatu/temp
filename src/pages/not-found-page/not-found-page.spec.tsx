@@ -2,6 +2,7 @@ import { routes } from 'app/router';
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import { Endpoint } from 'shared/constants';
 import { cleanup, render, screen } from 'tests/test-utils';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 describe('404 Page', () => {
   beforeEach(() => {

@@ -32,7 +32,6 @@ export const DetailedCard: FC = () => {
   const { id } = useParams();
   const location = useLocation();
   const navigation = useNavigate();
-
   if (typeof id === 'undefined') {
     throw new Error('Wrong query types');
   }

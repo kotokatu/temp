@@ -1,8 +1,9 @@
 import userEvent from '@testing-library/user-event';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { MockContextProvider, cleanup, render, screen } from 'tests/test-utils';
-import { Pagination } from '.';
 import { pageParamName } from 'shared/constants';
+import { MockContextProvider, cleanup, render, screen } from 'tests/test-utils';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { Pagination } from '.';
 
 describe('Pagination', () => {
   const user = userEvent.setup();

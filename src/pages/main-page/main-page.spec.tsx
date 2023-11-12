@@ -1,4 +1,5 @@
 import { cleanup, renderWithRouter, screen } from 'tests/test-utils';
+import { afterEach, describe, expect, it } from 'vitest';
 import { MainPage } from '.';
 
 describe('Main page', () => {

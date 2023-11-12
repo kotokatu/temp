@@ -1,4 +1,3 @@
-/// <reference types="vitest" />
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
@@ -27,7 +26,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       all: true,
-      exclude: ['**/*.d.ts', '**/*.type.ts'],
+      exclude: ['**/*.d.ts'],
     },
   },
 });

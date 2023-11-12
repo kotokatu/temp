@@ -1,7 +1,8 @@
 import userEvent from '@testing-library/user-event';
-import { cleanup, render, screen } from 'tests/test-utils';
-import { ErrorThrowingButton } from '.';
 import { ErrorBoundary } from 'features/error-boundary';
+import { cleanup, render, screen } from 'tests/test-utils';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { ErrorThrowingButton } from '.';
 
 describe('Error throwing button', () => {
   const user = userEvent.setup();

@@ -7,6 +7,7 @@ import {
   renderWithRouter,
   screen,
 } from 'tests/test-utils';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { Search } from '.';
 
 describe('Search', () => {

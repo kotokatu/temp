@@ -7,6 +7,7 @@ import {
   renderWithRouter,
   screen,
 } from 'tests/test-utils';
+import { afterEach, describe, expect, it } from 'vitest';
 import { CardList } from '.';
 
 describe('Card List', () => {

@@ -10,6 +10,7 @@ import {
   screen,
   within,
 } from 'tests/test-utils';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { Card } from '.';
 
 describe('Card', () => {

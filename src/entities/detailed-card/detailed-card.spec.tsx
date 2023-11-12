@@ -9,6 +9,7 @@ import {
   renderWithNestedRouter,
   screen,
 } from 'tests/test-utils';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { DetailedCard } from '.';
 
 describe('Detailed Card', () => {
@@ -36,9 +37,7 @@ describe('Detailed Card', () => {
     cleanup();
   });
 
-  it('Check that a loading indicator is displayed while fetching data', async () => {
-    expect(true).toBe(true);
-  });
+  it('Check that a loading indicator is displayed while fetching data', async () => {});
 
   it('Make sure the detailed card component correctly displays the detailed card data', async () => {
     const details = mockDetailsResponse.result;

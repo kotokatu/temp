@@ -1,8 +1,9 @@
+import { describe, expect, it } from 'vitest';
 import { isApiEpisodeSummary } from '../typeguards/is-api-episode-summary.guard';
 import { isApiNetwork } from '../typeguards/is-api-network.guard';
 import { isApiOnlineLink } from '../typeguards/is-api-online-link.guard';
-import { isGetByIdResponseBody } from '../typeguards/is-get-by-id-response-body.guard';
 import { isApiShowSummary } from '../typeguards/is-api-show-summary.guard';
+import { isGetByIdResponseBody } from '../typeguards/is-get-by-id-response-body.guard';
 
 describe('Typeguards', () => {
   it('is api episode summary guard', () => {
@@ -107,7 +108,7 @@ describe('Typeguards', () => {
       onlineLinkExclusive: null,
     };
     const mock2 = { id: '1' };
-    console.log(isGetByIdResponseBody(mock1));
+
     expect(isGetByIdResponseBody(mock1)).toBe(true);
     expect(isGetByIdResponseBody(mock2)).toBe(false);
   });
