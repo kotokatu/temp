@@ -62,6 +62,28 @@ export const data: ResponseApi = {
   pages: 1,
 };
 
+export const dataByID: ResponseApi = {
+  docs: [
+    {
+      _id: '5cd99d4bde30eff6ebccfd8a',
+      height: '',
+      race: 'Human',
+      gender: 'Male',
+      birth: 'Late ,First Age',
+      spouse: '',
+      death: 'Late First Age',
+      realm: '',
+      hair: '',
+      name: 'Lorgan',
+      wikiUrl: 'http://lotr.wikia.com//wiki/Lorgan',
+    },
+  ],
+  total: 1,
+  limit: 10,
+  page: 1,
+  pages: 1,
+};
+
 export const dataTransform: ResponseApi = {
   docs: [
     characterTransform,
