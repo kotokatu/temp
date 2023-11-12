@@ -70,6 +70,28 @@ export const dataEmpty: ResponseApi = {
   pages: 1,
 };
 
+export const dataFirstPage: ResponseApi = {
+  docs: [
+    {
+      _id: '5cd99d4bde30eff6ebccfea0',
+      height: '',
+      race: 'Maiar',
+      gender: 'Male',
+      birth: 'Before the the Shaping of Arda',
+      spouse: '',
+      death: 'January 253019 ,Battle of the Peak immortal',
+      realm: '',
+      hair: 'Grey, later white',
+      name: 'Gandalf',
+      wikiUrl: 'http://lotr.wikia.com//wiki/Gandalf',
+    },
+  ],
+  total: 3,
+  limit: 1,
+  page: 1,
+  pages: 3,
+};
+
 export const dataByID: ResponseApi = {
   docs: [
     {

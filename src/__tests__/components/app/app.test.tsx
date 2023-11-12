@@ -84,6 +84,12 @@ describe('Tests for the Loader', (): void => {
     await screen.findByTestId('item-details');
     expect(screen.queryByTestId('loader')).toBeNull();
   });
+});
+
+describe('Tests for the Detailed Card component', (): void => {
+  beforeEach((): void => {
+    fetchMocker.resetMocks();
+  });
 
   test('Ensure that clicking the close button hides the component', async (): Promise<void> => {
     fetchMocker.mockResponse(JSON.stringify(data));

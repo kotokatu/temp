@@ -50,6 +50,7 @@ const Pagination: React.FC<EmptyProps> = (): JSX.Element => {
         <li
           className={`page-item ${+page > +firstPage ? '' : 'disabled'}`}
           onClick={onPrevPage}
+          data-testid="page-prev"
         >
           <span className="page-link">&laquo;</span>
         </li>
@@ -61,6 +62,7 @@ const Pagination: React.FC<EmptyProps> = (): JSX.Element => {
         <li
           className={`page-item ${+page < +lastPage ? '' : 'disabled'}`}
           onClick={onNextPage}
+          data-testid="page-next"
         >
           <span className="page-link">&raquo;</span>
         </li>
