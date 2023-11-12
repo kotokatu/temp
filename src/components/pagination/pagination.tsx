@@ -74,8 +74,13 @@ const Pagination: React.FC<EmptyProps> = (): JSX.Element => {
           placeholder="default 10..."
           onChange={onSetLimit}
           value={currentLimit}
+          data-testid="limit-input"
         />
-        <button className="btn btn-primary" type="submit">
+        <button
+          className="btn btn-primary"
+          type="submit"
+          data-testid="set-limit"
+        >
           Set limit
         </button>
       </form>

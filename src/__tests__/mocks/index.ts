@@ -62,6 +62,41 @@ export const data: ResponseApi = {
   pages: 1,
 };
 
+export const dataWithTwoCharacter: ResponseApi = {
+  docs: [
+    {
+      _id: '5cd99d4bde30eff6ebccfea0',
+      height: '',
+      race: 'Maiar',
+      gender: 'Male',
+      birth: 'Before the the Shaping of Arda',
+      spouse: '',
+      death: 'January 253019 ,Battle of the Peak immortal',
+      realm: '',
+      hair: 'Grey, later white',
+      name: 'Gandalf',
+      wikiUrl: 'http://lotr.wikia.com//wiki/Gandalf',
+    },
+    {
+      _id: '5cd99d4bde30eff6ebccfd8a',
+      height: '',
+      race: 'Human',
+      gender: 'Male',
+      birth: 'Late ,First Age',
+      spouse: '',
+      death: 'Late First Age',
+      realm: '',
+      hair: '',
+      name: 'Lorgan',
+      wikiUrl: 'http://lotr.wikia.com//wiki/Lorgan',
+    },
+  ],
+  total: 3,
+  limit: 2,
+  page: 1,
+  pages: 2,
+};
+
 export const dataEmpty: ResponseApi = {
   docs: [],
   total: 0,
