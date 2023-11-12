@@ -31,6 +31,7 @@ const SearchBar: React.FC<EmptyProps> = (): JSX.Element => {
         placeholder="search character by name"
         onChange={changeSearchTerm}
         value={term}
+        data-testid="search-input"
       ></input>
       <button
         className="btn btn-secondary my-2 my-sm-0"
