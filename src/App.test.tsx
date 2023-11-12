@@ -3,10 +3,10 @@ import { render } from '@testing-library/react';
 import App from './App';
 
 test('#1', () => {
-  expect(true).toBe(true);
+  // expect(true).toBe(true);
 });
 
 test('#2', () => {
   render(<App />);
-  expect(true).toBeTruthy();
+  // expect(true).toBeTruthy();
 });

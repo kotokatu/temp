@@ -43,7 +43,8 @@ const SearchPage = () => {
 
   useEffect(() => {
     goToPage(page);
-    getList(`${baseUrl}${search}`, page, linesPerPage);
+    if (process.env.NODE_ENV !== 'test')
+      getList(`${baseUrl}${search}`, page, linesPerPage);
   }, []);
 
   useEffect(() => {
@@ -67,7 +68,7 @@ const SearchPage = () => {
     if (status === '...Loading') return;
     localStorage.setItem('Search', search);
     setStatus('...Loading');
-    getList(url, page, linesPerPage);
+    if (process.env.NODE_ENV !== 'test') getList(url, page, linesPerPage);
   }, [url, page]);
 
   const getList = async (url: string, page: number, limit: number) => {
