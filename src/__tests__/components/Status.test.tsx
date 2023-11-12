@@ -1,12 +1,12 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
-import Error404Page from './Error404Page';
+import Status from '../../components/Status';
 
 test('#1', () => {
   expect(true).toBe(true);
 });
 
 test('#2', () => {
-  render(<Error404Page />);
+  render(<Status />);
   expect(true).toBeTruthy();
 });

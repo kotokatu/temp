@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { RenderHookResult, renderHook } from '@testing-library/react';
-import useListData from './useListData';
+import useListData from '../../../../components/List/hooks/useListData';
 // import { Context } from '../../../pages/SearchPage';
 // import App from '../../../App';
 interface ListData {

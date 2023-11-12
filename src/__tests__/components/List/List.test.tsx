@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import List from './List';
+import List from '../../../components/List/List';
 import { createContext } from 'react';
-import { Context, Detail } from '../../pages/SearchPage';
+import { Context, Detail } from '../../../pages/SearchPage';
 
 test('#1', () => {
   expect(true).toBe(true);

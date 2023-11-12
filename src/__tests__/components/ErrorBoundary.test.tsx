@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import ErrorBoundary from './ErrorBoundary';
+import ErrorBoundary from '../../components/ErrorBoundary';
 // const { getComputedStyle } = global.window;
 
 // const consoleMock = jest.spyOn(console, 'error');

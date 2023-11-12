@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
-import Search from './Search';
+import Search from '../../components/Search';
 // import React, { useState as useStateMock } from 'react';
 // import { jest } from '@jest/globals';
 // import { mount } from 'enzyme';

@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { RenderHookResult, renderHook } from '@testing-library/react';
-import usePageData from './usePageData';
+import usePageData from '../../../../components/Page/hooks/usePageData';
 // import { Context } from '../../../pages/SearchPage';
 // import App from '../../../App';
 type PageButton = { link: number; label: string };
