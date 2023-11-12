@@ -62,6 +62,14 @@ export const data: ResponseApi = {
   pages: 1,
 };
 
+export const dataEmpty: ResponseApi = {
+  docs: [],
+  total: 0,
+  limit: 10,
+  page: 1,
+  pages: 1,
+};
+
 export const dataByID: ResponseApi = {
   docs: [
     {

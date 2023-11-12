@@ -32,7 +32,7 @@ const ItemDetails: React.FC<EmptyProps> = (): JSX.Element | null => {
         >
           <button
             type="button"
-            id="btn-close"
+            data-testid="btn-close"
             className="btn-close"
             onClick={(): void => setId('')}
           ></button>
