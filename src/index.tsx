@@ -1,8 +1,8 @@
+import { ErrorBoundary } from 'features/error-boundary';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { App } from './app';
-import { ErrorBoundary } from 'features/error-boundary';
 import { isEnabledStrictMode } from 'shared/constants';
+import { App } from './app';
 
 const children = (
   <ErrorBoundary fallback={<h1>[ErrorBoundary]: App Error :(</h1>}>
