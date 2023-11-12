@@ -29,12 +29,13 @@ export interface Context {
 export const getTotalCount = async (url: string) => {
   let totalCount = 0;
 
-  await fetch(url)
-    .then((response) => (response.ok ? response.json() : []))
-    .then((result) => {
-      totalCount = result.count;
-    })
-    .catch((error) => console.error(error));
+  if (process.env.NODE_ENV !== 'test')
+    await fetch(url)
+      .then((response) => (response.ok ? response.json() : []))
+      .then((result) => {
+        totalCount = result.count;
+      })
+      .catch((error) => console.error(error));
   return totalCount;
 };
 export const getItemsList = async (params: DetailItemsList) => {

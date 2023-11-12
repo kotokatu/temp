@@ -32,12 +32,21 @@ let listData: RenderHookResult<ListData, undefined>;
 test('#1', () => {
   listData = renderHook(() =>
     useListData({
+      search: '',
+      url: '',
       page: 1,
       count: 0,
       linesPerPage: 10,
       linksToPages: 2,
       items: [],
       status: '',
+      setStatus: () => null,
+      setSearch: () => null,
+      setPage: () => null,
+      setUrl: () => null,
+      setCount: () => null,
+      setLinesPerPage: () => null,
+      setItems: () => null,
     })
   );
   // console.log(listData);
@@ -52,12 +61,21 @@ test('#1', () => {
 
   listData = renderHook(() =>
     useListData({
+      search: '',
+      url: '',
       page: 1,
       count: 10,
       linesPerPage: 10,
       linksToPages: 2,
       items: [],
       status: '',
+      setStatus: () => null,
+      setSearch: () => null,
+      setPage: () => null,
+      setUrl: () => null,
+      setCount: () => null,
+      setLinesPerPage: () => null,
+      setItems: () => null,
     })
   );
   listData = renderHook(() => useListData());

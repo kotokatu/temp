@@ -55,7 +55,7 @@ test('#2', () => {
 
   // const [search, setSearch] = useState('');
   // const [status, setStatus] = useState('');
-  render(<Search input={''} setSearch={() => ''} setStatus={() => ''} />);
+  render(<Search />);
   expect(true).toBeTruthy();
   // expect(status).toBe(status);
 });

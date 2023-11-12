@@ -28,12 +28,21 @@ let pageData: RenderHookResult<PageData, undefined>;
 test('#1', () => {
   pageData = renderHook(() =>
     usePageData({
+      search: '',
+      url: '',
       page: 1,
       count: 0,
       linesPerPage: 10,
       linksToPages: 2,
       items: [],
       status: '',
+      setStatus: () => null,
+      setSearch: () => null,
+      setPage: () => null,
+      setUrl: () => null,
+      setCount: () => null,
+      setLinesPerPage: () => null,
+      setItems: () => null,
     })
   );
   // console.log(listData);
