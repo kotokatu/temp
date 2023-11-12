@@ -18,7 +18,7 @@ describe('Tests for the Card List component', (): void => {
     fetchMocker.resetMocks();
   });
 
-  test('Validate that clicking on a card opens a detailed card component', async (): Promise<void> => {
+  test('Verify that the component renders the specified number of cards', async (): Promise<void> => {
     fetchMocker.mockResponse(JSON.stringify(data));
 
     render(
