@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { data, dataByID, dataEmpty } from '../../mocks';
+import { data, dataByID } from '../../mocks';
 import App from '../../../components/app';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -44,29 +44,5 @@ describe('Tests for the Loader', (): void => {
     expect(loader).toBeDefined();
     await screen.findByTestId('item-details');
     expect(screen.queryByTestId('loader')).toBeNull();
-  });
-});
-
-describe('Tests for the Detailed Card component', (): void => {
-  beforeEach((): void => {
-    fetchMocker.resetMocks();
-  });
-
-  test('Ensure that clicking the close button hides the component', async (): Promise<void> => {
-    fetchMocker.mockResponse(JSON.stringify(data));
-
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    );
-    const items: HTMLElement[] = await screen.findAllByTestId('item-card');
-    expect(screen.queryByTestId('item-details')).toBeNull();
-    await userEvent.click(items[0]);
-    expect(screen.queryByTestId('item-details')).toBeDefined();
-    fetchMocker.mockResponse(JSON.stringify(dataEmpty));
-    const closeButton: HTMLElement = await screen.findByTestId('btn-close');
-    await userEvent.click(closeButton);
-    expect(screen.queryByTestId('item-details')).toBeNull();
   });
 });
