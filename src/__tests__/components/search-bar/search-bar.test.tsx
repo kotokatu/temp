@@ -10,7 +10,7 @@ import { MemoryRouter } from 'react-router-dom';
 const fetchMocker = createFetchMock(vi);
 fetchMocker.enableMocks();
 
-describe('Tests for the Search component:', (): void => {
+describe('Tests for the Search component', (): void => {
   beforeEach((): void => {
     fetchMocker.resetMocks();
   });

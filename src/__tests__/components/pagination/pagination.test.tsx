@@ -10,7 +10,7 @@ import { BrowserRouter } from 'react-router-dom';
 const fetchMocker = createFetchMock(vi);
 fetchMocker.enableMocks();
 
-describe('Tests for the Pagination component:', (): void => {
+describe('Tests for the Pagination component', (): void => {
   beforeEach((): void => {
     fetchMocker.resetMocks();
   });
