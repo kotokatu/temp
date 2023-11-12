@@ -1,7 +1,7 @@
+import { cleanup, render, screen } from '@testing-library/react';
 import { routes } from 'app/router';
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import { Endpoint } from 'shared/constants';
-import { cleanup, render, screen } from 'tests/test-utils';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 describe('404 Page', () => {
@@ -25,7 +25,7 @@ describe('404 Page', () => {
 
   it('Ensure that the 404 page is displayed when navigating to an invalid route', async () => {
     expect(
-      screen.queryByRole('heading', { name: '[404] Not Found' })
-    ).not.toBeNull();
+      screen.getByRole('heading', { name: '[404] Not Found' })
+    ).toBeVisible();
   });
 });

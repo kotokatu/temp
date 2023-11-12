@@ -1,4 +1,5 @@
-import { cleanup, renderWithRouter, screen } from 'tests/test-utils';
+import { cleanup, screen } from '@testing-library/react';
+import { renderWithRouter } from 'tests/test-utils';
 import { afterEach, describe, expect, it } from 'vitest';
 import { ErrorMessage, ErrorPage } from '.';
 
@@ -12,7 +13,7 @@ describe('Error page', () => {
 
     renderWithRouter(<ErrorMessage error={new Error(errorMessage)} />);
 
-    expect(screen.getByText(errorMessage)).not.toBeNull();
+    expect(screen.getByText(errorMessage)).toBeVisible();
   });
 
   it('Error page renders', async () => {
@@ -20,9 +21,9 @@ describe('Error page', () => {
 
     expect(
       screen.getByRole('heading', { name: /errorboundary/i })
-    ).not.toBeNull();
+    ).toBeVisible();
     expect(
       screen.getByRole('heading', { name: /something went wrong/i })
-    ).not.toBeNull();
+    ).toBeVisible();
   });
 });

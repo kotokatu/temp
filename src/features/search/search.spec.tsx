@@ -1,12 +1,8 @@
+import { RenderResult, cleanup, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { StoreProvider } from 'app/store';
 import { searchQueryLocalStorageKey } from 'shared/constants';
-import {
-  RenderResult,
-  cleanup,
-  renderWithRouter,
-  screen,
-} from 'tests/test-utils';
+import { renderWithRouter } from 'tests/test-utils';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { Search } from '.';
 
@@ -34,16 +30,20 @@ describe('Search', () => {
     expect(localStorage.getItem(searchQueryLocalStorageKey)).not.toBe(
       searchValue
     );
-    await user.type(await screen.findByRole('searchbox'), searchValue);
-    await user.click(await screen.findByRole('button'));
+    await user.type(screen.getByRole('searchbox'), searchValue);
+    await user.click(screen.getByRole('button'));
     expect(localStorage.getItem(searchQueryLocalStorageKey)).toBe(searchValue);
   });
 
   it('Check that the component retrieves the value from the local storage upon mounting', () => {
     const searchValue = 'dark';
+
     cleanup();
+
     localStorage.setItem(searchQueryLocalStorageKey, searchValue);
+
     renderSearch();
+
     expect(localStorage.getItem(searchQueryLocalStorageKey)).toBe(searchValue);
   });
 });

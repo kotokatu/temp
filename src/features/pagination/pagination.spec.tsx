@@ -1,7 +1,8 @@
+import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { pageParamName } from 'shared/constants';
-import { MockContextProvider, cleanup, render, screen } from 'tests/test-utils';
+import { MockContextProvider } from 'tests/test-utils';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { Pagination } from '.';
 

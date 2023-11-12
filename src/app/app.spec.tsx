@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from 'tests/test-utils';
+import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
 import { App } from '.';
 
@@ -10,6 +10,6 @@ describe('App', () => {
   it('App renders', async () => {
     render(<App />);
 
-    expect(screen.getByRole('main')).not.toBeNull();
+    expect(screen.getByRole('main')).toBeVisible();
   });
 });

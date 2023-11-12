@@ -1,14 +1,12 @@
 import { noResultsMessage } from 'shared/constants';
 import {
   MockContextProvider,
-  cleanup,
   mockListResponse,
-  render,
   renderWithRouter,
-  screen,
 } from 'tests/test-utils';
 import { afterEach, describe, expect, it } from 'vitest';
 import { CardList } from '.';
+import { cleanup, render, screen } from '@testing-library/react';
 
 describe('Card List', () => {
   afterEach(() => {
@@ -24,7 +22,7 @@ describe('Card List', () => {
       </MockContextProvider>
     );
 
-    expect(screen.queryByRole('list')?.childElementCount).toBe(expected);
+    expect(screen.getByRole('list').childElementCount).toBe(expected);
   });
 
   it('Check that an appropriate message is displayed if no cards are present', () => {
@@ -34,8 +32,6 @@ describe('Card List', () => {
       </MockContextProvider>
     );
 
-    expect(
-      screen.queryByText(noResultsMessage, { exact: false })
-    ).not.toBeNull();
+    expect(screen.getByText(noResultsMessage, { exact: false })).toBeVisible();
   });
 });

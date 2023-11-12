@@ -84,5 +84,3 @@ export const mockListResponse = getValidMockResponse({
 export const mockListItem = mockListResponse.list[0];
 
 export const mockDetailsResponse = mockDetailsResponseJson;
-
-export * from '@testing-library/react';

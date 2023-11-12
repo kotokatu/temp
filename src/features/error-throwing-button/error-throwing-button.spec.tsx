@@ -1,6 +1,6 @@
+import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ErrorBoundary } from 'features/error-boundary';
-import { cleanup, render, screen } from 'tests/test-utils';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ErrorThrowingButton } from '.';
 
@@ -23,12 +23,10 @@ describe('Error throwing button', () => {
     vi.spyOn(console, 'error').mockImplementation(() => vi.fn());
     vi.spyOn(console, 'log').mockImplementation(() => vi.fn());
 
-    await user.click(await screen.findByRole('button'));
+    await user.click(screen.getByRole('button'));
 
     vi.restoreAllMocks();
 
-    expect(
-      await screen.findByRole('heading', { name: errorMessage })
-    ).not.toBeNull();
+    expect(screen.getByRole('heading', { name: errorMessage })).toBeVisible();
   });
 });

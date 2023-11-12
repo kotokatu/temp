@@ -1,14 +1,12 @@
+import { cleanup, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DetailedCard } from 'entities/detailed-card';
 import { Outlet } from 'react-router-dom';
 import { Endpoint } from 'shared/constants';
 import {
-  cleanup,
   mockDetailsResponse,
   mockListItem,
   renderWithNestedRouter,
-  screen,
-  within,
 } from 'tests/test-utils';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { Card } from '.';
@@ -40,41 +38,33 @@ describe('Card', () => {
 
   it('Ensure that the card component renders the relevant card data', async () => {
     const { title, year, image, totalSeasons, rating } = mockListItem;
-    const { textContent } = screen.getByLabelText(/card description/i);
+    const description = screen.getByLabelText(/card description/i);
     const checklist = [year, totalSeasons, rating];
 
-    const card = await screen.findByRole('link');
+    const card = screen.getByRole('link');
 
-    expect(within(card).getByRole('heading').textContent).toBe(title);
-    expect(within(card).getByRole<HTMLImageElement>('img').src).toBe(image);
-    expect(checklist).toSatisfy<typeof checklist>((checklist) => {
-      return checklist.every((item) => {
-        return (
-          typeof item === 'undefined' || textContent?.includes(item.toString())
-        );
-      });
+    expect(within(card).getByRole('heading')).toHaveTextContent(title ?? '');
+    expect(within(card).getByRole('img')).toHaveAttribute('src', image);
+    checklist.forEach((prop) => {
+      expect(description).toHaveTextContent((prop ?? '').toString());
     });
   });
 
   it('Validate that clicking on a card opens a detailed card component', async () => {
     expect(screen.queryByRole('complementary')).toBeNull();
 
-    const card = await screen.findByRole('link');
-
-    await user.click(card);
-    expect(await screen.findByRole('complementary')).not.toBeNull();
+    await user.click(screen.getByRole('link'));
+    expect(screen.getByRole('complementary')).toBeVisible();
   });
 
   it('Check that clicking triggers an additional API call to fetch detailed information', async () => {
     expect(fetchSpy).not.toBeCalled();
 
     for (let i = 1; i <= 5; i += 1) {
-      await user.click(await screen.findByRole('link'));
+      await user.click(screen.getByRole('link'));
       expect(fetchSpy).toBeCalledTimes(i);
 
-      const closeButton = await screen.findByRole('button', {
-        name: /close button/i,
-      });
+      const closeButton = screen.getByRole('button', { name: /close button/i });
       await user.click(closeButton);
     }
   });
