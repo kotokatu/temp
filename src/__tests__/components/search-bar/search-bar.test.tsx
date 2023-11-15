@@ -15,6 +15,8 @@ describe('Tests for the Search component', (): void => {
     fetchMocker.resetMocks();
   });
 
+  // eslint-disable-next-line no-console
+  console.log('test');
   test('Verify that clicking the Search button saves the entered value to the local storage', async (): Promise<void> => {
     fetchMocker.mockResponse(JSON.stringify(data));
 
