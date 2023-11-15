@@ -3,7 +3,7 @@ import { Context } from '../../../API/api';
 import { ThemeContext } from '../../../pages/SearchPage';
 import { getSearchLink } from '../../../router/routes';
 type PageButton = { link: number; label: string };
-
+console.log('test');
 const usePageData = (inputContext?: Context) => {
   const context = useContext(ThemeContext);
   const localContext = {
